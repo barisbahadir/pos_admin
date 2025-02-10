@@ -38,9 +38,9 @@ function Login() {
 					background: bg,
 				}}
 			>
-				<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl">BAHADIR POS</div>
+				<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl text-primary">BAHADIR POS</div>
 				<img className="max-w-[480px] xl:max-w-[560px]" src={DashboardImg} alt="" />
-				<Typography.Text className="flex flex-row gap-[16px] text-2xl">
+				<Typography.Text className="flex flex-row gap-[16px] text-2xl font-bold">
 					{t("sys.login.signInSecondTitle")}
 				</Typography.Text>
 			</div>
