@@ -193,76 +193,36 @@ export default function SettingButton() {
 					<div>
 						<div className="mb-3 text-base font-semibold text-text-secondary">{t("sys.settings.language")}</div>
 						<div className="grid grid-cols-3 gap-4">
-							<Card
-								onClick={() => setLocale(LocalEnum.tr_TR)}
-								className="h-16 cursor-pointer"
-								style={{ flexGrow: 1, flexShrink: 0 }}
-								styles={{
-									body: {
-										padding: 0,
-										display: "flex",
-										justifyContent: "center",
-										alignItems: "center",
-										height: "100%",
-									},
-								}}
-							>
-								<div className="relative flex h-full w-full justify-center items-center p-1">
-									<img
-										src="/src/assets/icons/ic-locale_tr_TR.svg"
-										alt="Turkish"
-										className="w-full h-full object-contain transition-all duration-300 opacity-85 hover:opacity-100 hover:filter-none filter grayscale(50%) sepia(10%) rounded-lg" // Grayscale ve sepya ile yumuşatma, yuvarlak köşe
-									/>
-								</div>
-							</Card>
-
-							<Card
-								onClick={() => setLocale(LocalEnum.en_US)}
-								className="h-16 cursor-pointer"
-								style={{ flexGrow: 1, flexShrink: 0 }}
-								styles={{
-									body: {
-										padding: 0,
-										display: "flex",
-										flexDirection: "column",
-										justifyContent: "center",
-										alignItems: "center",
-										height: "100%",
-									},
-								}}
-							>
-								<div className="relative flex h-full w-full justify-center items-center p-1">
-									<img
-										src="/src/assets/icons/ic-locale_en_US.svg"
-										alt="English"
-										className="w-full h-full object-contain transition-all duration-300 opacity-85 hover:opacity-100 hover:filter-none filter grayscale(50%) sepia(10%) rounded-lg" // Grayscale ve sepya ile yumuşatma, yuvarlak köşe
-									/>
-								</div>
-							</Card>
-
-							<Card
-								onClick={() => setLocale(LocalEnum.zh_CN)}
-								className="h-16 cursor-pointer"
-								style={{ flexGrow: 1, flexShrink: 0 }}
-								styles={{
-									body: {
-										padding: 0,
-										display: "flex",
-										flexDirection: "column",
-										justifyContent: "center",
-										alignItems: "center",
-										height: "100%",
-									},
-								}}
-							>
-								<div className="relative flex h-full w-full justify-center items-center p-1">
-									<img
-										src="/src/assets/icons/ic-locale_zh_CN.svg"
-										alt="Chinese"
-										className="w-full h-full object-contain transition-all duration-300 opacity-85 hover:opacity-100 hover:filter-none filter grayscale(50%) sepia(10%) rounded-lg" // Grayscale ve sepya ile yumuşatma, yuvarlak köşe
-									/>
-								</div>
-							</Card>
+							{[LocalEnum.tr_TR, LocalEnum.en_US, LocalEnum.zh_CN].map((locale) => (
+								<Card
+									key={locale}
+									onClick={() => setLocale(locale)}
+									className="h-16 cursor-pointer rounded-md overflow-hidden" // Kartın köşeleri yuvarlak olacak
+									style={{ flexGrow: 1, flexShrink: 0 }}
+									styles={{
+										body: {
+											padding: 0,
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center",
+											height: "100%",
+										},
+									}}
+								>
+									<div className="relative flex h-full w-full justify-center items-center p-1 rounded-md overflow-hidden">
+										<SvgIcon
+											icon={`ic-locale_${locale}`}
+											size="50"
+											className="transition-all duration-300 opacity-85 hover:opacity-100"
+											style={{
+												borderRadius: "8px", // SVG köşelerini yuvarlat
+												overflow: "hidden", // Yuvarlatmayı doğru uygula
+												WebkitMaskImage: "radial-gradient(white, white, transparent)", // Bazı tarayıcılarda destek için
+											}}
+										/>
+									</div>
+								</Card>
+							))}
 						</div>
 					</div>
 
