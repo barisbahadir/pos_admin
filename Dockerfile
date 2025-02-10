@@ -1,5 +1,5 @@
 # Stage 1: Build Stage
-FROM node:22-bullseye AS build-stage  
+FROM node:20-bullseye AS build-stage  
 
 # Çalışma dizinini oluştur
 WORKDIR /app
