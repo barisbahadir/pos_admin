@@ -152,7 +152,7 @@
 		"settings_label": "Settings",
 		"settings": {
 			"mode": "Theme",
-			"language": "language",
+			"language": "Language",
 			"layout": "Layout",
 			"layout_info": "Only available at large resolutions > 1600px (xl)",
 			"stretch": "Stretch",
