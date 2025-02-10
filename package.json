@@ -1,11 +1,10 @@
 {
-	"name": "slash-admin",
+	"name": "bahadir-pos",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"type": "module",
-	"homepage": "https://github.com/d3george/slash-admin",
 	"scripts": {
-		"dev": "vite",
+		"start": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"preinstall": "lefthook install"
