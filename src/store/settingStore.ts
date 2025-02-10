@@ -34,7 +34,7 @@ const useSettingStore = create<SettingStore>()(
 				themeLayout: ThemeLayout.Vertical,
 				themeStretch: false,
 				breadCrumb: true,
-				multiTab: false,
+				multiTab: true,
 				darkSidebar: true,
 				fontFamily: FontFamilyPreset.inter,
 				fontSize: Number(typographyTokens.fontSize.sm),
