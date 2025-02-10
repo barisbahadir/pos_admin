@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apk update && apk add --no-cache git bash
 
 # Bellek yönetimi için Node.js seçenekleri
-ENV NODE_OPTIONS=--max_old_space_size=8192
+# ENV NODE_OPTIONS=--max_old_space_size=8192
 
 # PNPM yükle ve bağımlılıkları kur
 COPY package.json pnpm-lock.yaml* ./
