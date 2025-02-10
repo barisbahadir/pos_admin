@@ -152,6 +152,7 @@
 		"settings_label": "Ayarlar",
 		"settings": {
 			"mode": "Tema",
+			"language": "Dil Secimi",
 			"layout": "Menü Yerleşimi",
 			"layout_info": "Yalnızca 1600px'den geniş ekranlarda çalışır.",
 			"stretch": "Yerleşim",

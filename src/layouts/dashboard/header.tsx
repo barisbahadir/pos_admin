@@ -2,7 +2,7 @@ import { Drawer } from "antd";
 import { type CSSProperties, useState } from "react";
 
 import { IconButton, SvgIcon } from "@/components/icon";
-import LocalePicker from "@/components/locale-picker";
+// import LocalePicker from "@/components/locale-picker";
 import Logo from "@/components/logo";
 import { useSettings } from "@/store/settingStore";
 
@@ -68,7 +68,7 @@ export default function Header() {
 						<NoticeButton />
 						<SettingButton />
 						<AccountDropdown />
-						<LocalePicker />
+						{/* <LocalePicker /> */}
 					</div>
 				</div>
 			</header>
