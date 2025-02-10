@@ -26,7 +26,7 @@ RUN pnpm build && echo "✅ Build successful 🎉"
 FROM nginx:latest AS production-stage
 
 # Nginx için yapılandırma dosyasını ekle (önceki aşamadan gelen dosya değil!)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Derlenen dosyaları Nginx'in servise koyacağı dizine kopyala
 COPY --from=build-stage /app/dist /usr/share/nginx/html
