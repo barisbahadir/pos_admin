@@ -25,8 +25,8 @@
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.{ext}",
   "i18n-ally.keystyle": "flat",
   "i18n-ally.sortKeys": true,
-  "i18n-ally.sourceLanguage": "en_US",
-  "i18n-ally.displayLanguage": "zh_CN",
+  "i18n-ally.sourceLanguage": "tr_TR",
+  "i18n-ally.displayLanguage": "tr_TR",
   "[javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },

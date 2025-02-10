@@ -9,7 +9,6 @@ import { useSettings } from "@/store/settingStore";
 import AccountDropdown from "../components/account-dropdown";
 import BreadCrumb from "../components/bread-crumb";
 import NoticeButton from "../components/notice";
-// import SearchBar from "../components/search-bar";
 import SettingButton from "../components/setting-button";
 
 import { themeVars } from "@/theme/theme.css";

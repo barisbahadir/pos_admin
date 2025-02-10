@@ -17,14 +17,14 @@ export default function Page403() {
 	return (
 		<>
 			<Helmet>
-				<title> 403 No Permission!</title>
+				<title> {t("sys.menu.error.403_title")} </title>
 			</Helmet>
 
 			<div className="m-auto max-w-[400px]">
 				<MotionContainer className="flex flex-col items-center justify-center px-2">
 					<m.div variants={varBounce().in}>
 						<Typography.Title level={3} className="text-center">
-							No permission
+							{t("sys.menu.error.403_title")}
 						</Typography.Title>
 					</m.div>
 

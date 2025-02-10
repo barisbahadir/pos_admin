@@ -24,14 +24,14 @@ export default function PageError({ error, resetErrorBoundary }: FallbackProps) 
 	return (
 		<div>
 			<Helmet>
-				<title>Sorry, Page error occurred!</title>
+				<title> {t("sys.menu.error.page")} </title>
 			</Helmet>
 
 			<div className="m-auto flex h-screen max-w-[400px] items-center justify-center">
 				<MotionContainer className="flex flex-col items-center justify-center px-2">
 					<m.div variants={varBounce().in}>
 						<Typography.Title level={3} className="text-center">
-							Sorry, Page error occurred!
+							{t("sys.menu.error.page")}
 						</Typography.Title>
 					</m.div>
 

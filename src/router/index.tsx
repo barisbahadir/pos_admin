@@ -5,7 +5,7 @@ import ProtectedRoute from "@/router/components/protected-route";
 import { usePermissionRoutes } from "@/router/hooks";
 import { ERROR_ROUTE } from "@/router/routes/error-routes";
 import { ErrorBoundary } from "react-error-boundary";
-import { Navigate, type RouteObject, createHashRouter } from "react-router";
+import { Navigate, type RouteObject, createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import type { AppRouteObject } from "#/router";
 
@@ -40,7 +40,7 @@ export default function Router() {
 
 	const routes = [PUBLIC_ROUTE, PROTECTED_ROUTE, ERROR_ROUTE, NO_MATCHED_ROUTE] as RouteObject[];
 
-	const router = createHashRouter(routes);
+	const router = createBrowserRouter(routes);
 
 	return <RouterProvider router={router} />;
 }

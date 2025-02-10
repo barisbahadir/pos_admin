@@ -17,14 +17,14 @@ export default function Page404() {
 	return (
 		<>
 			<Helmet>
-				<title> 404 Page Not Found!</title>
+				<title> {t("sys.menu.error.403_title")} </title>
 			</Helmet>
 
 			<div className="m-auto max-w-[400px]">
 				<MotionContainer className="flex flex-col items-center justify-center px-2">
 					<m.div variants={varBounce().in}>
 						<Typography.Title level={3} className="text-center">
-							Sorry, Page Not Found!
+							{t("sys.menu.error.404_title")}
 						</Typography.Title>
 					</m.div>
 

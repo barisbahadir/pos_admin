@@ -84,6 +84,7 @@
 		},
 		"menu": {
 			"dashboard": "Dashboard",
+			"welcome": "Welcome",
 			"workbench": "Workbench",
 			"analysis": "Analysis",
 			"management": "Management",
@@ -136,9 +137,12 @@
 			"calendar": "Calendar",
 			"kanban": "Kanban",
 			"error": {
-				"index": "Error Page",
+				"index": "Hata Sayfaları",
+				"page": "Page Error Occurred!",
 				"403": "403",
+				"403_title": "No Permission!",
 				"404": "404",
+				"404_title": "Page Not Found!",
 				"500": "500"
 			}
 		},

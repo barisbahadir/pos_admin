@@ -17,14 +17,14 @@ export default function Page() {
 	return (
 		<>
 			<Helmet>
-				<title> 500 Internal Server Error!</title>
+				<title> {t("sys.menu.error.500_title")} </title>
 			</Helmet>
 
 			<div className="m-auto max-w-[400px]">
 				<MotionContainer className="flex flex-col items-center justify-center px-2">
 					<m.div variants={varBounce().in}>
 						<Typography.Title level={3} className="text-center">
-							500 Internal Server Error
+							{t("sys.menu.error.500_title")}
 						</Typography.Title>
 					</m.div>
 

@@ -13,7 +13,7 @@ function App() {
 		<ThemeProvider adapters={[AntdAdapter]}>
 			<MotionLazy>
 				<Helmet>
-					<title>BAHADIR Pos</title>
+					<title>BAHADIR Hızlı Satış</title>
 					<link rel="icon" href={Logo} />
 				</Helmet>
 				<Toast />

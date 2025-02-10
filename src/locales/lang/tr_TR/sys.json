@@ -83,7 +83,8 @@
 		},
 		"menu": {
 			"dashboard": "Anasayfa",
-			"workbench": "Karşılama",
+			"welcome": "Özet",
+			"workbench": "Çalışmalar",
 			"analysis": "Analiz",
 			"management": "Yönetim",
 			"user": {
@@ -136,9 +137,13 @@
 			"kanban": "Kanban",
 			"error": {
 				"index": "Hata Sayfaları",
+				"page": "Sayfa Açılamadı!",
 				"403": "403",
+				"403_title": "Sayfaya Erişim İzni Yok!",
 				"404": "404",
-				"500": "500"
+				"404_title": "Sayfa Bulunamadı!",
+				"500": "500",
+				"500_title": "Sunucuya Bağlanırken Bir Hata Oluştu!"
 			}
 		},
 		"docs": "Döküman",

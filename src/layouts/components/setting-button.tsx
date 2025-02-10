@@ -128,14 +128,15 @@ export default function SettingButton() {
 		<>
 			<div className="flex items-center justify-center overflow-hidden">
 				<m.div
-					animate={{
-						rotate: [0, drawerOpen ? 0 : 360],
-					}}
-					transition={{
-						duration: 12,
-						ease: "linear",
-						repeat: Number.POSITIVE_INFINITY,
-					}}
+					// Settings button icon animation
+					// animate={{
+					// 	rotate: [0, drawerOpen ? 0 : 360],
+					// }}
+					// transition={{
+					// 	duration: 12,
+					// 	ease: "linear",
+					// 	repeat: Number.POSITIVE_INFINITY,
+					// }}
 					whileTap="tap"
 					whileHover="hover"
 					variants={varHover(1.05)}

@@ -1,10 +1,7 @@
 <div align="center"> 
-<br> 
-<br>
-<img src="./src/assets/images/logo.png" height="140" />
-<h3> BAHADIR POS </h3>
+  <img src="./src/assets/images/logo.png" height="140" />
+  <h3> BAHADIR POS </h3>
 </div>
-
 
 ## Preview
 + https://admin.slashspaces.com/
