@@ -12,7 +12,7 @@ ENV NODE_OPTIONS="--max_old_space_size=512"
 
 # PNPM yükle ve bağımlılıkları kur
 COPY package.json pnpm-lock.yaml* ./
-RUN npm install -g pnpm@9.x && corepack enable && pnpm install --frozen-lockfile
+RUN npm install -g pnpm@9.x && pnpm install --frozen-lockfile
 
 # Proje dosyalarını kopyala
 COPY . ./
