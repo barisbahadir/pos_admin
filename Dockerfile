@@ -1,24 +1,37 @@
-# Stage 1: build stage
-FROM node:22-alpine as build-stage
-# make the 'app' folder the current working directory
+# Stage 1: Build Stage
+FROM node:22-alpine AS build-stage
+
+# Çalışma dizinini oluştur
 WORKDIR /app
-# config node options
+
+# Gerekli bağımlılıkları yükle
+RUN apk add --no-cache git bash
+
+# Bellek yönetimi için Node.js seçenekleri
 ENV NODE_OPTIONS=--max_old_space_size=8192
-# config pnpm, install dependencies
+
+# PNPM yükle ve bağımlılıkları kur
 COPY package.json pnpm-lock.yaml* ./
-RUN npm install pnpm@9.x -g && \
-    pnpm install --frozen-lockfile
-# copy project files and folders to the current working directory (i.e. 'app' folder)
+RUN npm install -g pnpm@9.x && corepack enable && pnpm install --frozen-lockfile
+
+# Proje dosyalarını kopyala
 COPY . ./
-# build the project
+
+# Projeyi derle
 RUN pnpm build
-RUN echo "build successful  🎉 🎉 🎉"
+RUN echo "✅ Build successful 🎉"
 
+# Stage 2: Production Stage
+FROM nginx:latest AS production-stage
 
-# Stage 2: production stage
-FROM nginx:latest as production-stage
+# Nginx için yapılandırma (isteğe bağlı özel ayarlar eklenebilir)
 COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-RUN echo "deploy to nginx successful  🎉 🎉 🎉"
+COPY --chown=nginx:nginx /app/nginx.conf /etc/nginx/conf.d/default.conf
 
+# Portu aç
+EXPOSE 80
+
+# Nginx'i başlat
+CMD ["nginx", "-g", "daemon off;"]
+
+RUN echo "🚀 Deploy to Nginx successful 🎉"
