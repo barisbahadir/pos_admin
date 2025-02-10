@@ -4,6 +4,8 @@ FROM node:20-bullseye AS build-stage
 # Çalışma dizinini oluştur
 WORKDIR /app
 
+RUN git init && git config --global --add safe.directory /app
+
 # Gerekli bağımlılıkları yükle
 RUN apt-get update && apt-get install -y git bash && rm -rf /var/lib/apt/lists/*
 
