@@ -52,12 +52,11 @@ const useUserStore = create<UserStore>()(
 
 export const useUserInfo = () => useUserStore((state) => state.userInfo);
 export const useUserToken = () => useUserStore((state) => state.userToken);
-export const useUserPermission = () =>
-	useUserStore((state) => state.userInfo.permissions);
+export const useUserPermission = () => useUserStore((state) => state.userInfo.permissions);
 export const useUserActions = () => useUserStore((state) => state.actions);
 
 export const useSignIn = () => {
-	const navigatge = useNavigate();
+	const navigate = useNavigate();
 	const { setUserToken, setUserInfo } = useUserActions();
 
 	const signInMutation = useMutation({
@@ -70,8 +69,8 @@ export const useSignIn = () => {
 			const { user, accessToken, refreshToken } = res;
 			setUserToken({ accessToken, refreshToken });
 			setUserInfo(user);
-			navigatge(HOMEPAGE, { replace: true });
-			toast.success("Sign in success!");
+			navigate(HOMEPAGE, { replace: true });
+			toast.success("Giriş başarılı, hoşgeldiniz!");
 		} catch (err) {
 			toast.error(err.message, {
 				position: "top-center",

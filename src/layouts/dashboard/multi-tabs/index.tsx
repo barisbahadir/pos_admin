@@ -18,7 +18,6 @@ export default function MultiTabs() {
 	const { push } = useRouter();
 
 	const handleTabClick = ({ key, params = {} }: KeepAliveTab) => {
-		console.log("handleTabClick", key, params);
 		const tabKey = replaceDynamicParams(key, params);
 		push(tabKey);
 	};

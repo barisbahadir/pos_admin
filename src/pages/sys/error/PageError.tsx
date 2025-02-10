@@ -9,11 +9,13 @@ import { useRouter } from "@/router/hooks";
 
 import { themeVars } from "@/theme/theme.css";
 import type { FallbackProps } from "react-error-boundary";
+import { useTranslation } from "react-i18next";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 export default function PageError({ error, resetErrorBoundary }: FallbackProps) {
 	const { replace } = useRouter();
+	const { t } = useTranslation();
 
 	const goHome = () => {
 		resetErrorBoundary();
@@ -216,7 +218,7 @@ export default function PageError({ error, resetErrorBoundary }: FallbackProps) 
 						onClick={goHome}
 						type="button"
 					>
-						Go to Home
+						{t("sys.redirect_home")}
 					</button>
 				</MotionContainer>
 			</div>

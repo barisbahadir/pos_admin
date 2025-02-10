@@ -29,14 +29,14 @@ const useSettingStore = create<SettingStore>()(
 	persist(
 		(set) => ({
 			settings: {
-				themeColorPresets: ThemeColorPresets.Default,
+				themeColorPresets: ThemeColorPresets.Orange,
 				themeMode: ThemeMode.Light,
 				themeLayout: ThemeLayout.Vertical,
 				themeStretch: false,
 				breadCrumb: true,
-				multiTab: true,
-				darkSidebar: false,
-				fontFamily: FontFamilyPreset.openSans,
+				multiTab: false,
+				darkSidebar: true,
+				fontFamily: FontFamilyPreset.inter,
 				fontSize: Number(typographyTokens.fontSize.sm),
 				direction: "ltr",
 			},

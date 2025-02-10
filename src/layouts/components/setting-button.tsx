@@ -16,12 +16,14 @@ import { themeVars } from "@/theme/theme.css";
 import { FontFamilyPreset } from "@/theme/tokens/typography";
 import { cn } from "@/utils";
 import { type ThemeColorPresets, ThemeLayout, ThemeMode } from "#/enum";
+import { useTranslation } from "react-i18next";
 
 /**
  * App Setting
  */
 export default function SettingButton() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const { t } = useTranslation();
 
 	const settings = useSettings();
 	const {
@@ -146,7 +148,7 @@ export default function SettingButton() {
 			</div>
 			<Drawer
 				placement="right"
-				title="Settings"
+				title={t("sys.settings_label")}
 				onClose={() => setDrawerOpen(false)}
 				open={drawerOpen}
 				closable={false}
@@ -170,12 +172,12 @@ export default function SettingButton() {
 										color={themeVars.colors.palette.primary.default}
 										className="!m-0"
 									/>
-									<span className="ml-2">Exit FullScreen</span>
+									<span className="ml-2">{t("sys.settings.fullscreen_exit")}</span>
 								</>
 							) : (
 								<>
 									<SvgIcon icon="ic-settings-fullscreen" className="!m-0" />
-									<span className="ml-2 text-gray">FullScreen</span>
+									<span className="ml-2 text-gray">{t("sys.settings.fullscreen")}</span>
 								</>
 							)}
 						</div>
@@ -185,7 +187,7 @@ export default function SettingButton() {
 				<div className="flex flex-col gap-6 p-6">
 					{/* theme mode */}
 					<div>
-						<div className="mb-3 text-base font-semibold text-text-secondary">Mode</div>
+						<div className="mb-3 text-base font-semibold text-text-secondary">{t("sys.settings.mode")}</div>
 						<div className="flex flex-row gap-4">
 							<Card
 								onClick={() => setThemeMode(ThemeMode.Light)}
@@ -212,7 +214,7 @@ export default function SettingButton() {
 
 					{/* theme layout */}
 					<div>
-						<div className="mb-3 text-base font-semibold text-text-secondary">Layout</div>
+						<div className="mb-3 text-base font-semibold text-text-secondary">{t("sys.settings.layout")}</div>
 						<div className="grid grid-cols-3 gap-4">
 							<Card
 								onClick={() => setThemeLayout(ThemeLayout.Vertical)}
@@ -342,8 +344,8 @@ export default function SettingButton() {
 					{/* theme stretch */}
 					<div>
 						<div className="mb-3 text-base font-semibold text-text-secondary">
-							<span className="mr-2">Stretch</span>
-							<Tooltip title="Only available at large resolutions > 1600px (xl)">
+							<span className="mr-2">{t("sys.settings.stretch")}</span>
+							<Tooltip title={t("sys.settings.layout_info")}>
 								<QuestionCircleOutlined />
 							</Tooltip>
 						</div>
@@ -390,7 +392,7 @@ export default function SettingButton() {
 
 					{/* theme presets */}
 					<div>
-						<div className="mb-3 text-base font-semibold text-text-secondary">Presets</div>
+						<div className="mb-3 text-base font-semibold text-text-secondary">{t("sys.settings.preset")}</div>
 						<div className="grid grid-cols-3 gap-x-4 gap-y-3">
 							{Object.entries(presetsColors).map(([preset, color]) => (
 								<Card
@@ -415,9 +417,9 @@ export default function SettingButton() {
 
 					{/* font */}
 					<div>
-						<div className="mb-3 text-base font-semibold text-text-secondary">Font </div>
+						<div className="mb-3 text-base font-semibold text-text-secondary">{t("sys.settings.font")}</div>
 
-						<div className="my-3 text-sm font-semibold text-text-disabled">Family</div>
+						<div className="my-3 text-sm font-semibold text-text-disabled">{t("sys.settings.font_family")}</div>
 						<div className="flex flex-row gap-3">
 							{Object.entries(FontFamilyPreset).map(([font, family]) => (
 								<Card
@@ -446,24 +448,24 @@ export default function SettingButton() {
 							))}
 						</div>
 
-						<div className="my-3 text-sm font-semibold text-text-disabled">Size</div>
+						<div className="my-3 text-sm font-semibold text-text-disabled">{t("sys.settings.font_size")}</div>
 						<Slider min={12} max={20} defaultValue={fontSize} onChange={setFontSize} />
 					</div>
 
 					{/* Page config */}
 					<div>
-						<div className="mb-3 text-base font-semibold text-text-secondary">Page</div>
+						<div className="mb-3 text-base font-semibold text-text-secondary">{t("sys.settings.page")}</div>
 						<div className="flex flex-col gap-2">
 							<div className="flex items-center justify-between text-sm text-text-disabled">
-								<div>BreadCrumb</div>
+								<div>{t("sys.settings.breadcrumb")}</div>
 								<Switch size="small" checked={breadCrumb} onChange={(checked) => setBreadCrumn(checked)} />
 							</div>
 							<div className="flex items-center justify-between text-sm text-text-disabled">
-								<div>Multi Tab</div>
+								<div>{t("sys.settings.multitab")}</div>
 								<Switch size="small" checked={multiTab} onChange={(checked) => setMultiTab(checked)} />
 							</div>
 							<div className="flex items-center justify-between text-sm text-text-disabled">
-								<div>Dark Sidebar</div>
+								<div>{t("sys.settings.dark_sidebar")}</div>
 								<Switch size="small" checked={darkSidebar} onChange={(checked) => setDarkSidebar(checked)} />
 							</div>
 						</div>

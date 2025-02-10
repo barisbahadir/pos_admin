@@ -1,3 +1,4 @@
+import tr_TR from "antd/locale/tr_TR";
 import en_US from "antd/locale/en_US";
 import zh_CN from "antd/locale/zh_CN";
 import { useTranslation } from "react-i18next";
@@ -14,17 +15,23 @@ type Language = {
 };
 
 export const LANGUAGE_MAP: Record<Locale, Language> = {
-	[LocalEnum.zh_CN]: {
-		locale: LocalEnum.zh_CN,
-		label: "Chinese",
-		icon: "ic-locale_zh_CN",
-		antdLocal: zh_CN,
+	[LocalEnum.tr_TR]: {
+		locale: LocalEnum.tr_TR,
+		label: "Türkçe",
+		icon: "ic-locale_tr_TR",
+		antdLocal: tr_TR,
 	},
 	[LocalEnum.en_US]: {
 		locale: LocalEnum.en_US,
 		label: "English",
 		icon: "ic-locale_en_US",
 		antdLocal: en_US,
+	},
+	[LocalEnum.zh_CN]: {
+		locale: LocalEnum.zh_CN,
+		label: "Chinese",
+		icon: "ic-locale_zh_CN",
+		antdLocal: zh_CN,
 	},
 };
 
@@ -38,7 +45,7 @@ export default function useLocale() {
 		i18n.changeLanguage(locale);
 	};
 
-	const locale = (i18n.resolvedLanguage || LocalEnum.en_US) as Locale;
+	const locale = (i18n.resolvedLanguage || LocalEnum.tr_TR) as Locale;
 
 	const language = LANGUAGE_MAP[locale];
 
