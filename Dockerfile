@@ -5,7 +5,7 @@ FROM node:22-alpine AS build-stage
 WORKDIR /app
 
 # Gerekli bağımlılıkları yükle
-RUN apk add --no-cache git bash
+RUN apk update && apk add --no-cache git bash
 
 # Bellek yönetimi için Node.js seçenekleri
 ENV NODE_OPTIONS=--max_old_space_size=8192
