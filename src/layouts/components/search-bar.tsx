@@ -128,9 +128,9 @@ export default function SearchBar() {
 				<IconButton className="h-8 rounded-xl bg-hover py-2 text-xs font-bold" onClick={handleOpen}>
 					<div className="flex items-center justify-center gap-2">
 						<SvgIcon icon="ic-search" size="20" />
+						<span className="flex h-6 items-center justify-center px-1.5">{"Sayfaya Git"}</span>
 						<span className="flex h-6 items-center justify-center rounded-md bg-common-white px-1.5 font-bold text-gray-800">
-							{" "}
-							⌘K{" "}
+							{"⌘ K"}
 						</span>
 					</div>
 				</IconButton>
@@ -155,13 +155,13 @@ export default function SearchBar() {
 						ref={inputRef}
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
-						placeholder="Search..."
+						placeholder="Sayfa Ara..."
 						variant="borderless"
 						autoFocus
 						prefix={<SvgIcon icon="ic-search" size="20" />}
 						suffix={
 							<IconButton className="h-6 rounded-md bg-hover text-xs" onClick={handleCancel}>
-								Esc
+								Kapat
 							</IconButton>
 						}
 					/>
@@ -171,15 +171,15 @@ export default function SearchBar() {
 						<div className="flex">
 							<Tag color="cyan">↑</Tag>
 							<Tag color="cyan">↓</Tag>
-							<span>to navigate</span>
+							<span>ile gezinebilir, </span>
 						</div>
 						<div className="flex">
 							<Tag color="cyan">↵</Tag>
-							<span>to select</span>
+							<span>ile sayfaya gidebilir, </span>
 						</div>
 						<div className="flex">
 							<Tag color="cyan">ESC</Tag>
-							<span>to close</span>
+							<span>ile kapatabilirsiniz.</span>
 						</div>
 					</div>
 				}

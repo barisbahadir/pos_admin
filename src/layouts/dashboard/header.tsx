@@ -17,6 +17,7 @@ import { rgbAlpha } from "@/utils/theme";
 import { ThemeLayout } from "#/enum";
 import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "./config";
 import NavVertical from "./nav/nav-vertical";
+import SearchBar from "../components/search-bar";
 
 export default function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
@@ -56,8 +57,8 @@ export default function Header() {
 					</div>
 
 					<div className="flex">
-						{/* <SearchBar /> */}
-						<LocalePicker />
+						<SearchBar />
+						{/* <LocalePicker /> */}
 						{/* <IconButton onClick={() => window.open("https://github.com/d3george/slash-admin")}>
 							<Iconify icon="mdi:github" size={24} />
 						</IconButton>
@@ -67,6 +68,7 @@ export default function Header() {
 						<NoticeButton />
 						<SettingButton />
 						<AccountDropdown />
+						<LocalePicker />
 					</div>
 				</div>
 			</header>

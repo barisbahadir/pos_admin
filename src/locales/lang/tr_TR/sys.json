@@ -26,9 +26,9 @@
 		},
 		"login": {
 			"welcome": "Hoşgeldin",
-			"backSignIn": "Back sign in",
-			"mobileSignInFormTitle": "Mobile sign in",
-			"qrSignInFormTitle": "Qr code sign in",
+			"backSignIn": "Geri don",
+			"mobileSignInFormTitle": "Telefon ile Giriş",
+			"qrSignInFormTitle": "QR Kod ile Giriş",
 			"signInFormTitle": "Giriş Yap",
 			"signUpFormTitle": "Kaydol",
 			"forgetFormTitle": "Şifreyi Sıfırla",
