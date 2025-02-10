@@ -25,6 +25,7 @@
 			"errMsg505": "http版本不支持该请求!"
 		},
 		"login": {
+			"welcome": "Welcome",
 			"backSignIn": "返回",
 			"signInFormTitle": "登录",
 			"mobileSignInFormTitle": "手机登录",

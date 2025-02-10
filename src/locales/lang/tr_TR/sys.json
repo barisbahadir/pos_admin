@@ -25,6 +25,7 @@
 			"errMsg505": "The http version does not support the request!"
 		},
 		"login": {
+			"welcome": "Hoşgeldin",
 			"backSignIn": "Back sign in",
 			"mobileSignInFormTitle": "Mobile sign in",
 			"qrSignInFormTitle": "Qr code sign in",

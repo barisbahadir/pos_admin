@@ -17,7 +17,7 @@ const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
  */
 export default function AccountDropdown() {
 	const { replace } = useRouter();
-	const { username, email, avatar } = useUserInfo();
+	const { username, avatar } = useUserInfo();
 	const { clearUserInfoAndToken } = useUserActions();
 	const { backToLogin } = useLoginStateContext();
 	const { t } = useTranslation();
@@ -48,8 +48,11 @@ export default function AccountDropdown() {
 	const dropdownRender: DropdownProps["dropdownRender"] = (menu) => (
 		<div style={contentStyle}>
 			<div className="flex flex-col items-start p-4">
-				<div>{username}</div>
-				<div className="text-gray">{email}</div>
+				<div>
+					<b>{t("sys.login.welcome")}</b>
+					{`, ${username}.`}
+				</div>
+				{/* <div className="text-gray">{email}</div> */}
 			</div>
 			<Divider style={{ margin: 0 }} />
 			{React.cloneElement(menu as React.ReactElement, { style: menuStyle })}
@@ -58,24 +61,17 @@ export default function AccountDropdown() {
 
 	const items: MenuProps["items"] = [
 		{
-			label: (
-				<NavLink to="https://docs-admin.slashspaces.com/" target="_blank">
-					{t("sys.docs")}
-				</NavLink>
-			),
+			label: <NavLink to="/management/user/profile">{t("sys.menu.user.profile")}</NavLink>,
 			key: "0",
 		},
 		{
-			label: <NavLink to={HOMEPAGE}>{t("sys.menu.dashboard")}</NavLink>,
+			label: <NavLink to="/management/user/account">{t("sys.menu.user.account")}</NavLink>,
 			key: "1",
 		},
+		{ type: "divider" },
 		{
-			label: <NavLink to="/management/user/profile">{t("sys.menu.user.profile")}</NavLink>,
+			label: <NavLink to={HOMEPAGE}>{t("sys.menu.dashboard")}</NavLink>,
 			key: "2",
-		},
-		{
-			label: <NavLink to="/management/user/account">{t("sys.menu.user.account")}</NavLink>,
-			key: "3",
 		},
 		{ type: "divider" },
 		{
@@ -84,7 +80,7 @@ export default function AccountDropdown() {
 					{t("sys.login.logout")}
 				</button>
 			),
-			key: "4",
+			key: "3",
 			onClick: logout,
 		},
 	];
