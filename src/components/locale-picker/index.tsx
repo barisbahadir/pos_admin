@@ -25,6 +25,7 @@ export default function LocalePicker() {
 
 	return (
 		<Dropdown
+			className="mr-1"
 			placement="bottomRight"
 			trigger={["click"]}
 			menu={{ items: localeList, onClick: (e) => setLocale(e.key as Locale) }}
