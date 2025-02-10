@@ -5,7 +5,7 @@ FROM node:22-bullseye AS build-stage
 WORKDIR /app
 
 # Gerekli bağımlılıkları yükle
-RUN apk update && apk add --no-cache git bash
+RUN apt-get update && apt-get install -y git bash && rm -rf /var/lib/apt/lists/*
 
 # Bellek yönetimi için Node.js seçenekleri
 ENV NODE_OPTIONS="--max_old_space_size=512"
@@ -18,20 +18,19 @@ RUN npm install -g pnpm@9.x && corepack enable && pnpm install --frozen-lockfile
 COPY . ./
 
 # Projeyi derle
-RUN pnpm build
-RUN echo "✅ Build successful 🎉"
+RUN pnpm build && echo "✅ Build successful 🎉"
 
 # Stage 2: Production Stage
 FROM nginx:latest AS production-stage
 
-# Nginx için yapılandırma (isteğe bağlı özel ayarlar eklenebilir)
+# Nginx için yapılandırma dosyasını ekle (önceki aşamadan gelen dosya değil!)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Derlenen dosyaları Nginx'in servise koyacağı dizine kopyala
 COPY --from=build-stage /app/dist /usr/share/nginx/html
-COPY --chown=nginx:nginx /app/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Portu aç
 EXPOSE 80
 
 # Nginx'i başlat
 CMD ["nginx", "-g", "daemon off;"]
-
-RUN echo "🚀 Deploy to Nginx successful 🎉"
