@@ -2,7 +2,7 @@ import { Button, Card, Popconfirm, Tag } from "antd";
 import Table, { type ColumnsType } from "antd/es/table";
 import { useState } from "react";
 
-import { ROLE_LIST } from "@/_mock/assets";
+// import { ROLE_LIST } from "@/_mock/assets";
 import { IconButton, Iconify } from "@/components/icon";
 
 import { RoleModal, type RoleModalProps } from "./role-modal";
@@ -10,14 +10,14 @@ import { RoleModal, type RoleModalProps } from "./role-modal";
 import type { Role } from "#/entity";
 import { BasicStatus } from "#/enum";
 
-const ROLES: Role[] = ROLE_LIST as Role[];
+const ROLES: Role[] = []; //ROLE_LIST as Role[];
 
 const DEFAULE_ROLE_VALUE: Role = {
-	id: "",
+	id: 0,
 	name: "",
 	label: "",
 	status: BasicStatus.ENABLE,
-	permission: [],
+	permissions: [],
 };
 export default function RolePage() {
 	const [roleModalPros, setRoleModalProps] = useState<RoleModalProps>({
@@ -53,7 +53,7 @@ export default function RolePage() {
 				</Tag>
 			),
 		},
-		{ title: "Desc", dataIndex: "desc" },
+		{ title: "Description", dataIndex: "description" },
 		{
 			title: "Action",
 			key: "operation",

@@ -1,7 +1,7 @@
 import { Form, Input, InputNumber, Modal, Radio, Tree } from "antd";
 import { useEffect } from "react";
 
-import { PERMISSION_LIST } from "@/_mock/assets";
+// import { PERMISSION_LIST } from "@/_mock/assets";
 import { flattenTrees } from "@/utils/tree";
 
 import type { Permission, Role } from "#/entity";
@@ -14,11 +14,11 @@ export type RoleModalProps = {
 	onOk: VoidFunction;
 	onCancel: VoidFunction;
 };
-const PERMISSIONS: Permission[] = PERMISSION_LIST as Permission[];
+const PERMISSIONS: Permission[] = []; //PERMISSION_LIST as Permission[];
 export function RoleModal({ title, show, formValue, onOk, onCancel }: RoleModalProps) {
 	const [form] = Form.useForm();
 
-	const flattenedPermissions = flattenTrees(formValue.permission);
+	const flattenedPermissions = flattenTrees(formValue.permissions);
 	const checkedKeys = flattenedPermissions.map((item) => item.id);
 	useEffect(() => {
 		form.setFieldsValue({ ...formValue });
@@ -35,7 +35,7 @@ export function RoleModal({ title, show, formValue, onOk, onCancel }: RoleModalP
 					<Input />
 				</Form.Item>
 
-				<Form.Item<Role> label="Order" name="order">
+				<Form.Item<Role> label="Order" name="orderValue">
 					<InputNumber style={{ width: "100%" }} />
 				</Form.Item>
 
@@ -46,11 +46,11 @@ export function RoleModal({ title, show, formValue, onOk, onCancel }: RoleModalP
 					</Radio.Group>
 				</Form.Item>
 
-				<Form.Item<Role> label="Desc" name="desc">
+				<Form.Item<Role> label="Description" name="description">
 					<Input.TextArea />
 				</Form.Item>
 
-				<Form.Item<Role> label="Permission" name="permission">
+				<Form.Item<Role> label="Permission" name="permissions">
 					<Tree
 						checkable
 						checkedKeys={checkedKeys}

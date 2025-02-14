@@ -38,7 +38,7 @@ function buildCompleteRoute(
 	}
 
 	// Find parent and continue recursion
-	const parent = flattenedPermissions.find((p) => p.id === permission.parentId);
+	const parent = flattenedPermissions.find((p) => p.id.toString() === permission.parentId);
 	if (!parent) {
 		console.warn(`Parent permission not found for ID: ${permission.parentId}`);
 		return `/${segments.join("/")}`;
@@ -61,7 +61,7 @@ function NewFeatureTag() {
 
 // Route Transformers
 const createBaseRoute = (permission: Permission, completeRoute: string): AppRouteObject => {
-	const { route, label, icon, order, hide, hideTab, status, frameSrc, newFeature } = permission;
+	const { route, label, icon, orderValue, hide, hideTab, status, frameSrc, newFeature } = permission;
 
 	const baseRoute: AppRouteObject = {
 		path: route,
@@ -74,10 +74,10 @@ const createBaseRoute = (permission: Permission, completeRoute: string): AppRout
 		},
 	};
 
-	if (order) baseRoute.order = order;
+	if (orderValue) baseRoute.order = orderValue;
 	if (baseRoute.meta) {
 		if (icon) baseRoute.meta.icon = icon;
-		if (frameSrc) baseRoute.meta.frameSrc = frameSrc;
+		if (frameSrc) baseRoute.meta.frameSrc = new URL(frameSrc);
 		if (newFeature) baseRoute.meta.suffix = <NewFeatureTag />;
 	}
 
@@ -150,7 +150,6 @@ export function usePermissionRoutes() {
 	const permissions = useUserPermission();
 	return useMemo(() => {
 		if (!permissions) return [];
-
 		const flattenedPermissions = flattenTrees(permissions);
 		return transformPermissionsToRoutes(permissions, flattenedPermissions);
 	}, [permissions]);

@@ -35,7 +35,7 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 			let name = "";
 			if (!data || !parentId) return name;
 			for (let i = 0; i < data.length; i += 1) {
-				if (data[i].id === parentId) {
+				if (data[i].id.toString() === parentId) {
 					name = data[i].name;
 				} else if (data[i].children) {
 					name = getParentNameById(parentId, data[i].children);
@@ -137,7 +137,7 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 					</Radio.Group>
 				</Form.Item>
 
-				<Form.Item<Permission> label="Order" name="order">
+				<Form.Item<Permission> label="Order" name="orderValue">
 					<InputNumber style={{ width: "100%" }} />
 				</Form.Item>
 

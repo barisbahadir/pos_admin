@@ -1,20 +1,20 @@
 import { Button, Card, Popconfirm, Tag } from "antd";
 import Table, { type ColumnsType } from "antd/es/table";
 
-import { USER_LIST } from "@/_mock/assets";
+// import { USER_LIST } from "@/_mock/assets";
 import { IconButton, Iconify } from "@/components/icon";
 import { usePathname, useRouter } from "@/router/hooks";
 
-import type { Role, UserInfo } from "#/entity";
+import type { LoginInfo, Role } from "#/entity";
 import { BasicStatus } from "#/enum";
 
-const USERS: UserInfo[] = USER_LIST as UserInfo[];
+const USERS: LoginInfo[] = []; //USER_LIST as LoginInfo[];
 
 export default function RolePage() {
 	const { push } = useRouter();
 	const pathname = usePathname();
 
-	const columns: ColumnsType<UserInfo> = [
+	const columns: ColumnsType<LoginInfo> = [
 		{
 			title: "Name",
 			dataIndex: "name",
@@ -22,7 +22,7 @@ export default function RolePage() {
 			render: (_, record) => {
 				return (
 					<div className="flex">
-						<img alt="" src={record.avatar} className="h-10 w-10 rounded-full" />
+						<img alt="" src={record?.avatar || ""} className="h-10 w-10 rounded-full" />
 						<div className="ml-2 flex flex-col">
 							<span className="text-sm">{record.username}</span>
 							<span className="text-xs text-text-secondary">{record.email}</span>

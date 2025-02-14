@@ -21,9 +21,9 @@ const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 function Login() {
 	const { t } = useTranslation();
-	const token = useUserToken();
+	const { accessToken } = useUserToken();
 
-	if (token.accessToken) {
+	if (accessToken) {
 		return <Navigate to={HOMEPAGE} replace />;
 	}
 

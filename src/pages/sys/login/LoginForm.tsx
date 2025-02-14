@@ -17,10 +17,10 @@ function LoginForm() {
 
 	if (loginState !== LoginStateEnum.LOGIN) return null;
 
-	const handleFinish = async ({ username, password }: SignInReq) => {
+	const handleFinish = async ({ email, password }: SignInReq) => {
 		setLoading(true);
 		try {
-			await signIn({ username, password });
+			await signIn({ email, password });
 		} finally {
 			setLoading(false);
 		}
@@ -33,7 +33,7 @@ function LoginForm() {
 				size="large"
 				initialValues={{
 					remember: true,
-					username: DEFAULT_USER.username,
+					email: DEFAULT_USER.email,
 					password: DEFAULT_USER.password,
 				}}
 				onFinish={handleFinish}
@@ -43,14 +43,16 @@ function LoginForm() {
 						description={
 							<div className="flex flex-col">
 								<div className="flex">
-									<span className="flex-shrink-0 text-text-disabled">{t("sys.login.userName")}:</span>
+									<span className="flex-shrink-0 text-text-disabled">{t("sys.login.email")}:</span>
 									<span className="ml-1 text-text-secondary">
-										{DEFAULT_USER.username} / {TEST_USER.username}
+										{DEFAULT_USER.email} / {TEST_USER.email}
 									</span>
 								</div>
 								<div className="flex">
 									<span className="flex-shrink-0 text-text-disabled">{t("sys.login.password")}:</span>
-									<span className="ml-1 text-text-secondary">{DEFAULT_USER.password}</span>
+									<span className="ml-1 text-text-secondary">
+										{DEFAULT_USER.password} / {TEST_USER.password}
+									</span>
 								</div>
 							</div>
 						}
@@ -58,8 +60,8 @@ function LoginForm() {
 					/>
 				</div>
 
-				<Form.Item name="username" rules={[{ required: true, message: t("sys.login.accountPlaceholder") }]}>
-					<Input placeholder={t("sys.login.userName")} />
+				<Form.Item name="email" rules={[{ required: true, message: t("sys.login.accountPlaceholder") }]}>
+					<Input placeholder={t("sys.login.email")} />
 				</Form.Item>
 				<Form.Item name="password" rules={[{ required: true, message: t("sys.login.passwordPlaceholder") }]}>
 					<Input.Password type="password" placeholder={t("sys.login.password")} />
