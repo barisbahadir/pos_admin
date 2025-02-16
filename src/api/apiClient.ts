@@ -13,11 +13,18 @@ const axiosInstance = axios.create({
 });
 
 const getAuthToken = () => {
-	const token = localStorage.getItem("token");
-	if (!token) {
+	try {
+		const storedDataString = localStorage.getItem("userStore");
+		if (storedDataString) {
+			const storedData = JSON.parse(storedDataString);
+			// Access token'a güvenli bir şekilde erişme (optional chaining ile)
+			return storedData?.state?.userToken?.accessToken;
+		}
+	} catch {
 		return null;
 	}
-	return token;
+
+	return null;
 };
 
 // Token'ı header'a ekleyerek istek yapma işlemi
