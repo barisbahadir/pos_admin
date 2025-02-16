@@ -16,7 +16,7 @@ export type SignInRes = LoginInfo;
 
 export enum UserApi {
 	SignIn = "/auth/login",
-	SignUp = "/auth/signup",
+	SignUp = "/auth/register",
 	Logout = "/auth/logout",
 	Refresh = "/auth/refresh",
 	User = "/user",
