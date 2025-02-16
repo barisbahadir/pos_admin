@@ -72,7 +72,7 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 			<Form initialValues={formValue} form={form} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} layout="horizontal">
 				<Form.Item<Permission> label="Type" name="type" required>
 					<Radio.Group optionType="button" buttonStyle="solid">
-						<Radio value={PermissionType.CATALOGUE}>CATALOGUE</Radio>
+						<Radio value={PermissionType.GROUP}>GROUP</Radio>
 						<Radio value={PermissionType.MENU}>MENU</Radio>
 					</Radio.Group>
 				</Form.Item>

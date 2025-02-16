@@ -22,7 +22,7 @@ const defaultPermissionValue: Permission = {
 	icon: "",
 	hide: false,
 	status: BasicStatus.ENABLE,
-	type: PermissionType.CATALOGUE,
+	type: PermissionType.GROUP,
 };
 export default function PermissionPage() {
 	const permissions = useUserPermission();
@@ -87,7 +87,7 @@ export default function PermissionPage() {
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-end text-gray">
-					{record?.type === PermissionType.CATALOGUE && (
+					{record?.type === PermissionType.GROUP && (
 						<IconButton onClick={() => onCreate(record.id.toString())}>
 							<Iconify icon="gridicons:add-outline" size={18} />
 						</IconButton>

@@ -77,7 +77,7 @@ const DASHBOARD_PERMISSION = {
 	label: "sys.menu.dashboard",
 	name: "Dashboard",
 	icon: "ic-analysis",
-	type: PermissionType.CATALOGUE,
+	type: PermissionType.GROUP,
 	route: "dashboard",
 	order: 1,
 	children: [
@@ -116,7 +116,7 @@ const MANAGEMENT_PERMISSION = {
 	label: "sys.menu.management",
 	name: "Management",
 	icon: "ic-management",
-	type: PermissionType.CATALOGUE,
+	type: PermissionType.GROUP,
 	route: "management",
 	order: 2,
 	children: [
@@ -125,7 +125,7 @@ const MANAGEMENT_PERMISSION = {
 			parentId: "0901673425580518",
 			label: "sys.menu.user.index",
 			name: "User",
-			type: PermissionType.CATALOGUE,
+			type: PermissionType.GROUP,
 			route: "user",
 			children: [
 				{
@@ -153,7 +153,7 @@ const MANAGEMENT_PERMISSION = {
 			parentId: "0901673425580518",
 			label: "sys.menu.system.index",
 			name: "System",
-			type: PermissionType.CATALOGUE,
+			type: PermissionType.GROUP,
 			route: "system",
 			children: [
 				{
@@ -212,7 +212,7 @@ const COMPONENTS_PERMISSION = {
 	label: "sys.menu.components",
 	name: "Components",
 	icon: "solar:widget-5-bold-duotone",
-	type: PermissionType.CATALOGUE,
+	type: PermissionType.GROUP,
 	route: "components",
 	order: 3,
 	children: [
@@ -305,7 +305,7 @@ const FUNCTIONS_PERMISSION = {
 	label: "sys.menu.functions",
 	name: "functions",
 	icon: "solar:plain-2-bold-duotone",
-	type: PermissionType.CATALOGUE,
+	type: PermissionType.GROUP,
 	route: "functions",
 	order: 4,
 	children: [
@@ -335,7 +335,7 @@ const MENU_LEVEL_PERMISSION = {
 	label: "sys.menu.menulevel.index",
 	name: "Menu Level",
 	icon: "ic-menulevel",
-	type: PermissionType.CATALOGUE,
+	type: PermissionType.GROUP,
 	route: "menu-level",
 	order: 5,
 	children: [
@@ -353,7 +353,7 @@ const MENU_LEVEL_PERMISSION = {
 			parentId: "0194818428516575",
 			label: "sys.menu.menulevel.1b.index",
 			name: "Menu Level 1b",
-			type: PermissionType.CATALOGUE,
+			type: PermissionType.GROUP,
 			route: "menu-level-1b",
 			children: [
 				{
@@ -370,7 +370,7 @@ const MENU_LEVEL_PERMISSION = {
 					parentId: "7572529636800586",
 					label: "sys.menu.menulevel.1b.2b.index",
 					name: "Menu Level 2b",
-					type: PermissionType.CATALOGUE,
+					type: PermissionType.GROUP,
 					route: "menu-level-2b",
 					children: [
 						{
@@ -403,7 +403,7 @@ const ERRORS_PERMISSION = {
 	label: "sys.menu.error.index",
 	name: "Error",
 	icon: "bxs:error-alt",
-	type: PermissionType.CATALOGUE,
+	type: PermissionType.GROUP,
 	route: "error",
 	order: 6,
 	children: [
@@ -485,7 +485,7 @@ const OTHERS_PERMISSION = [
 		label: "sys.menu.frame",
 		name: "Frame",
 		icon: "ic_external",
-		type: PermissionType.CATALOGUE,
+		type: PermissionType.GROUP,
 		route: "frame",
 		children: [
 			{

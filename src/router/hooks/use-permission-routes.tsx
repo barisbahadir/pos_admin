@@ -84,7 +84,7 @@ const createBaseRoute = (permission: Permission, completeRoute: string): AppRout
 	return baseRoute;
 };
 
-const createCatalogueRoute = (permission: Permission, flattenedPermissions: Permission[]): AppRouteObject => {
+const createGroupRoute = (permission: Permission, flattenedPermissions: Permission[]): AppRouteObject => {
 	const baseRoute = createBaseRoute(permission, buildCompleteRoute(permission, flattenedPermissions));
 
 	if (baseRoute.meta) {
@@ -134,8 +134,8 @@ const createMenuRoute = (permission: Permission, flattenedPermissions: Permissio
 
 function transformPermissionsToRoutes(permissions: Permission[], flattenedPermissions: Permission[]): AppRouteObject[] {
 	return permissions.map((permission) => {
-		if (permission.type === PermissionType.CATALOGUE) {
-			return createCatalogueRoute(permission, flattenedPermissions);
+		if (permission.type === PermissionType.GROUP) {
+			return createGroupRoute(permission, flattenedPermissions);
 		}
 		return createMenuRoute(permission, flattenedPermissions);
 	});
