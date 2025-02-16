@@ -1,6 +1,6 @@
 import DashboardLayout from "@/layouts/dashboard";
 import PageError from "@/pages/sys/error/PageError";
-import Login from "@/pages/sys/login/Login";
+import Login from "@/pages/login/Login";
 import ProtectedRoute from "@/router/components/protected-route";
 import { usePermissionRoutes } from "@/router/hooks";
 import { ERROR_ROUTE } from "@/router/routes/error-routes";
