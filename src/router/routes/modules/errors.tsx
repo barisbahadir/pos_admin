@@ -6,9 +6,9 @@ import { CircleLoading } from "@/components/loading";
 
 import type { AppRouteObject } from "#/router";
 
-const Page403 = lazy(() => import("@/pages/sys/error/Page403"));
-const Page404 = lazy(() => import("@/pages/sys/error/Page404"));
-const Page500 = lazy(() => import("@/pages/sys/error/Page500"));
+const Page403 = lazy(() => import("@/pages/system/error/Page403"));
+const Page404 = lazy(() => import("@/pages/system/error/Page404"));
+const Page500 = lazy(() => import("@/pages/system/error/Page500"));
 
 const errors: AppRouteObject[] = [
 	{
@@ -21,13 +21,7 @@ const errors: AppRouteObject[] = [
 		),
 		meta: {
 			label: "sys.menu.error.index",
-			icon: (
-				<Iconify
-					icon="bxs:error-alt"
-					className="ant-menu-item-icon"
-					size="24"
-				/>
-			),
+			icon: <Iconify icon="bxs:error-alt" className="ant-menu-item-icon" size="24" />,
 			key: "/error",
 		},
 		children: [

@@ -3,7 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { useUserToken } from "@/store/userStore";
 
-import PageError from "@/pages/sys/error/PageError";
+import PageError from "@/pages/system/error/PageError";
 import { useRouter } from "../hooks";
 
 type Props = {

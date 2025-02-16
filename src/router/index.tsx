@@ -1,5 +1,5 @@
 import DashboardLayout from "@/layouts/dashboard";
-import PageError from "@/pages/sys/error/PageError";
+import PageError from "@/pages/system/error/PageError";
 import Login from "@/pages/login/Login";
 import ProtectedRoute from "@/router/components/protected-route";
 import { usePermissionRoutes } from "@/router/hooks";
