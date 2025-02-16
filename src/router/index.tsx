@@ -22,7 +22,7 @@ const PUBLIC_ROUTE: AppRouteObject = {
 
 const NO_MATCHED_ROUTE: AppRouteObject = {
 	path: "*",
-	element: <Navigate to="/404" replace />,
+	element: <Navigate to="/403" replace />,
 };
 
 export default function Router() {

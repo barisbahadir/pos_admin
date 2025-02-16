@@ -51,3 +51,8 @@ export enum PermissionType {
 	MENU = "MENU",
 	BUTTON = "BUTTON",
 }
+
+export enum PaymentTypes {
+	CASH = "CASH",
+	CARD = "CARD",
+}

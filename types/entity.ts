@@ -56,3 +56,24 @@ export interface Role {
 	description?: string | null;
 	permissions?: Permission[];
 }
+
+export interface Category {
+	id: number;
+	name: string;
+	products: Product[];
+}
+
+export interface Product {
+	id: number;
+	name: string;
+	image?: string;
+	price: number;
+}
+
+export interface SaleItem {
+	id: number;
+	name: string;
+	image?: string; // Sepette de ürün resmi olabilir
+	price: number;
+	quantity: number;
+}
