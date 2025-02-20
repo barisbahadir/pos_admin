@@ -87,8 +87,10 @@
 			"welcome": "Özet",
 			"workbench": "Çalışmalar",
 			"analysis": "Analiz",
-			"sale": "Satış",
-			"pos": "Hızlı Satış",
+			"pos": {
+				"index": "Satış",
+				"sale": "Hızlı Satış"
+			},
 			"management": "Yönetim",
 			"user": {
 				"index": "Kullanıcı",

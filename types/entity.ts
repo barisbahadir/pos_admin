@@ -66,14 +66,11 @@ export interface Category {
 export interface Product {
 	id: number;
 	name: string;
+	barcode: string;
 	image?: string;
 	price: number;
 }
 
-export interface SaleItem {
-	id: number;
-	name: string;
-	image?: string; // Sepette de ürün resmi olabilir
-	price: number;
+export interface SaleItem extends Product {
 	quantity: number;
 }

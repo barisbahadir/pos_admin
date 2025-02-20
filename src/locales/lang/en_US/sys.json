@@ -88,8 +88,10 @@
 			"welcome": "Welcome",
 			"workbench": "Workbench",
 			"analysis": "Analysis",
-			"sale": "Satış",
-			"pos": "Hızlı Satış",
+			"pos": {
+				"index": "Satış",
+				"sale": "Hızlı Satış"
+			},
 			"management": "Management",
 			"user": {
 				"index": "User",
