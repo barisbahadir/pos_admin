@@ -166,7 +166,7 @@
   flex: 1;
   overflow-y: auto;
   padding: 16px;
-  height: 410px;
+  height: 400px;
   overflow-y: auto;
 
   @media (max-width: 768px) {
