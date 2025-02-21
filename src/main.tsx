@@ -1,7 +1,7 @@
 // react-query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // vercel analytics
-import { Analytics } from "@vercel/analytics/react";
+// import { Analytics } from "@vercel/analytics/react";
 // react
 import { Suspense } from "react";
 import ReactDOM from "react-dom/client";
@@ -29,7 +29,7 @@ root.render(
 			{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 			<Suspense>
 				<ProgressBar />
-				<Analytics />
+				{/* <Analytics /> */}
 				<App />
 			</Suspense>
 		</QueryClientProvider>

@@ -61,17 +61,17 @@ axiosInstance.interceptors.response.use(
 		return response.data;
 	},
 	(error: AxiosError<Result>) => {
-		const { response, message } = error || {};
+		const { response } = error || {};
 
-		if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+		if (error.response && error.response.status === 401) {
 			userStore.getState().actions.clearUserInfoAndToken();
-			// window.location.href = "/logout";
-		} else {
-			const errMsg = response?.data?.message || message || t("sys.api.errorMessage");
-			toast.error(errMsg, {
-				position: "top-center",
-			});
 		}
+		const errMsg = response?.data?.message || t("sys.api.errorMessage");
+		toast.error(errMsg, {
+			position: "top-center",
+			duration: 7000,
+		});
+
 		return Promise.reject(error);
 	},
 );
