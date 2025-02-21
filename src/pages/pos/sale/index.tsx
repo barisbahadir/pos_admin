@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Card, Row, Col, Button, List, InputNumber } from "antd";
-import "./sale.css";
 import { CreditCardOutlined, ShoppingCartOutlined, TagOutlined } from "@ant-design/icons";
 import { ThemeMode } from "#/enum";
 import { useSettings } from "@/store/settingStore";
+import "./sale.css";
 
 const names = [
 	"All Items",
