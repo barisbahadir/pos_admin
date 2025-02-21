@@ -9,7 +9,6 @@ import { useLoginStateContext } from "@/pages/login/providers/LoginStateProvider
 import { useRouter } from "@/router/hooks";
 import { useUserActions, useUserInfo } from "@/store/userStore";
 import { useTheme } from "@/theme/hooks";
-import { faker } from "@faker-js/faker";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -89,7 +88,7 @@ export default function AccountDropdown() {
 	return (
 		<Dropdown menu={{ items }} trigger={["click"]} dropdownRender={dropdownRender}>
 			<IconButton className="h-10 w-10 transform-none px-0 hover:scale-105">
-				<img className="h-8 w-8 rounded-full" src={avatar || faker.image.avatarGitHub()} alt="" />
+				<img className="h-8 w-8 rounded-full" src={avatar || ""} alt="" />
 			</IconButton>
 		</Dropdown>
 	);

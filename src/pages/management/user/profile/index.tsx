@@ -10,7 +10,7 @@ import ProjectsTab from "./projects-tab";
 import TeamsTab from "./teams-tab";
 
 function UserProfile() {
-	const { avatar, username } = useUserInfo();
+	const { avatar, username, role } = useUserInfo();
 	const [currentTabIndex, setcurrentTabIndex] = useState(0);
 
 	const bgStyle: CSSProperties = {
@@ -51,7 +51,7 @@ function UserProfile() {
 						<img src={avatar || ""} className="h-16 w-16 rounded-full md:h-32 md:w-32" alt="" />
 						<div className="ml-6 mt-6 flex flex-col justify-center md:mt-0">
 							<span className="mb-2 text-2xl font-medium text-common-white">{username}</span>
-							<span className="text-center text-text-secondary md:text-left">TS FullStack</span>
+							<span className="text-center text-text-secondary md:text-left">{role}</span>
 						</div>
 					</div>
 				</div>

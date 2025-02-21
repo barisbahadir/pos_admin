@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-
+import { faker } from "@faker-js/faker";
 import userService, { type SignInReq } from "@/api/services/userService";
 
 import { toast } from "sonner";
@@ -68,6 +68,9 @@ export const useSignIn = () => {
 			const res = await signInMutation.mutateAsync(data);
 			const token = res.token;
 			setUserToken({ accessToken: token });
+			if (!res.avatar) {
+				res.avatar = faker.image.avatarGitHub();
+			}
 			setUserInfo(res);
 			navigate(HOMEPAGE, { replace: true });
 			toast.success("Giriş başarılı, hoşgeldiniz!");
