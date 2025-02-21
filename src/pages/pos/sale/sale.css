@@ -37,6 +37,9 @@
 
 .category-buttons Button {
   flex: 1 1 60px; /* Her butonun otomatik olarak esnemesini sağlar */
+  max-width: 100%; /* Maksimum genişlik belirler */
+  white-space: nowrap; /* Metnin satır atlamasını engeller */
+  text-overflow: ellipsis; /* Uzun metni "..." ile kısaltır */
 }
 
 .product-grid {
