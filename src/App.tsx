@@ -17,7 +17,6 @@ function App() {
 					<link rel="icon" href={Logo} />
 				</Helmet>
 				<Toast />
-
 				<Router />
 			</MotionLazy>
 		</ThemeProvider>

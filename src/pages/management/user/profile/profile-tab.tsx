@@ -20,7 +20,7 @@ interface DataType {
 }
 
 export default function ProfileTab() {
-	const { username } = useUserInfo();
+	const { username, role, email, token, status } = useUserInfo();
 	const AboutItems = [
 		{
 			icon: <Iconify icon="fa-solid:user" size={18} />,
@@ -28,29 +28,24 @@ export default function ProfileTab() {
 			val: username,
 		},
 		{
-			icon: <Iconify icon="eos-icons:role-binding" size={18} />,
-			label: "Role",
-			val: "Developer",
+			icon: <Iconify icon="ic:baseline-email" size={18} />,
+			label: "Email",
+			val: email,
 		},
 		{
 			icon: <Iconify icon="tabler:location-filled" size={18} />,
-			label: "Country",
-			val: "USA",
+			label: "Role",
+			val: role,
 		},
 		{
 			icon: <Iconify icon="ion:language" size={18} />,
-			label: "Language",
-			val: "English",
+			label: "Status",
+			val: status,
 		},
 		{
 			icon: <Iconify icon="ph:phone-fill" size={18} />,
-			label: "Contact",
-			val: "(123)456-7890",
-		},
-		{
-			icon: <Iconify icon="ic:baseline-email" size={18} />,
-			label: "Email",
-			val: username,
+			label: "Token",
+			val: token,
 		},
 	];
 
@@ -198,14 +193,14 @@ export default function ProfileTab() {
 					<Card className="flex-col">
 						<div className="flex w-full flex-col">
 							<Typography.Title level={5}>About</Typography.Title>
-							<Typography.Text>{faker.lorem.paragraph()}</Typography.Text>
+							{/* <Typography.Text>{faker.lorem.paragraph()}</Typography.Text> */}
 
 							<div className="mt-2 flex flex-col gap-4">
 								{AboutItems.map((item) => (
 									<div className="flex" key={item.label}>
 										<div className="mr-2">{item.icon}</div>
 										<div className="mr-2">{item.label}:</div>
-										<div className="opacity-50">{item.val}</div>
+										<div className="opacity-50 overflow-hidden text-ellipsis whitespace-normal">{item.val}</div>
 									</div>
 								))}
 							</div>
