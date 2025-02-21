@@ -1,3 +1,10 @@
+export enum UserRoleTypes {
+	TEST = "TEST",
+	USER = "USER",
+	MANAGER = "MANAGER",
+	ADMIN = "ADMIN",
+}
+
 export enum BasicStatus {
 	DISABLE = "DISABLE",
 	ENABLE = "ENABLE",

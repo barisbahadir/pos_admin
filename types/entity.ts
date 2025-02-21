@@ -1,4 +1,4 @@
-import type { BasicStatus, PermissionType } from "./enum";
+import type { BasicStatus, PermissionType, UserRoleTypes } from "./enum";
 
 export interface UserToken {
 	accessToken?: string;
@@ -10,7 +10,7 @@ export interface LoginInfo {
 	username: string;
 	token: string;
 	avatar?: string | null;
-	role?: Role;
+	role?: UserRoleTypes;
 	status?: BasicStatus;
 	permissions?: Permission[];
 }
