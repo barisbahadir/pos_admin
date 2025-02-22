@@ -156,8 +156,9 @@
 			"your_card": "Your Card",
 			"subtotal": "Subtotal",
 			"tax": "Tax",
-			"discount": "Discount (%)",
+			"discount": "Discount",
 			"quantity": "Quantity",
+			"count": "Count",
 			"total": "Total",
 			"pay_cash": "Pay with Cash",
 			"pay_card": "Pay with Cash"

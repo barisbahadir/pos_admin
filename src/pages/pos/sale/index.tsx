@@ -159,20 +159,25 @@ export default function SalePage() {
 															<p className="cart-item-name">{item.name}</p>
 														</div>
 														<p className="cart-item-price text-primary">
-															{`${(item.price * item.quantity - item.discount).toFixed(2)} TL`}
+															{`${(item.price * item.quantity - item.discount).toFixed(2)}₺`}
 														</p>
 														<Button type="text" icon={<DeleteOutlined />} onClick={() => removeItem(item.id)} />
 													</div>
 												),
 												children: (
 													<div className="cart-item-details">
-														<Typography.Title level={5}>{item.name}</Typography.Title>
+														{/* <Typography.Title level={5}>
+                              {item.name}
+                            </Typography.Title> */}
 
 														<Row gutter={24}>
 															<Col xs={12} sm={12} md={12}>
 																<div>
-																	<Typography.Text className="full-title">{t("sys.sale.quantity")}</Typography.Text>
+																	<Typography.Text className="full-title">
+																		{`${t("sys.sale.quantity")}:`}
+																	</Typography.Text>
 																	<InputNumber
+																		addonBefore={t("sys.sale.count")}
 																		min={1}
 																		defaultValue={1}
 																		style={{ width: "100%" }}
@@ -186,8 +191,11 @@ export default function SalePage() {
 															</Col>
 															<Col xs={12} sm={12} md={12}>
 																<div>
-																	<Typography.Text className="full-title">{t("sys.sale.discount")}</Typography.Text>
+																	<Typography.Text className="full-title">
+																		{`${t("sys.sale.discount")}:`}
+																	</Typography.Text>
 																	<InputNumber
+																		addonBefore="%"
 																		min={0}
 																		max={100}
 																		defaultValue={0}

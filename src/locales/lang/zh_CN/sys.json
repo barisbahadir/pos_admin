@@ -151,8 +151,9 @@
 			"your_card": "Sepetiniz",
 			"subtotal": "Ara Toplam",
 			"tax": "Vergi",
-			"discount": "Indirim (%)",
+			"discount": "Indirim",
 			"quantity": "Miktar",
+			"count": "Adet",
 			"total": "Toplam",
 			"pay_cash": "Nakit öde",
 			"pay_card": "Kartla öde"

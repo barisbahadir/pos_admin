@@ -248,10 +248,6 @@
   font-weight: bold;
 }
 
-.cart-item-price {
-  color: #1890ff;
-}
-
 .cart-item-actions {
   display: flex;
   justify-content: space-between;
@@ -306,6 +302,8 @@
 
 .full-title {
   display: block;
+  font-weight: bold;
+  text-align: left;            /* Metni sola yaslar */
   white-space: nowrap;         /* Metnin tek satırda kalmasını sağlar */
   overflow: hidden;            /* Taşan kısmı gizler */
   text-overflow: ellipsis;     /* Taşan kısmı '...' ile keser */
