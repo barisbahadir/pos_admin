@@ -144,7 +144,7 @@ export default function SalePage() {
 			<Col xs={24} sm={12} md={10} lg={9} xl={7}>
 				<Card title={t("sys.sale.your_card")} className="text-center cart-container">
 					<div className="cart-list">
-						{cart.map((item) => {
+						{cart.reverse().map((item) => {
 							return (
 								<div key={item.id} className="cart-item">
 									<Collapse
