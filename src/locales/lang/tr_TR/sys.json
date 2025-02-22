@@ -152,6 +152,16 @@
 			}
 		},
 		"docs": "Döküman",
+		"sale": {
+			"your_card": "Sepetiniz",
+			"subtotal": "Ara Toplam",
+			"tax": "Vergi",
+			"discount": "Indirim (%)",
+			"quantity": "Miktar",
+			"total": "Toplam",
+			"pay_cash": "Nakit öde",
+			"pay_card": "Kartla öde"
+		},
 		"redirect_home": "Anasayfaya Dön",
 		"settings_label": "Ayarlar",
 		"settings": {

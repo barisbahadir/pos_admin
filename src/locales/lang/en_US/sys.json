@@ -152,6 +152,16 @@
 			}
 		},
 		"docs": "Document",
+		"sale": {
+			"your_card": "Your Card",
+			"subtotal": "Subtotal",
+			"tax": "Tax",
+			"discount": "Discount (%)",
+			"quantity": "Quantity",
+			"total": "Total",
+			"pay_cash": "Pay with Cash",
+			"pay_card": "Pay with Cash"
+		},
 		"redirect_home": "Go to Homepage",
 		"settings_label": "Settings",
 		"settings": {
