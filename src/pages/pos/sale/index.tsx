@@ -69,7 +69,7 @@ export default function SalePage() {
 		if (existingItem) {
 			setCart(cart.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)));
 		} else {
-			setCart([...cart, { ...product, quantity: 1, discount: 0 }]);
+			setCart([{ ...product, quantity: 1, discount: 0 }, ...cart]);
 		}
 	};
 
@@ -134,7 +134,7 @@ export default function SalePage() {
 									onClick={() => addToCart(product)}
 									className="add-to-cart-button"
 								>
-									Sepete Ekle
+									{t("sys.sale.add_to_cart")}
 								</Button>
 							</div>
 						</div>
@@ -149,7 +149,7 @@ export default function SalePage() {
 								<Button type="default" style={{ marginLeft: 0 }} icon={<PlusOutlined />} onClick={() => setCart([])} />
 							</Tooltip>
 							<span style={{ fontWeight: "bold" }} className="text-primary">
-								{t("sys.sale.your_card")}
+								{t("sys.sale.your_cart")}
 							</span>
 							<Tooltip placement="topRight" title={t("sys.sale.empty_cart")}>
 								<Button
@@ -164,82 +164,103 @@ export default function SalePage() {
 					className="cart-container text-center"
 				>
 					<div className="cart-list">
-						{cart.map((item) => {
-							return (
-								<div key={item.id} className="cart-item">
-									<Collapse
-										key={item.id}
-										className="cart-item-collapse"
-										items={[
-											{
-												key: item.id,
-												label: (
-													<div className="cart-item-header">
-														<div className="cart-item-left">
-															<p className="cart-item-quantity">{item.quantity}x</p>
-															<p className="cart-item-name">{item.name}</p>
-														</div>
-														<p className="cart-item-price text-primary">
-															{`${(item.price * item.quantity - item.discount).toFixed(2)}₺`}
-														</p>
-														<Tooltip placement="left" title={t("sys.sale.remove_item")}>
-															<Button type="text" icon={<DeleteOutlined />} onClick={() => removeItem(item.id)} />
-														</Tooltip>
-													</div>
-												),
-												children: (
-													<div className="cart-item-details">
-														{/* <Typography.Title level={5}>
+						{cart && cart.length > 0 ? (
+							<>
+								{cart.map((item) => {
+									return (
+										<div key={item.id} className="cart-item">
+											<Collapse
+												key={item.id}
+												className="cart-item-collapse"
+												items={[
+													{
+														key: item.id,
+														label: (
+															<div className="cart-item-header">
+																<div className="cart-item-left">
+																	<p className="cart-item-quantity">{item.quantity}x</p>
+																	<p className="cart-item-name">{item.name}</p>
+																</div>
+																<p className="cart-item-price text-primary">
+																	{`${(item.price * item.quantity - item.discount).toFixed(2)}₺`}
+																</p>
+																<Tooltip placement="left" title={t("sys.sale.remove_item")}>
+																	<Button type="text" icon={<DeleteOutlined />} onClick={() => removeItem(item.id)} />
+																</Tooltip>
+															</div>
+														),
+														children: (
+															<div className="cart-item-details">
+																{/* <Typography.Title level={5}>
                               {item.name}
                             </Typography.Title> */}
 
-														<Row gutter={24}>
-															<Col xs={12} sm={12} md={12}>
-																<div>
-																	<Typography.Text className="full-title">
-																		{`${t("sys.sale.quantity")}:`}
-																	</Typography.Text>
-																	<InputNumber
-																		addonBefore={t("sys.sale.count")}
-																		min={1}
-																		defaultValue={1}
-																		style={{ width: "100%" }}
-																		onChange={(val) => {
-																			if (val != null) {
-																				updateItem(item.id, "quantity", val);
-																			}
-																		}}
-																	/>
-																</div>
-															</Col>
-															<Col xs={12} sm={12} md={12}>
-																<div>
-																	<Typography.Text className="full-title">
-																		{`${t("sys.sale.discount")}:`}
-																	</Typography.Text>
-																	<InputNumber
-																		addonBefore="%"
-																		min={0}
-																		max={100}
-																		defaultValue={0}
-																		style={{ width: "100%" }}
-																		onChange={(val) => {
-																			if (val != null) {
-																				updateItem(item.id, "discount", val);
-																			}
-																		}}
-																	/>
-																</div>
-															</Col>
-														</Row>
-													</div>
-												),
-											},
-										]}
-									/>
+																<Row gutter={24}>
+																	<Col xs={12} sm={12} md={12}>
+																		<div>
+																			<Typography.Text className="full-title">
+																				{`${t("sys.sale.quantity")}:`}
+																			</Typography.Text>
+																			<InputNumber
+																				addonBefore={t("sys.sale.count")}
+																				min={1}
+																				defaultValue={1}
+																				style={{ width: "100%" }}
+																				onChange={(val) => {
+																					if (val != null) {
+																						updateItem(item.id, "quantity", val);
+																					}
+																				}}
+																			/>
+																		</div>
+																	</Col>
+																	<Col xs={12} sm={12} md={12}>
+																		<div>
+																			<Typography.Text className="full-title">
+																				{`${t("sys.sale.discount")}:`}
+																			</Typography.Text>
+																			<InputNumber
+																				addonBefore="%"
+																				min={0}
+																				max={100}
+																				defaultValue={0}
+																				style={{ width: "100%" }}
+																				onChange={(val) => {
+																					if (val != null) {
+																						updateItem(item.id, "discount", val);
+																					}
+																				}}
+																			/>
+																		</div>
+																	</Col>
+																</Row>
+															</div>
+														),
+													},
+												]}
+											/>
+										</div>
+									);
+								})}
+							</>
+						) : (
+							<>
+								<div
+									className="empty-cart text-text-secondary"
+									style={{
+										display: "flex",
+										height: "100%",
+										justifyContent: "center",
+										alignItems: "center",
+										flexDirection: "column",
+										textAlign: "center",
+									}}
+								>
+									<ShoppingCartOutlined style={{ fontSize: 45 }} />
+									<p className="text-lg font-semibold text-text-secondary mt-2">{t("sys.sale.your_cart_empty")}</p>
 								</div>
-							);
-						})}
+							</>
+						)}
 					</div>
 					<div className="cart-summary">
 						<div className="summary-row">

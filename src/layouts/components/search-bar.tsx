@@ -128,7 +128,7 @@ export default function SearchBar() {
 				<IconButton className="h-8 rounded-xl bg-hover py-2 text-xs font-bold" onClick={handleOpen}>
 					<div className="flex items-center justify-center gap-2">
 						<SvgIcon icon="ic-search" size="20" />
-						<span className="flex h-6 items-center justify-center px-1.5">{"Sayfaya Git"}</span>
+						<span className="flex h-6 items-center justify-center px-1.5">{t("sys.go_to_page")}</span>
 						<span className="flex h-6 items-center justify-center rounded-md bg-common-white px-1.5 font-bold text-gray-800">
 							{"⌘ K"}
 						</span>

@@ -153,10 +153,12 @@
 		},
 		"docs": "Döküman",
 		"sale": {
-			"your_card": "SEPET",
+			"your_cart": "SEPET",
+			"add_to_cart": "Sepete Ekle",
 			"new_shopping": "Yeni Alışveriş",
 			"empty_cart": "Sepeti Boşalt",
 			"remove_item": "Ürünü Sil",
+			"your_cart_empty": "Sepete ürün eklemediniz",
 			"subtotal": "Ara Toplam",
 			"tax": "Vergi",
 			"discount": "Indirim Oranı",
@@ -167,6 +169,7 @@
 			"pay_card": "Kartla öde"
 		},
 		"redirect_home": "Anasayfaya Dön",
+		"go_to_page": "Sayfaya Git",
 		"settings_label": "Ayarlar",
 		"settings": {
 			"mode": "Tema",

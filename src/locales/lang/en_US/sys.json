@@ -89,8 +89,8 @@
 			"workbench": "Workbench",
 			"analysis": "Analysis",
 			"pos": {
-				"index": "Satış",
-				"sale": "Hızlı Satış"
+				"index": "Point of Sale",
+				"sale": "Sale"
 			},
 			"management": "Management",
 			"user": {
@@ -153,10 +153,12 @@
 		},
 		"docs": "Document",
 		"sale": {
-			"your_card": "CART",
+			"your_cart": "CART",
+			"add_to_cart": "Add to Cart",
 			"new_shopping": "New Shopping",
 			"empty_cart": "Empty Cart",
 			"remove_item": "Remove Item",
+			"your_cart_empty": "Your cart is empty",
 			"subtotal": "Subtotal",
 			"tax": "Tax",
 			"discount": "Discount",
@@ -167,6 +169,7 @@
 			"pay_card": "Pay with Cash"
 		},
 		"redirect_home": "Go to Homepage",
+		"go_to_page": "Go to Page",
 		"settings_label": "Settings",
 		"settings": {
 			"mode": "Theme",

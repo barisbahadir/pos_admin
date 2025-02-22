@@ -171,7 +171,7 @@
   overflow-y: auto;
   height: 440px;
 
-  padding: 2px 7px 6px 2px;
+  padding: 2px 6px 1px 2px;
 
   @media (max-width: 768px) {
     height: 500px;
@@ -191,7 +191,6 @@
 
 .cart-item .ant-collapse {
   border: 0.5px solid rgba(168, 167, 167, 0.173) !important;;
-
 }
 
 .cart-item-header {
