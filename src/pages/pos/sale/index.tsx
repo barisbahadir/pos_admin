@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Card, Row, Col, Button, InputNumber, Collapse, Typography } from "antd";
-import { CreditCardOutlined, DeleteOutlined, ShoppingCartOutlined, TagOutlined } from "@ant-design/icons";
+import { Card, Row, Col, Button, InputNumber, Collapse, Typography, Tooltip } from "antd";
+import { CreditCardOutlined, DeleteOutlined, PlusOutlined, ShoppingCartOutlined, TagOutlined } from "@ant-design/icons";
 import { ThemeMode } from "#/enum";
 import { useSettings } from "@/store/settingStore";
 import "./sale.css";
@@ -42,7 +42,7 @@ export default function SalePage() {
 
 		for (let i = 1; i <= count; i++) {
 			const product = {
-				id: Math.random() * 30 + 10,
+				id: i,
 				name: `${activeCategory} ${names[i % names.length]}`, // Randomize product names
 				price: Number.parseFloat((Math.random() * 30 + 10).toFixed(2)), // Random price between 10 and 40
 				barcode: `${i}`,
@@ -142,9 +142,29 @@ export default function SalePage() {
 				</div>
 			</Col>
 			<Col xs={24} sm={12} md={10} lg={9} xl={7}>
-				<Card title={t("sys.sale.your_card")} className="text-center cart-container">
+				<Card
+					title={
+						<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+							<Tooltip placement="topLeft" title={t("sys.sale.new_shopping")}>
+								<Button type="default" style={{ marginLeft: 0 }} icon={<PlusOutlined />} onClick={() => setCart([])} />
+							</Tooltip>
+							<span style={{ fontWeight: "bold" }} className="text-primary">
+								{t("sys.sale.your_card")}
+							</span>
+							<Tooltip placement="topRight" title={t("sys.sale.empty_cart")}>
+								<Button
+									type="default"
+									style={{ marginRight: 0 }}
+									icon={<DeleteOutlined />}
+									onClick={() => setCart([])}
+								/>
+							</Tooltip>
+						</div>
+					}
+					className="cart-container text-center"
+				>
 					<div className="cart-list">
-						{cart.reverse().map((item) => {
+						{cart.map((item) => {
 							return (
 								<div key={item.id} className="cart-item">
 									<Collapse
@@ -162,7 +182,9 @@ export default function SalePage() {
 														<p className="cart-item-price text-primary">
 															{`${(item.price * item.quantity - item.discount).toFixed(2)}₺`}
 														</p>
-														<Button type="text" icon={<DeleteOutlined />} onClick={() => removeItem(item.id)} />
+														<Tooltip placement="left" title={t("sys.sale.remove_item")}>
+															<Button type="text" icon={<DeleteOutlined />} onClick={() => removeItem(item.id)} />
+														</Tooltip>
 													</div>
 												),
 												children: (

@@ -153,7 +153,10 @@
 		},
 		"docs": "Document",
 		"sale": {
-			"your_card": "Your Card",
+			"your_card": "CART",
+			"new_shopping": "New Shopping",
+			"empty_cart": "Empty Cart",
+			"remove_item": "Remove Item",
 			"subtotal": "Subtotal",
 			"tax": "Tax",
 			"discount": "Discount",

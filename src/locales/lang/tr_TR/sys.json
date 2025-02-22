@@ -153,7 +153,10 @@
 		},
 		"docs": "Döküman",
 		"sale": {
-			"your_card": "Sepetiniz",
+			"your_card": "SEPET",
+			"new_shopping": "Yeni Alışveriş",
+			"empty_cart": "Sepeti Boşalt",
+			"remove_item": "Ürünü Sil",
 			"subtotal": "Ara Toplam",
 			"tax": "Vergi",
 			"discount": "Indirim Oranı",
