@@ -148,6 +148,7 @@ export default function SalePage() {
 							return (
 								<div key={item.id} className="cart-item">
 									<Collapse
+										key={item.id}
 										className="cart-item-collapse"
 										items={[
 											{

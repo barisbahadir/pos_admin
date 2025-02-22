@@ -44,7 +44,7 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
   gap: 16px;
   padding-right: 8px; /* Sağ tarafa boşluk ekledim */
   padding-top: 6px;
@@ -187,13 +187,13 @@
 
 .cart-item {
   padding-bottom: 6px;
-  border: none;
 }
 
 .cart-item .ant-collapse {
-  padding-bottom: 6px;
-  border: none;
+  border: 0.5px solid rgba(168, 167, 167, 0.173) !important;;
+
 }
+
 
 .cart-item-header {
   display: flex;
@@ -284,20 +284,6 @@
 
 .cart-actions .ant-btn {
   flex: 1; /* Butonları eşit genişlikte yapar */
-}
-
-.pay-cash, .pay-card {
-  flex: 1;
-}
-
-.pay-cash {
-  background-color: #52c41a;
-  border-color: #52c41a;
-}
-
-.pay-card {
-  background-color: #1890ff;
-  border-color: #1890ff;
 }
 
 .full-title {
