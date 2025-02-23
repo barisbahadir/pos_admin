@@ -139,13 +139,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(42, 42, 42, 0.423);
+  background: rgba(42, 42, 42, 0.875);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; /* Butonları alt alta diz */
+  align-items: center; /* Yatay ortalama */
+  justify-content: center; /* Dikey ortalama */
+  gap: 30px; /* Butonlar arasında boşluk bırak */
   opacity: 0;
   transition: opacity 0.5s;
-  cursor: pointer;
 }
 
 .product-card:hover .product-hover-overlay {

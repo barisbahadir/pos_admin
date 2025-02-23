@@ -155,6 +155,7 @@
 		"sale": {
 			"your_cart": "CART",
 			"add_to_cart": "Add to Cart",
+			"product_detail": "Product Detail",
 			"new_shopping": "New Shopping",
 			"empty_cart": "Empty Cart",
 			"remove_item": "Remove Item",

@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { Card, Row, Col, Button, InputNumber, Collapse, Typography, Tooltip } from "antd";
-import { CreditCardOutlined, DeleteOutlined, PlusOutlined, ShoppingCartOutlined, TagOutlined } from "@ant-design/icons";
+import { Card, Row, Col, Button, InputNumber, Collapse, Typography, Tooltip, Modal } from "antd";
+import {
+	CreditCardOutlined,
+	DeleteOutlined,
+	EyeOutlined,
+	PlusOutlined,
+	ShoppingCartOutlined,
+	TagOutlined,
+} from "@ant-design/icons";
 import { ThemeMode } from "#/enum";
 import { useSettings } from "@/store/settingStore";
-import "./sale.css";
 import { useTranslation } from "react-i18next";
+import "./sale.css";
 
 const names = [
 	"All Items",
@@ -25,17 +32,19 @@ export default function SalePage() {
 	const { themeMode } = useSettings();
 	const backgroundColor = themeMode === ThemeMode.Light ? "rgb(244, 246, 248)" : "rgba(145, 158, 171, 0.12)";
 
+	const [activeCategory, setActiveCategory] = useState(names[0]);
+	const [modalOpen, setModalOpen] = useState(false);
 	const [cart, setCart] = useState<
 		Array<{
 			id: number;
 			name: string;
+			description: string;
 			price: number;
 			barcode: string;
 			quantity: number;
 			discount: number;
 		}>
 	>([]);
-	const [activeCategory, setActiveCategory] = useState(names[0]);
 
 	const generateProducts = (count: number) => {
 		const products = [];
@@ -44,6 +53,7 @@ export default function SalePage() {
 			const product = {
 				id: i,
 				name: `${activeCategory} ${names[i % names.length]}`, // Randomize product names
+				description: `${activeCategory} ${names[i % names.length]}`,
 				price: Number.parseFloat((Math.random() * 30 + 10).toFixed(2)), // Random price between 10 and 40
 				barcode: `${i}`,
 				image:
@@ -62,6 +72,7 @@ export default function SalePage() {
 	const addToCart = (product: {
 		id: number;
 		name: string;
+		description: string;
 		price: number;
 		barcode: string;
 	}) => {
@@ -87,7 +98,7 @@ export default function SalePage() {
 
 	return (
 		<Row gutter={24} className="pr-1 pl-1">
-			<Col xs={24} sm={12} md={14} lg={15} xl={17}>
+			<Col xs={24} sm={12} md={14} lg={14} xl={18}>
 				<div className="category-buttons">
 					{names.map((category) => (
 						<Button
@@ -127,7 +138,15 @@ export default function SalePage() {
 								</p>
 								<p className="product-price text-primary">{`${product.price.toFixed(2)} TL`}</p>
 							</div>
-							<div className="product-hover-overlay" onClick={() => addToCart(product)}>
+							<div className="product-hover-overlay">
+								<Button
+									type="default"
+									icon={<EyeOutlined />}
+									onClick={() => setModalOpen(true)}
+									className="add-to-cart-button"
+								>
+									{t("sys.sale.product_detail")}
+								</Button>
 								<Button
 									type="primary"
 									icon={<ShoppingCartOutlined />}
@@ -137,11 +156,43 @@ export default function SalePage() {
 									{t("sys.sale.add_to_cart")}
 								</Button>
 							</div>
+							{/* Urun Detayi Modal */}
+							<Modal
+								open={modalOpen}
+								footer={null}
+								closable={true}
+								onCancel={() => setModalOpen(false)}
+								mask={false} // Sayfayı kaplamasın
+								centered
+								className="custom-modal"
+							>
+								<div className="text-center">
+									<h2 className="text-xl font-bold">{product.name}</h2>
+									<p className="text-gray-600 mt-2">{product.description}</p>
+									<img
+										src={product.image}
+										alt={product.name}
+										className="w-32 h-32 object-cover mx-auto mt-4 rounded-md"
+									/>
+									<p className="text-xl font-bold text-primary mt-4">{`${product.price.toFixed(2)} TL`}</p>
+									<Button
+										type="primary"
+										icon={<ShoppingCartOutlined />}
+										onClick={() => {
+											addToCart(product);
+											setModalOpen(false);
+										}}
+										className="mt-4"
+									>
+										{t("sys.sale.add_to_cart")}
+									</Button>
+								</div>
+							</Modal>
 						</div>
 					))}
 				</div>
 			</Col>
-			<Col xs={24} sm={12} md={10} lg={9} xl={7}>
+			<Col xs={24} sm={12} md={10} lg={8} xl={6}>
 				<Card
 					title={
 						<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
