@@ -202,8 +202,15 @@ export default function SalePage() {
 			</Col>
 			<Col xs={24} sm={12} md={10} lg={8} xl={6}>
 				<Card
+					className="cart-container text-center"
+					headStyle={{
+						padding: "0px 16px",
+					}}
 					title={
-						<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+						<div
+							style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}
+							className="cart-header"
+						>
 							<Tooltip placement="topLeft" title={t("sys.sale.new_shopping")}>
 								<Button type="default" style={{ marginLeft: 0 }} icon={<PlusOutlined />} onClick={() => setCart([])} />
 							</Tooltip>
@@ -220,7 +227,6 @@ export default function SalePage() {
 							</Tooltip>
 						</div>
 					}
-					className="cart-container text-center"
 				>
 					<div className="cart-list">
 						{cart && cart.length > 0 ? (
