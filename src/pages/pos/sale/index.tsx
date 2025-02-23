@@ -203,8 +203,10 @@ export default function SalePage() {
 			<Col xs={24} sm={12} md={10} lg={8} xl={6}>
 				<Card
 					className="cart-container text-center"
-					headStyle={{
-						padding: "0px 16px",
+					styles={{
+						header: {
+							padding: "0px 16px",
+						},
 					}}
 					title={
 						<div
