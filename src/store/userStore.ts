@@ -73,7 +73,7 @@ export const useSignIn = () => {
 			}
 			setUserInfo(res);
 			navigate(HOMEPAGE, { replace: true });
-			toast.success("Giriş başarılı, hoşgeldiniz!");
+			toast.success(`Giriş başarılı, ${res.email} hoşgeldiniz.`);
 		} catch (err) {
 			toast.error(err.message, {
 				position: "top-center",
