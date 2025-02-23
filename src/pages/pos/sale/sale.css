@@ -194,6 +194,17 @@
   border: 0.5px solid rgba(168, 167, 167, 0.173) !important;;
 }
 
+/* Collapse bileşeninin başlık kısmındaki padding'i sıfırla */
+.cart-item .ant-collapse-item > .ant-collapse-header {
+  padding: 5px !important;
+  padding-right: 0px !important;
+}
+
+/* Collapse expand ikonunun sağ padding'ini sıfırla */
+.cart-item .ant-collapse-expand-icon {
+  padding-right: 6px !important;
+}
+
 .cart-item-header {
   display: flex;
   align-items: center;
@@ -206,29 +217,37 @@
   align-items: center;
   gap: 2px; /* Miktar ile ürün adı arasında sadece 2px boşluk */
   flex-grow: 1; /* Burası tüm alanı kaplasın, böylece sola yaslanır */
-  overflow: hidden;
+  min-width: 0; /* Flex child'ın içeriğinden daha küçük olabilmesini sağlar */
 }
 
 .cart-item-quantity {
   color: gray;
   min-width: 20px;
   text-align: left;
+  flex-shrink: 0; /* Miktar kısmının küçülmesini engeller */
 }
 
 .cart-item-name {
-  white-space: nowrap;
+  white-space: normal; /* Normal text wrapping sağlar */
   overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Maksimum 2 satır */
+  -webkit-box-orient: vertical;
+  text-align: left;
+  min-width: 0;
 }
 
 .cart-item-price {
   font-weight: bold;
   margin-left: 2px;
+  flex-shrink: 0; /* Fiyatın küçülmesini engeller */
 }
 
 .cart-item-header button {
   margin-left: 2px;
   padding: 0;
+  flex-shrink: 0; /* Butonun küçülmesini engeller */
 }
 
 .ant-collapse-expand-icon {
