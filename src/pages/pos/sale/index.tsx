@@ -53,7 +53,7 @@ export default function SalePage() {
 			const product = {
 				id: i,
 				name: `${activeCategory} ${names[i % names.length]}`, // Randomize product names
-				description: `${activeCategory} ${names[i % names.length]}`,
+				description: `Description ${names[i % names.length]} `,
 				price: Number.parseFloat((Math.random() * 30 + 10).toFixed(2)), // Random price between 10 and 40
 				barcode: `${i}`,
 				image:
@@ -133,8 +133,8 @@ export default function SalePage() {
 								)}
 							</div>
 							<div className="product-info">
-								<p className="product-name text-base font-semibold text-text-secondary" title={product.name}>
-									{product.name}
+								<p className="product-name text-base font-semibold text-text-secondary">
+									{!product.image && product.description ? product.description : product.name}
 								</p>
 								<p className="product-price text-primary">{`${product.price.toFixed(2)} TL`}</p>
 							</div>
@@ -169,11 +169,19 @@ export default function SalePage() {
 								<div className="text-center">
 									<h2 className="text-xl font-bold">{product.name}</h2>
 									<p className="text-gray-600 mt-2">{product.description}</p>
-									<img
-										src={product.image}
-										alt={product.name}
-										className="w-32 h-32 object-cover mx-auto mt-4 rounded-md"
-									/>
+									{product.image && product.image !== "" ? (
+										<img
+											src={product.image}
+											alt={product.name}
+											className="w-32 h-32 object-cover mx-auto mt-4 rounded-md"
+										/>
+									) : (
+										<div className="w-32 h-32 mx-auto mt-4 rounded-md border-2 border-gray-400 flex items-center justify-center">
+											<p className="text-gray-500 text-sm font-semibold text-center px-2">
+												{t("sys.sale.modal_no_image")}
+											</p>
+										</div>
+									)}
 									<p className="text-xl font-bold text-primary mt-4">{`${product.price.toFixed(2)} TL`}</p>
 									<Button
 										type="primary"
