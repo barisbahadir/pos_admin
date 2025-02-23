@@ -271,7 +271,7 @@ export default function SalePage() {
 																			<InputNumber
 																				addonBefore={t("sys.sale.count")}
 																				min={1}
-																				defaultValue={1}
+																				value={item.quantity || 1}
 																				style={{ width: "100%" }}
 																				onChange={(val) => {
 																					if (val != null) {
@@ -290,7 +290,7 @@ export default function SalePage() {
 																				addonBefore="%"
 																				min={0}
 																				max={100}
-																				defaultValue={0}
+																				value={item.discount || 0}
 																				style={{ width: "100%" }}
 																				onChange={(val) => {
 																					if (val != null) {
