@@ -98,7 +98,7 @@ export default function SalePage() {
 
 	return (
 		<Row gutter={24} className="pr-1 pl-1">
-			<Col xs={24} sm={12} md={14} lg={14} xl={18}>
+			<Col xs={24} sm={12} md={14} lg={16} xl={18}>
 				<div className="category-buttons">
 					{names.map((category) => (
 						<Button
