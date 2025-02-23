@@ -53,3 +53,7 @@ html.dark {
   border-radius: 10px;
   background: var(--c-scrollbar-hover);
 }
+
+.ant-modal-root .ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.119) !important;
+}

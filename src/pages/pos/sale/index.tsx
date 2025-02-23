@@ -162,7 +162,7 @@ export default function SalePage() {
 								footer={null}
 								closable={true}
 								onCancel={() => setModalOpen(false)}
-								mask={false} // Sayfayı kaplamasın
+								mask={true}
 								centered
 								className="custom-modal"
 							>
