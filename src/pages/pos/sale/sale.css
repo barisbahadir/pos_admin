@@ -222,9 +222,9 @@
 
 .cart-item-quantity {
   color: gray;
-  min-width: 20px;
   text-align: left;
   flex-shrink: 0; /* Miktar kısmının küçülmesini engeller */
+  padding-right: 3px;
 }
 
 .cart-item-name {

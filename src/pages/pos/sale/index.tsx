@@ -241,7 +241,7 @@ export default function SalePage() {
 																	<p className="cart-item-name">{item.name}</p>
 																</div>
 																<p className="cart-item-price text-primary">
-																	{`${(item.price * item.quantity - item.discount).toFixed(2)}₺`}
+																	{`${(item.price * item.quantity - item.discount).toFixed(2)} ₺`}
 																</p>
 																<Tooltip placement="left" title={t("sys.sale.remove_item")}>
 																	<Button type="text" icon={<DeleteOutlined />} onClick={() => removeItem(item.id)} />
