@@ -81,6 +81,18 @@
 		"menu": {
 			"home": "Anasayfa",
 			"sale": "Hızlı Satış",
+			"products": {
+				"index": "Ürünler",
+				"list": "Ürün Listesi",
+				"add": "Ürün Ekle",
+				"edit": "Ürün Düzenle"
+			},
+			"categories": {
+				"index": "Kategoriler",
+				"list": "Kategori Listesi",
+				"add": "Kategori Ekle",
+				"edit": "Kategori Düzenle"
+			},
 			"dashboard": "仪表",
 			"workbench": "工作台",
 			"analysis": "分析",

@@ -5,6 +5,8 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { ThemeLayout } from "#/enum";
 import { HEADER_HEIGHT } from "../config";
 
+const { VITE_APP_NAME: APP_NAME } = import.meta.env;
+
 type Props = {
 	collapsed: boolean;
 	onToggle: () => void;
@@ -16,7 +18,7 @@ export default function NavLogo({ collapsed, onToggle }: Props) {
 		<div style={{ height: `${HEADER_HEIGHT}px` }} className="relative flex items-center justify-center py-4">
 			<div className="flex items-center">
 				<Logo />
-				{themeLayout !== ThemeLayout.Mini && <span className="ml-2 text-xl font-bold text-primary">BAHADIR POS</span>}
+				{themeLayout !== ThemeLayout.Mini && <span className="ml-2 text-xl font-bold text-primary">{APP_NAME}</span>}
 			</div>
 			<div
 				onClick={onToggle}

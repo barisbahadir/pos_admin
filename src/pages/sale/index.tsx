@@ -431,7 +431,7 @@ export default function SalePage() {
 							block
 							className="pay-cash"
 							icon={<Iconify icon="solar:wallet-money-linear" />}
-							disabled={isLoading}
+							disabled={isLoading || cart.length === 0}
 							loading={isSaveLoading}
 							onClick={() => handleSaveTransaction(PaymentTypes.CASH)}
 						>
@@ -442,7 +442,7 @@ export default function SalePage() {
 							block
 							className="pay-card"
 							icon={<CreditCardOutlined />}
-							disabled={isLoading}
+							disabled={isLoading || cart.length === 0}
 							loading={isSaveLoading}
 							onClick={() => handleSaveTransaction(PaymentTypes.CARD)}
 						>

@@ -90,7 +90,9 @@ export default function NavVertical(props: Props) {
 			className="!fixed left-0 top-0 h-screen border-r border-dashed border-border"
 		>
 			<div className="flex h-full flex-col">
-				<NavLogo collapsed={collapsed} onToggle={handleToggleCollapsed} />
+				<div className="mt-6 mb-6">
+					<NavLogo collapsed={collapsed} onToggle={handleToggleCollapsed} />
+				</div>
 
 				<Scrollbar>
 					<Menu

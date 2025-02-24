@@ -81,7 +81,19 @@
 		},
 		"menu": {
 			"home": "Homepage",
-			"sale": "Fash Sale",
+			"sale": "Fast Sale",
+			"products": {
+				"index": "Products",
+				"list": "Product List",
+				"add": "Add Product",
+				"edit": "Edit Product"
+			},
+			"categories": {
+				"index": "Categories",
+				"list": "Category List",
+				"add": "Add Category",
+				"edit": "Edit Category"
+			},
 			"dashboard": "Dashboard",
 			"welcome": "Welcome",
 			"workbench": "Workbench",

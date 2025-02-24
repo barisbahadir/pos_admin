@@ -9,7 +9,7 @@ import { themeVars } from "@/theme/theme.css";
 
 export default function NoticeButton() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
-	const [count, setCount] = useState(4);
+	const [count, setCount] = useState(0);
 
 	const style: CSSProperties = {
 		backdropFilter: "blur(20px)",
@@ -42,7 +42,7 @@ export default function NoticeButton() {
 				width={420}
 				styles={{
 					body: { padding: 0 },
-					mask: { backgroundColor: "transparent" },
+					mask: { backgroundColor: "rgba(0, 0, 0, 0.2)" },
 				}}
 				style={style}
 				extra={
@@ -53,7 +53,7 @@ export default function NoticeButton() {
 							setDrawerOpen(false);
 						}}
 					>
-						<Iconify icon="solar:check-read-broken" size={20} />
+						<Iconify icon="solar:check-read-broken" size={20} className="text-primary" />
 					</IconButton>
 				}
 				footer={

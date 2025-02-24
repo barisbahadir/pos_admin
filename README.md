@@ -1,14 +1,15 @@
 <div align="center"> 
   <img src="./src/assets/images/logo.png" height="140" />
-  <h3> BAHADIR POS </h3>
+    <h3> Client App </h3>
 </div>
 
 ## Preview
-+ https://admin.slashspaces.com/
 
-|![login.png](https://d3george.github.io/github-static/slash-admin/login.jpeg)|![login_dark.png](https://d3george.github.io/github-static/slash-admin/login_dark.jpeg)
-| ----------------------------------------------------------------- | ------------------------------------------------------------------- |
-|![analysis.png](https://d3george.github.io/github-static/slash-admin/analysis.png)|![workbench.png](https://d3george.github.io/github-static/slash-admin/workbench.png)
+- https://admin.slashspaces.com/
+
+| ![login.png](https://d3george.github.io/github-static/slash-admin/login.jpeg)      | ![login_dark.png](https://d3george.github.io/github-static/slash-admin/login_dark.jpeg) |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| ![analysis.png](https://d3george.github.io/github-static/slash-admin/analysis.png) | ![workbench.png](https://d3george.github.io/github-static/slash-admin/workbench.png)    |
 
 ## Features
 
@@ -62,40 +63,48 @@ pnpm build
 
 ## Docker deployment
 
-
 ### Build image and Run container
+
 #### build image
+
 Enter the project root directory in the terminal and execute the following command to build the Docker image:
+
 ```
 docker build -t your-image-name .
 ```
-Make sure to replace `your-image-name` with your own image name 
+
+Make sure to replace `your-image-name` with your own image name
 
 #### run container
+
 Run your application in the Docker container using the following command:
+
 ```
 docker run -p 3001:80 your-image-name
 ```
+
 This will run your application on port `80`(exposed in `Dockerfile`) of the container and map it to port `3001` on your host.
 
 Now you can access http://localhost:3001 to view the deployed applications.
 
 ### use docker-compose.yaml
+
 Enter the project root directory in the terminal and execute the following command to start Docker Compose:
+
 ```
 docker-compose up -d
 ```
+
 Docker Compose will build an image based on the configuration defined by 'docker-compose. yaml' and run the container in the background.
 
 After the container runs successfully, it can also be accessed through http://localhost:3001 To view the deployed applications.
-
 
 ## Git Contribution submission specification
 
 reference[.commitlint.config.js](./commitlint.config.js)
 
 - `feat` new features
-- `fix`  fix the
+- `fix` fix the
 - `docs` documentation or comments
 - `style` code format (changes that do not affect code execution)
 - `refactor` refactor

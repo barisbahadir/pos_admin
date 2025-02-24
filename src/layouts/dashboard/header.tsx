@@ -18,10 +18,14 @@ import { ThemeLayout } from "#/enum";
 import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "./config";
 import NavVertical from "./nav/nav-vertical";
 import SearchBar from "../components/search-bar";
+import { down, useMediaQuery } from "@/hooks";
+
+const { VITE_APP_NAME: APP_NAME } = import.meta.env;
 
 export default function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const { themeLayout, breadCrumb } = useSettings();
+	const mobileOrTablet = useMediaQuery(down("sm"));
 
 	const headerStyle: CSSProperties = {
 		borderBottom:
@@ -45,13 +49,16 @@ export default function Header() {
 						transition: "height 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
 					}}
 				>
-					<div className="flex items-baseline">
+					<div className="flex items-center">
 						{themeLayout !== ThemeLayout.Horizontal ? (
 							<IconButton onClick={() => setDrawerOpen(true)} className="h-10 w-10 md:hidden">
 								<SvgIcon icon="ic-menu" size="24" />
 							</IconButton>
 						) : (
 							<Logo />
+						)}
+						{!mobileOrTablet && themeLayout === ThemeLayout.Horizontal && (
+							<span className="ml-2 text-xl font-bold text-primary flex items-center">{APP_NAME}</span>
 						)}
 						<div className="ml-4 hidden md:block">{breadCrumb ? <BreadCrumb /> : null}</div>
 					</div>
