@@ -173,11 +173,12 @@
 			"subtotal": "Zwischensumme",
 			"tax": "Steuer",
 			"discount": "Rabattsatz",
+			"discounts": "Rabattsatz",
 			"quantity": "Menge",
 			"price_update": "Preis aktualisieren",
 			"new_price": "Neuer Preis",
 			"count": "Anzahl",
-			"total": "Gesamt",
+			"total": "Zahlbetrag",
 			"fast_sale": "Schnellverkauf",
 			"pay_cash": "Bar bezahlen",
 			"pay_card": "Mit Karte bezahlen"

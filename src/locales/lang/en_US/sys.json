@@ -172,11 +172,12 @@
 			"subtotal": "Subtotal",
 			"tax": "Tax",
 			"discount": "Discount",
+			"discounts": "Discount",
 			"quantity": "Quantity",
 			"price_update": "Price Update",
 			"new_price": "New Price",
 			"count": "Count",
-			"total": "Total",
+			"total": "Payable Amount",
 			"fast_sale": "Fast Sale",
 			"pay_cash": "Pay with Cash",
 			"pay_card": "Pay with Cash"

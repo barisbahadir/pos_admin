@@ -23,9 +23,14 @@ export default function SalePage() {
 	const [cart, setCart] = useState<CartItem[]>([]);
 	const [isSaveLoading, setSaveLoading] = useState<boolean>(false);
 
-	const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity - item.discount), 0);
-	const tax = subtotal * 0.2;
-	const total = subtotal + tax;
+	const getProductTotalAmount = (product: CartItem) => {
+		const discountRate = product.discount > 0 ? (100 - product.discount) / 100 : 1;
+		return product.quantity * product.price * discountRate;
+	};
+
+	const subTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+	const totalAmount = cart.reduce((sum, item) => sum + getProductTotalAmount(item), 0);
+	const discountsTotal = subTotal - totalAmount;
 
 	const categoriesCall = categoryListMutation();
 	const saveTransactionCall = transactionSaveMutation();
@@ -81,7 +86,7 @@ export default function SalePage() {
 					};
 					return item;
 				}),
-				totalAmount: total,
+				totalAmount: totalAmount,
 				name: t("sys.sale.fast_sale"),
 			};
 
@@ -302,7 +307,7 @@ export default function SalePage() {
 																			<p className="cart-item-name">{item.name}</p>
 																		</div>
 																		<p className="cart-item-price text-primary">
-																			{`${(item.price * item.quantity - item.discount).toFixed(2)} ₺`}
+																			{`${getProductTotalAmount(item).toFixed(2)} ₺`}
 																		</p>
 																		<Tooltip placement="left" title={t("sys.sale.remove_item")}>
 																			<Button
@@ -414,15 +419,15 @@ export default function SalePage() {
 					<div className="cart-summary">
 						<div className="summary-row">
 							<span>{t("sys.sale.subtotal")}</span>
-							<span>{`${subtotal.toFixed(2)} TL`}</span>
+							<span>{`${subTotal.toFixed(2)} TL`}</span>
 						</div>
 						<div className="summary-row">
-							<span>{t("sys.sale.tax")}</span>
-							<span>{`${tax.toFixed(2)} TL`}</span>
+							<span>{t("sys.sale.discounts")}</span>
+							<span>{`- ${discountsTotal.toFixed(2)} TL`}</span>
 						</div>
 						<div className="summary-row total">
 							<span>{t("sys.sale.total")}</span>
-							<span>{`${total.toFixed(2)} TL`}</span>
+							<span>{`${totalAmount.toFixed(2)} TL`}</span>
 						</div>
 					</div>
 					<div className="cart-actions">

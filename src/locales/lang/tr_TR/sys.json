@@ -173,11 +173,12 @@
 			"subtotal": "Ara Toplam",
 			"tax": "Vergi",
 			"discount": "İndirim Oranı",
+			"discounts": "İskonto",
 			"quantity": "Miktar",
 			"price_update": "Fiyat Güncelle",
 			"new_price": "Yeni Fiyat",
 			"count": "Adet",
-			"total": "Toplam",
+			"total": "Ödenecek Tutar",
 			"fast_sale": "Hızlı Satış",
 			"pay_cash": "Nakit öde",
 			"pay_card": "Kartla öde"
