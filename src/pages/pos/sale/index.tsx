@@ -5,10 +5,10 @@ import { PaymentTypes, ThemeMode } from "#/enum";
 import { useSettings } from "@/store/settingStore";
 import { useTranslation } from "react-i18next";
 import "./sale.css";
-import { categoryListMutation, transactionSaveMutation } from "@/api/services/saleService";
 import type { CartItem, Category, Product, Transaction, TransactionItem } from "#/entity";
 import { CircleLoading } from "@/components/loading";
 import { Iconify } from "@/components/icon";
+import { categoryListMutation, transactionSaveMutation } from "@/api/services/saleService";
 
 export default function SalePage() {
 	const { t } = useTranslation();

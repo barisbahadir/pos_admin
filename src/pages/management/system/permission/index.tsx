@@ -1,16 +1,17 @@
 import { Button, Card, Popconfirm, Tag } from "antd";
 import Table, { type ColumnsType } from "antd/es/table";
 import { isNil } from "ramda";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
-import { useUserPermission } from "@/store/userStore";
 
 import PermissionModal, { type PermissionModalProps } from "./permission-modal";
 
 import type { Permission } from "#/entity";
 import { BaseStatus, PermissionType } from "#/enum";
+import { permissionListMutation } from "@/api/services/systemService";
+import { CircleLoading } from "@/components/loading";
 
 const defaultPermissionValue: Permission = {
 	id: 0,
@@ -25,8 +26,28 @@ const defaultPermissionValue: Permission = {
 	type: PermissionType.GROUP,
 };
 export default function PermissionPage() {
-	const permissions = useUserPermission();
 	const { t } = useTranslation();
+
+	const [isLoading, setLoading] = useState<boolean>(false);
+	const [permissions, setPermissions] = useState<Permission[]>([]);
+
+	const permissionListCall = permissionListMutation();
+
+	useEffect(() => {
+		if (permissions.length === 0) {
+			const fetchData = async () => {
+				setLoading(true);
+				try {
+					const data = await permissionListCall.mutateAsync();
+					setPermissions(data);
+				} finally {
+					setLoading(false);
+				}
+			};
+
+			fetchData();
+		}
+	}, [permissions, permissionListCall.mutateAsync]);
 
 	const [permissionModalProps, setPermissionModalProps] = useState<PermissionModalProps>({
 		formValue: { ...defaultPermissionValue },
@@ -79,7 +100,7 @@ export default function PermissionPage() {
 				</Tag>
 			),
 		},
-		{ title: "Order", dataIndex: "order", width: 60 },
+		{ title: "Order", dataIndex: "orderValue", width: 60 },
 		{
 			title: "Action",
 			key: "operation",
@@ -127,19 +148,23 @@ export default function PermissionPage() {
 		<Card
 			title="Permission List"
 			extra={
-				<Button type="primary" onClick={() => onCreate()}>
+				<Button type="primary" onClick={() => onCreate()} disabled={isLoading}>
 					New
 				</Button>
 			}
 		>
-			<Table
-				rowKey="id"
-				size="small"
-				scroll={{ x: "max-content" }}
-				pagination={false}
-				columns={columns}
-				dataSource={permissions}
-			/>
+			{isLoading ? (
+				<CircleLoading />
+			) : (
+				<Table
+					rowKey="id"
+					size="small"
+					scroll={{ x: "max-content" }}
+					pagination={false}
+					columns={columns}
+					dataSource={permissions}
+				/>
+			)}
 
 			<PermissionModal {...permissionModalProps} />
 		</Card>

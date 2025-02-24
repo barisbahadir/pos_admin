@@ -1,6 +1,6 @@
 import { Button, Card, Popconfirm, Tag } from "antd";
 import Table, { type ColumnsType } from "antd/es/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // import { ROLE_LIST } from "@/_mock/assets";
 import { IconButton, Iconify } from "@/components/icon";
@@ -9,8 +9,8 @@ import { RoleModal, type RoleModalProps } from "./role-modal";
 
 import type { Role } from "#/entity";
 import { BaseStatus } from "#/enum";
-
-const ROLES: Role[] = []; //ROLE_LIST as Role[];
+import { roleListMutation } from "@/api/services/systemService";
+import { CircleLoading } from "@/components/loading";
 
 const DEFAULE_ROLE_VALUE: Role = {
 	id: 0,
@@ -20,6 +20,27 @@ const DEFAULE_ROLE_VALUE: Role = {
 	permissions: [],
 };
 export default function RolePage() {
+	const [isLoading, setLoading] = useState<boolean>(false);
+	const [roles, setRoles] = useState<Role[]>([]);
+
+	const roleListCall = roleListMutation();
+
+	useEffect(() => {
+		if (roles.length === 0) {
+			const fetchData = async () => {
+				setLoading(true);
+				try {
+					const data = await roleListCall.mutateAsync();
+					setRoles(data);
+				} finally {
+					setLoading(false);
+				}
+			};
+
+			fetchData();
+		}
+	}, [roles, roleListCall.mutateAsync]);
+
 	const [roleModalPros, setRoleModalProps] = useState<RoleModalProps>({
 		formValue: { ...DEFAULE_ROLE_VALUE },
 		title: "New",
@@ -41,7 +62,7 @@ export default function RolePage() {
 			title: "Label",
 			dataIndex: "label",
 		},
-		{ title: "Order", dataIndex: "order", width: 60 },
+		{ title: "Order", dataIndex: "orderValue", width: 60 },
 		{
 			title: "Status",
 			dataIndex: "status",
@@ -99,20 +120,23 @@ export default function RolePage() {
 		<Card
 			title="Role List"
 			extra={
-				<Button type="primary" onClick={onCreate}>
+				<Button type="primary" onClick={onCreate} disabled={isLoading}>
 					New
 				</Button>
 			}
 		>
-			<Table
-				rowKey="id"
-				size="small"
-				scroll={{ x: "max-content" }}
-				pagination={false}
-				columns={columns}
-				dataSource={ROLES}
-			/>
-
+			{isLoading ? (
+				<CircleLoading />
+			) : (
+				<Table
+					rowKey="id"
+					size="small"
+					scroll={{ x: "max-content" }}
+					pagination={false}
+					columns={columns}
+					dataSource={roles}
+				/>
+			)}
 			<RoleModal {...roleModalPros} />
 		</Card>
 	);

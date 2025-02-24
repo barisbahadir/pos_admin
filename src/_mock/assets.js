@@ -537,7 +537,7 @@ export const PERMISSION_LIST = [
  * User role mock
  */
 const ADMIN_ROLE = {
-	id: "4281707933534332",
+	id: 4281707933534332,
 	name: "Admin",
 	label: "admin",
 	status: BaseStatus.ENABLE,
@@ -546,7 +546,7 @@ const ADMIN_ROLE = {
 	permission: PERMISSION_LIST,
 };
 const TEST_ROLE = {
-	id: "9931665660771476",
+	id: 931665660771476,
 	name: "Test",
 	label: "test",
 	status: BaseStatus.ENABLE,
@@ -560,7 +560,7 @@ export const ROLE_LIST = [ADMIN_ROLE, TEST_ROLE];
  * User data mock
  */
 export const DEFAULT_USER = {
-	id: "b34719e1-ce46-457e-9575-99505ecee828",
+	id: 1,
 	username: "admin",
 	email: "admin",
 	avatar: faker.image.avatarGitHub(),
@@ -568,10 +568,11 @@ export const DEFAULT_USER = {
 	updatedAt: faker.date.recent(),
 	password: "admin",
 	role: ADMIN_ROLE,
-	permissions: ADMIN_ROLE.permission,
+	token: "1",
+	permissions: [],
 };
 export const TEST_USER = {
-	id: "efaa20ea-4dc5-47ee-a200-8a899be29494",
+	id: 2,
 	username: "test",
 	password: "test",
 	email: "test",
@@ -579,7 +580,8 @@ export const TEST_USER = {
 	createdAt: faker.date.anytime(),
 	updatedAt: faker.date.recent(),
 	role: TEST_ROLE,
-	permissions: TEST_ROLE.permission,
+	token: "2",
+	permissions: [],
 };
 export const USER_LIST = [DEFAULT_USER, TEST_USER];
 

@@ -19,5 +19,5 @@ const transactionSaveCall = (transactionData: Transaction) =>
 export const categoryListQuery = () => useCustomQuery(["getCategoriesCall"], categoryListCall);
 
 // Mutations
-export const categoryListMutation = () => useCustomMutation(categoryListCall);
+export const categoryListMutation = () => useCustomMutation(categoryListCall, { showToast: true });
 export const transactionSaveMutation = () => useCustomMutation(transactionSaveCall);

@@ -1,13 +1,12 @@
-import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { faker } from "@faker-js/faker";
-import userService, { type SignInReq } from "@/api/services/userService";
 
 import { toast } from "sonner";
-import type { LoginInfo, UserToken } from "#/entity";
+import type { LoginInfo, SignInRequest, UserToken } from "#/entity";
 import { StorageEnum } from "#/enum";
+import { loginMutation } from "@/api/services/systemService";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -65,11 +64,9 @@ export const useSignIn = () => {
 	const navigate = useNavigate();
 	const { setUserToken, setUserInfo } = useUserActions();
 
-	const signInMutation = useMutation({
-		mutationFn: userService.signin,
-	});
+	const signInMutation = loginMutation();
 
-	const signIn = async (data: SignInReq) => {
+	const signIn = async (data: SignInRequest) => {
 		try {
 			const res = await signInMutation.mutateAsync(data);
 			const token = res.token;

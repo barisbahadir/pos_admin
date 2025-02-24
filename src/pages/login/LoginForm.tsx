@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { DEFAULT_USER, TEST_USER } from "@/_mock/assets";
-import type { SignInReq } from "@/api/services/userService";
 import { useSignIn } from "@/store/userStore";
 
 import { LoginStateEnum, useLoginStateContext } from "./providers/LoginStateProvider";
+import type { SignInRequest } from "#/entity";
 
 function LoginForm() {
 	const { t } = useTranslation();
@@ -17,7 +17,7 @@ function LoginForm() {
 
 	if (loginState !== LoginStateEnum.LOGIN) return null;
 
-	const handleFinish = async ({ email, password }: SignInReq) => {
+	const handleFinish = async ({ email, password }: SignInRequest) => {
 		setLoading(true);
 		try {
 			await signIn({ email, password });

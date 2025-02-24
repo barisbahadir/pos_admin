@@ -1,5 +1,16 @@
 import type { BaseStatus, PaymentTypes, PermissionType, UserRoleTypes } from "./enum";
 
+export interface SignInRequest {
+	email: string;
+	password: string;
+}
+
+export interface SignUpRequest {
+	email: string;
+	username: string;
+	password: string;
+}
+
 export interface UserToken {
 	accessToken?: string;
 }
@@ -20,7 +31,7 @@ export interface Organization {
 	name: string;
 	status: BaseStatus;
 	description?: string;
-	order?: number;
+	orderValue?: number;
 	children?: Organization[];
 }
 
@@ -47,8 +58,8 @@ export interface Permission {
 
 export interface Role {
 	id: number;
-	name: string;
-	label: string;
+	name?: string;
+	label?: string;
 	status: BaseStatus;
 	createdDate?: string;
 	lastUpdatedDate?: string;

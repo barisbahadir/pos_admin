@@ -16,17 +16,23 @@ export type RoleModalProps = {
 };
 const PERMISSIONS: Permission[] = []; //PERMISSION_LIST as Permission[];
 export function RoleModal({ title, show, formValue, onOk, onCancel }: RoleModalProps) {
-	const [form] = Form.useForm();
+	const [roleForm] = Form.useForm();
 
 	const flattenedPermissions = flattenTrees(formValue.permissions);
 	const checkedKeys = flattenedPermissions.map((item) => item.id);
 	useEffect(() => {
-		form.setFieldsValue({ ...formValue });
-	}, [formValue, form]);
+		roleForm.setFieldsValue({ ...formValue });
+	}, [formValue, roleForm]);
 
 	return (
 		<Modal title={title} open={show} onOk={onOk} onCancel={onCancel}>
-			<Form initialValues={formValue} form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} layout="horizontal">
+			<Form
+				initialValues={formValue}
+				form={roleForm}
+				labelCol={{ span: 4 }}
+				wrapperCol={{ span: 18 }}
+				layout="horizontal"
+			>
 				<Form.Item<Role> label="Name" name="name" required>
 					<Input />
 				</Form.Item>

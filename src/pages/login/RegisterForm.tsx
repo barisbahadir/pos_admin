@@ -1,17 +1,13 @@
-import { useMutation } from "@tanstack/react-query";
 import { Button, Form, Input } from "antd";
 import { useTranslation } from "react-i18next";
 
-import userService from "@/api/services/userService";
-
 import { ReturnButton } from "./components/ReturnButton";
 import { LoginStateEnum, useLoginStateContext } from "./providers/LoginStateProvider";
+import { registerMutation } from "@/api/services/systemService";
 
 function RegisterForm() {
 	const { t } = useTranslation();
-	const signUpMutation = useMutation({
-		mutationFn: userService.signup,
-	});
+	const signUpMutation = registerMutation();
 
 	const { loginState, backToLogin } = useLoginStateContext();
 	if (loginState !== LoginStateEnum.REGISTER) return null;

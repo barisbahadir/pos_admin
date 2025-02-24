@@ -1,9 +1,9 @@
 import { http, HttpResponse } from "msw";
 
 import { ORG_LIST } from "@/_mock/assets";
-import { OrgApi } from "@/api/services/systemService";
+import { SystemUrls } from "@/api/services/systemService";
 
-const orgList = http.get(`/api${OrgApi.OrgList}`, () => {
+const orgList = http.get(`/api${SystemUrls.OrganizationList}`, () => {
 	return HttpResponse.json({
 		status: 0,
 		message: "",

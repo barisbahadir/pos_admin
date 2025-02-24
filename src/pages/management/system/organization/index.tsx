@@ -1,21 +1,52 @@
-import { useQuery } from "@tanstack/react-query";
 import { Button, Card, Col, Form, Input, InputNumber, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from "antd";
 import Table, { type ColumnsType } from "antd/es/table";
 import type { TableRowSelection } from "antd/es/table/interface";
 import { useEffect, useState } from "react";
 
-import orgService from "@/api/services/systemService";
+import { organizationListMutation } from "@/api/services/systemService";
 import { IconButton, Iconify } from "@/components/icon";
 
 import OrganizationChart from "./organization-chart";
 
 import type { Organization } from "#/entity";
 import { BaseStatus } from "#/enum";
+import { CircleLoading } from "@/components/loading";
+
+type OrganizationModalProps = {
+	formValue: Organization;
+	title: string;
+	show: boolean;
+	onOk: VoidFunction;
+	onCancel: VoidFunction;
+};
 
 type SearchFormFieldType = Pick<Organization, "name" | "status">;
 
 export default function OrganizationPage() {
+	const [modalForm] = Form.useForm();
 	const [searchForm] = Form.useForm();
+
+	const [isLoading, setLoading] = useState<boolean>(false);
+	const [organizations, setOrganizations] = useState<Organization[]>([]);
+
+	const organizationListCall = organizationListMutation();
+
+	useEffect(() => {
+		if (organizations.length === 0) {
+			const fetchData = async () => {
+				setLoading(true);
+				try {
+					const data = await organizationListCall.mutateAsync();
+					setOrganizations(data);
+				} finally {
+					setLoading(false);
+				}
+			};
+
+			fetchData();
+		}
+	}, [organizations, organizationListCall.mutateAsync]);
+
 	const [organizationModalPros, setOrganizationModalProps] = useState<OrganizationModalProps>({
 		formValue: {
 			id: "",
@@ -34,13 +65,13 @@ export default function OrganizationPage() {
 
 	const columns: ColumnsType<Organization> = [
 		{ title: "Name", dataIndex: "name", width: 300 },
-		{ title: "Order", dataIndex: "order", align: "center", width: 60 },
+		{ title: "Order", dataIndex: "orderValue", align: "center", width: 60 },
 		{
 			title: "Status",
 			dataIndex: "status",
 			align: "center",
 			width: 120,
-			render: (status) => <Tag color={status === "enable" ? "success" : "error"}>{status}</Tag>,
+			render: (status) => <Tag color={status === BaseStatus.ENABLE ? "success" : "error"}>{status}</Tag>,
 		},
 		{ title: "Description", dataIndex: "description", align: "center", width: 300 },
 		{
@@ -75,11 +106,6 @@ export default function OrganizationPage() {
 			console.log(selected, selectedRows, changeRows);
 		},
 	};
-
-	const { data } = useQuery({
-		queryKey: ["orgs"],
-		queryFn: orgService.getOrgList,
-	});
 
 	const onSearchFormReset = () => {
 		searchForm.resetFields();
@@ -123,10 +149,10 @@ export default function OrganizationPage() {
 						<Col span={24} lg={6}>
 							<Form.Item<SearchFormFieldType> label="Status" name="status" className="!mb-0">
 								<Select>
-									<Select.Option value="enable">
+									<Select.Option value={BaseStatus.ENABLE}>
 										<Tag color="success">Enable</Tag>
 									</Select.Option>
-									<Select.Option value="disable">
+									<Select.Option value={BaseStatus.DISABLE}>
 										<Tag color="error">Disable</Tag>
 									</Select.Option>
 								</Select>
@@ -134,8 +160,10 @@ export default function OrganizationPage() {
 						</Col>
 						<Col span={24} lg={12}>
 							<div className="flex justify-end">
-								<Button onClick={onSearchFormReset}>Reset</Button>
-								<Button type="primary" className="ml-4">
+								<Button onClick={onSearchFormReset} disabled={isLoading}>
+									Reset
+								</Button>
+								<Button type="primary" className="ml-4" disabled={isLoading}>
 									Search
 								</Button>
 							</div>
@@ -147,63 +175,60 @@ export default function OrganizationPage() {
 			<Card
 				title="Organization List"
 				extra={
-					<Button type="primary" onClick={onCreate}>
+					<Button type="primary" onClick={onCreate} disabled={isLoading}>
 						New
 					</Button>
 				}
 			>
-				<Table
-					rowKey="id"
-					size="small"
-					scroll={{ x: "max-content" }}
-					pagination={false}
-					columns={columns}
-					dataSource={data}
-					rowSelection={{ ...rowSelection }}
-				/>
+				{isLoading ? (
+					<CircleLoading />
+				) : (
+					<Table
+						rowKey="id"
+						size="small"
+						scroll={{ x: "max-content" }}
+						pagination={false}
+						columns={columns}
+						dataSource={organizations}
+						rowSelection={{ ...rowSelection }}
+					/>
+				)}
 			</Card>
 
 			<Card title="Organization Chart">
-				<OrganizationChart organizations={data} />
+				{isLoading ? <CircleLoading /> : <OrganizationChart organizations={organizations} />}
 			</Card>
 
-			<OrganizationModal {...organizationModalPros} />
+			<Modal
+				title={organizationModalPros.title}
+				open={organizationModalPros.show}
+				onOk={organizationModalPros.onOk}
+				onCancel={organizationModalPros.onCancel}
+			>
+				<Form
+					initialValues={organizationModalPros.formValue}
+					form={modalForm}
+					labelCol={{ span: 4 }}
+					wrapperCol={{ span: 18 }}
+					layout="horizontal"
+				>
+					<Form.Item<Organization> label="Name" name="name" required>
+						<Input />
+					</Form.Item>
+					<Form.Item<Organization> label="Order" name="orderValue" required>
+						<InputNumber style={{ width: "100%" }} />
+					</Form.Item>
+					<Form.Item<Organization> label="Status" name="status" required>
+						<Radio.Group optionType="button" buttonStyle="solid">
+							<Radio value={BaseStatus.ENABLE}> Enable </Radio>
+							<Radio value={BaseStatus.DISABLE}> Disable </Radio>
+						</Radio.Group>
+					</Form.Item>
+					<Form.Item<Organization> label="Description" name="description">
+						<Input.TextArea />
+					</Form.Item>
+				</Form>
+			</Modal>
 		</Space>
-	);
-}
-
-type OrganizationModalProps = {
-	formValue: Organization;
-	title: string;
-	show: boolean;
-	onOk: VoidFunction;
-	onCancel: VoidFunction;
-};
-
-function OrganizationModal({ title, show, formValue, onOk, onCancel }: OrganizationModalProps) {
-	const [form] = Form.useForm();
-	useEffect(() => {
-		form.setFieldsValue({ ...formValue });
-	}, [formValue, form]);
-	return (
-		<Modal title={title} open={show} onOk={onOk} onCancel={onCancel}>
-			<Form initialValues={formValue} form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} layout="horizontal">
-				<Form.Item<Organization> label="Name" name="name" required>
-					<Input />
-				</Form.Item>
-				<Form.Item<Organization> label="Order" name="order" required>
-					<InputNumber style={{ width: "100%" }} />
-				</Form.Item>
-				<Form.Item<Organization> label="Status" name="status" required>
-					<Radio.Group optionType="button" buttonStyle="solid">
-						<Radio value="enable"> Enable </Radio>
-						<Radio value="disable"> Disable </Radio>
-					</Radio.Group>
-				</Form.Item>
-				<Form.Item<Organization> label="Description" name="description">
-					<Input.TextArea />
-				</Form.Item>
-			</Form>
-		</Modal>
 	);
 }

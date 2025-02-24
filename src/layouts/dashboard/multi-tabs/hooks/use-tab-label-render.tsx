@@ -6,15 +6,13 @@ import type { KeepAliveTab } from "../types";
 export function useTabLabelRender() {
 	const { t } = useTranslation();
 
-	const specialTabRenderMap = useMemo<
-		Record<string, (tab: KeepAliveTab) => React.ReactNode>
-	>(
+	const specialTabRenderMap = useMemo<Record<string, (tab: KeepAliveTab) => React.ReactNode>>(
 		() => ({
 			"sys.menu.system.user_detail": (tab: KeepAliveTab) => {
 				const userId = tab.params?.id;
 				const defaultLabel = t(tab.label);
 				if (userId) {
-					const user = USER_LIST.find((item) => item.id === userId);
+					const user = USER_LIST.find((item) => item.id === Number(userId));
 					return `${user?.username}-${defaultLabel}`;
 				}
 				return defaultLabel;
