@@ -150,6 +150,8 @@
 		},
 		"docs": "Döküman",
 		"sale": {
+			"add_new_category": "Yeni Kategori Ekle",
+			"add_new_product": "Yeni Ürün Ekle",
 			"your_cart": "SEPET",
 			"add_to_cart": "Sepete Ekle",
 			"product_detail": "Ürün Detayı",

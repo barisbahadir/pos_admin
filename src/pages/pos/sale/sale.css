@@ -319,3 +319,29 @@
   text-overflow: ellipsis;     /* Taşan kısmı '...' ile keser */
   max-width: 100%;             /* Maksimum genişlik sınırını %100 yaparak taşmayı engeller */
 }
+
+/* ---------- ADD NEW PRODUCT --------- */
+
+.new-product {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column; /* Icon ve metni dikey olarak yerleştir */
+  justify-content: center; /* Yatayda ortala */
+  align-items: center; /* Dikeyde ortala */
+  cursor: pointer;
+  height: 260px; /* Aynı yükseklik */
+  width: 100%; /* Aynı genişlikte */
+  border: 1px dashed rgba(128, 128, 128, 0.3); /* Yarı saydam gri */
+  border-radius: 12px; /* Border radius */
+  gap: 5px;
+}
+
+.add-new-product-text {
+  font-size: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-weight: bold;
+  margin-top: 8px; /* İcon ile metin arasına biraz boşluk ekleyelim */
+}
+
+/* ---------- ADD NEW PRODUCT --------- */

@@ -134,6 +134,14 @@ export default function SalePage() {
 									{category.name}
 								</Button>
 							))}
+							<Button
+								key={"new-category"}
+								type={"dashed"}
+								icon={<PlusOutlined />}
+								onClick={() => console.log("new-category")}
+							>
+								{t("sys.sale.add_new_category")}
+							</Button>
 						</div>
 						<div className="product-grid">
 							{products.map((product) => (
@@ -225,6 +233,13 @@ export default function SalePage() {
 									</Modal>
 								</div>
 							))}
+							<div
+								className="product-card new-product text-text-secondary"
+								onClick={() => console.log("New product add button clicked")}
+							>
+								<PlusOutlined style={{ fontSize: 35 }} />
+								<p className="add-new-product-text">{t("sys.sale.add_new_product")}</p>
+							</div>
 						</div>
 					</>
 				)}

@@ -149,6 +149,8 @@
 		},
 		"docs": "Document",
 		"sale": {
+			"add_new_category": "Add New Category",
+			"add_new_product": "Add New Product",
 			"your_cart": "CART",
 			"add_to_cart": "Add to Cart",
 			"product_detail": "Product Detail",
