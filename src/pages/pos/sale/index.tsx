@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Button, InputNumber, Collapse, Typography, Tooltip, Modal } from "antd";
-import {
-	CreditCardOutlined,
-	DeleteOutlined,
-	EyeOutlined,
-	PlusOutlined,
-	ShoppingCartOutlined,
-	TagOutlined,
-} from "@ant-design/icons";
+import { CreditCardOutlined, DeleteOutlined, EyeOutlined, PlusOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { PaymentTypes, ThemeMode } from "#/enum";
 import { useSettings } from "@/store/settingStore";
 import { useTranslation } from "react-i18next";
@@ -15,6 +8,7 @@ import "./sale.css";
 import { categoryListMutation, transactionSaveMutation } from "@/api/services/saleService";
 import type { CartItem, Category, Product, Transaction, TransactionItem } from "#/entity";
 import { CircleLoading } from "@/components/loading";
+import { Iconify } from "@/components/icon";
 
 export default function SalePage() {
 	const { t } = useTranslation();
@@ -37,22 +31,24 @@ export default function SalePage() {
 	const saveTransactionCall = transactionSaveMutation();
 
 	useEffect(() => {
-		const fetchCategories = async () => {
-			setLoading(true);
-			try {
-				const data = await categoriesCall.mutateAsync();
-				setCategories(data);
+		if (categories.length === 0) {
+			const fetchCategories = async () => {
+				setLoading(true);
+				try {
+					const data = await categoriesCall.mutateAsync();
+					setCategories(data);
 
-				if (data[0]) {
-					setActiveCategoryId(data[0].id);
+					if (data[0]) {
+						setActiveCategoryId(data[0].id);
+					}
+				} finally {
+					setLoading(false);
 				}
-			} finally {
-				setLoading(false);
-			}
-		};
+			};
 
-		fetchCategories();
-	}, [categoriesCall.mutateAsync]);
+			fetchCategories();
+		}
+	}, [categories, categoriesCall.mutateAsync]);
 
 	useEffect(() => {
 		if (activeCategoryId && categories?.length > 0) {
@@ -233,15 +229,15 @@ export default function SalePage() {
 									</Modal>
 								</div>
 							))}
-							{(!products || products.length === 0) && (
-								<div
-									className="product-card new-product text-text-secondary"
-									onClick={() => console.log("New product add button clicked")}
-								>
-									<PlusOutlined style={{ fontSize: 35 }} />
-									<p className="add-new-product-text">{t("sys.sale.add_new_product")}</p>
-								</div>
-							)}
+							{/* {(!products || products.length === 0) && ( */}
+							<div
+								className="product-card new-product text-text-secondary"
+								onClick={() => console.log("New product add button clicked")}
+							>
+								<PlusOutlined style={{ fontSize: 35 }} />
+								<p className="add-new-product-text">{t("sys.sale.add_new_product")}</p>
+							</div>
+							{/* )} */}
 						</div>
 					</>
 				)}
@@ -265,7 +261,7 @@ export default function SalePage() {
 									style={{ marginLeft: 0 }}
 									icon={<PlusOutlined />}
 									onClick={() => setCart([])}
-									disabled={isSaveLoading}
+									disabled={isSaveLoading || isLoading}
 								/>
 							</Tooltip>
 							<span style={{ fontWeight: "bold" }} className="text-primary">
@@ -273,7 +269,7 @@ export default function SalePage() {
 							</span>
 							<Tooltip placement="topRight" title={t("sys.sale.empty_cart")}>
 								<Button
-									disabled={isSaveLoading}
+									disabled={isSaveLoading || isLoading}
 									type="default"
 									style={{ marginRight: 0 }}
 									icon={<DeleteOutlined />}
@@ -324,7 +320,7 @@ export default function SalePage() {
 																			<Col xs={24} sm={24} md={24}>
 																				<div className="mb-3">
 																					<Typography.Text className="full-title">
-																						{t("sys.sale.price_update")}
+																						{`${t("sys.sale.price_update")}:`}
 																					</Typography.Text>
 																					<InputNumber
 																						disabled={isSaveLoading}
@@ -434,7 +430,8 @@ export default function SalePage() {
 							type="primary"
 							block
 							className="pay-cash"
-							icon={<TagOutlined />}
+							icon={<Iconify icon="solar:wallet-money-linear" />}
+							disabled={isLoading}
 							loading={isSaveLoading}
 							onClick={() => handleSaveTransaction(PaymentTypes.CASH)}
 						>
@@ -445,6 +442,7 @@ export default function SalePage() {
 							block
 							className="pay-card"
 							icon={<CreditCardOutlined />}
+							disabled={isLoading}
 							loading={isSaveLoading}
 							onClick={() => handleSaveTransaction(PaymentTypes.CARD)}
 						>
