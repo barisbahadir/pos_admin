@@ -1,22 +1,22 @@
 {
 	"common": {
-		"okText": "Tamam",
-		"closeText": "Kapat",
-		"cancelText": "Vazgeç",
-		"loadingText": "Yükleniyor...",
-		"saveText": "Kaydet",
-		"delText": "Sil",
-		"resetText": "Sıfırla",
-		"searchText": "Ara",
-		"queryText": "Ara",
+		"okText": "OK",
+		"closeText": "Schließen",
+		"cancelText": "Abbrechen",
+		"loadingText": "Lädt...",
+		"saveText": "Speichern",
+		"delText": "Löschen",
+		"resetText": "Zurücksetzen",
+		"searchText": "Suchen",
+		"queryText": "Suchen",
 
-		"inputText": "Lütfen giriniz..",
-		"chooseText": "Seçiniz..",
+		"inputText": "Bitte eingeben...",
+		"chooseText": "Bitte wählen...",
 
-		"redo": "Yenile",
-		"back": "Geri",
+		"redo": "Neu laden",
+		"back": "Zurück",
 
-		"light": "Açık",
-		"dark": "Koyu"
+		"light": "Hell",
+		"dark": "Dunkel"
 	}
 }

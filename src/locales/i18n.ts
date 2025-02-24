@@ -6,7 +6,7 @@ import { getStringItem } from "@/utils/storage";
 
 import tr_TR from "./lang/tr_TR";
 import en_US from "./lang/en_US";
-import zh_CN from "./lang/zh_CN";
+import de_DE from "./lang/de_DE";
 
 import { LocalEnum, StorageEnum } from "#/enum";
 
@@ -29,7 +29,7 @@ i18n
 		resources: {
 			tr_TR: { translation: tr_TR },
 			en_US: { translation: en_US },
-			zh_CN: { translation: zh_CN },
+			de_DE: { translation: de_DE },
 		},
 	});
 

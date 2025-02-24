@@ -193,7 +193,7 @@ export default function SettingButton() {
 					<div>
 						<div className="mb-3 text-base font-semibold text-text-secondary">{t("sys.settings.language")}</div>
 						<div className="grid grid-cols-3 gap-4">
-							{[LocalEnum.tr_TR, LocalEnum.en_US, LocalEnum.zh_CN].map((locale) => (
+							{[LocalEnum.tr_TR, LocalEnum.en_US, LocalEnum.de_DE].map((locale) => (
 								<Card
 									key={locale}
 									onClick={() => setLocale(locale)}

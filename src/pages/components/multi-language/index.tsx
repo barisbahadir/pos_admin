@@ -28,7 +28,7 @@ export default function MultiLanguagePage() {
 				<Radio.Group onChange={(e) => setLocale(e.target.value)} value={locale}>
 					<Radio value={LocalEnum.tr_TR}>Türkçe</Radio>
 					<Radio value={LocalEnum.en_US}>English</Radio>
-					<Radio value={LocalEnum.zh_CN}>Chinese</Radio>
+					<Radio value={LocalEnum.de_DE}>Chinese</Radio>
 				</Radio.Group>
 
 				<div className="flex items-center text-4xl">

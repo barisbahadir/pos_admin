@@ -1,6 +1,6 @@
 import tr_TR from "antd/locale/tr_TR";
 import en_US from "antd/locale/en_US";
-import zh_CN from "antd/locale/zh_CN";
+import de_DE from "antd/locale/de_DE";
 import { useTranslation } from "react-i18next";
 
 import type { Locale as AntdLocal } from "antd/es/locale";
@@ -27,11 +27,11 @@ export const LANGUAGE_MAP: Record<Locale, Language> = {
 		icon: "ic-locale_en_US",
 		antdLocal: en_US,
 	},
-	[LocalEnum.zh_CN]: {
-		locale: LocalEnum.zh_CN,
-		label: "Chinese",
-		icon: "ic-locale_zh_CN",
-		antdLocal: zh_CN,
+	[LocalEnum.de_DE]: {
+		locale: LocalEnum.de_DE,
+		label: "Deutsch",
+		icon: "ic-locale_de_DE",
+		antdLocal: de_DE,
 	},
 };
 
