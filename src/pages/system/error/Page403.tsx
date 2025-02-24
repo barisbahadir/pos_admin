@@ -1,6 +1,5 @@
 import { Typography } from "antd";
 import { m } from "framer-motion";
-import { Helmet } from "react-helmet-async";
 import { NavLink } from "react-router";
 
 import Character4 from "@/assets/images/characters/character_4.png";
@@ -16,9 +15,9 @@ export default function Page403() {
 
 	return (
 		<>
-			<Helmet>
+			{/* <Helmet>
 				<title> {t("sys.menu.error.403_title")} </title>
-			</Helmet>
+			</Helmet> */}
 
 			<div className="m-auto max-w-[400px]">
 				<MotionContainer className="flex flex-col items-center justify-center px-2">

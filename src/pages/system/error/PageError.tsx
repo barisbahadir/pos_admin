@@ -1,6 +1,5 @@
 import { Typography } from "antd";
 import { m } from "framer-motion";
-import { Helmet } from "react-helmet-async";
 
 import Character5 from "@/assets/images/characters/character_5.png";
 import MotionContainer from "@/components/animate/motion-container";
@@ -23,9 +22,9 @@ export default function PageError({ error, resetErrorBoundary }: FallbackProps) 
 	};
 	return (
 		<div>
-			<Helmet>
+			{/* <Helmet>
 				<title> {t("sys.menu.error.page")} </title>
-			</Helmet>
+			</Helmet> */}
 
 			<div className="m-auto flex h-screen max-w-[400px] items-center justify-center">
 				<MotionContainer className="flex flex-col items-center justify-center px-2">
