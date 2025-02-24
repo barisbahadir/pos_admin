@@ -109,7 +109,7 @@ export default function SalePage() {
 		}
 	};
 
-	const updateItem = (id: number, field: "quantity" | "discount", value: number) => {
+	const updateItem = (id: number, field: "quantity" | "discount" | "price", value: number) => {
 		setCart(cart.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
 	};
 
@@ -233,13 +233,15 @@ export default function SalePage() {
 									</Modal>
 								</div>
 							))}
-							<div
-								className="product-card new-product text-text-secondary"
-								onClick={() => console.log("New product add button clicked")}
-							>
-								<PlusOutlined style={{ fontSize: 35 }} />
-								<p className="add-new-product-text">{t("sys.sale.add_new_product")}</p>
-							</div>
+							{(!products || products.length === 0) && (
+								<div
+									className="product-card new-product text-text-secondary"
+									onClick={() => console.log("New product add button clicked")}
+								>
+									<PlusOutlined style={{ fontSize: 35 }} />
+									<p className="add-new-product-text">{t("sys.sale.add_new_product")}</p>
+								</div>
+							)}
 						</div>
 					</>
 				)}
@@ -318,11 +320,31 @@ export default function SalePage() {
 																),
 																children: (
 																	<div className="cart-item-details">
-																		{/* <Typography.Title level={5}>
-                              {item.name}
-                            </Typography.Title> */}
-
 																		<Row gutter={24}>
+																			<Col xs={24} sm={24} md={24}>
+																				<div className="mb-3">
+																					<Typography.Text className="full-title">
+																						{t("sys.sale.price_update")}
+																					</Typography.Text>
+																					<InputNumber
+																						disabled={isSaveLoading}
+																						addonBefore={t("sys.sale.new_price")}
+																						addonAfter={"TL"}
+																						min={1}
+																						value={item.price || 1}
+																						style={{ width: "100%" }}
+																						onChange={(val) => {
+																							if (val != null) {
+																								updateItem(item.id, "price", val);
+																							}
+																						}}
+																						formatter={(value) => {
+																							if (!value) return "";
+																							return value.toString().replace(",", ".");
+																						}}
+																					/>
+																				</div>
+																			</Col>
 																			<Col xs={12} sm={12} md={12}>
 																				<div>
 																					<Typography.Text className="full-title">

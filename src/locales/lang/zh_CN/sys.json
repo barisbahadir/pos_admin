@@ -159,6 +159,8 @@
 			"tax": "Vergi",
 			"discount": "İndirim Oranı",
 			"quantity": "Miktar",
+			"price_update": "Ürün Fiyatını Güncelle",
+			"new_price": "Yeni Fiyat",
 			"count": "Adet",
 			"total": "Toplam",
 			"fast_sale": "Hızlı Satış",

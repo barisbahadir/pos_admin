@@ -163,6 +163,8 @@
 			"tax": "Tax",
 			"discount": "Discount",
 			"quantity": "Quantity",
+			"price_update": "Update Product Price",
+			"new_price": "New Price",
 			"count": "Count",
 			"total": "Total",
 			"fast_sale": "Fast Sale",

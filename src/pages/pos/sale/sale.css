@@ -318,6 +318,7 @@
   overflow: hidden;            /* Taşan kısmı gizler */
   text-overflow: ellipsis;     /* Taşan kısmı '...' ile keser */
   max-width: 100%;             /* Maksimum genişlik sınırını %100 yaparak taşmayı engeller */
+  margin-bottom: 4px;
 }
 
 /* ---------- ADD NEW PRODUCT --------- */
@@ -333,6 +334,7 @@
   width: 100%; /* Aynı genişlikte */
   border: 1px dashed rgba(128, 128, 128, 0.3); /* Yarı saydam gri */
   border-radius: 12px; /* Border radius */
+  box-shadow: 0 2px 0 rgba(5, 195, 255, 0.1);
   gap: 5px;
 }
 
