@@ -80,14 +80,12 @@
 			"closeRight": "Sağdakini Kapat"
 		},
 		"menu": {
-			"dashboard": "Anasayfa",
+			"home": "Anasayfa",
+			"sale": "Hızlı Satış",
+			"dashboard": "Göstergeler",
 			"welcome": "Özet",
 			"workbench": "Çalışmalar",
 			"analysis": "Analiz",
-			"pos": {
-				"index": "Satış",
-				"sale": "Hızlı Satış"
-			},
 			"management": "Yönetim",
 			"user": {
 				"index": "Kullanıcı",

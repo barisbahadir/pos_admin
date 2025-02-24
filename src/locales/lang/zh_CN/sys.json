@@ -79,13 +79,11 @@
 			"closeRight": "关闭右侧标签页"
 		},
 		"menu": {
+			"home": "Anasayfa",
+			"sale": "Hızlı Satış",
 			"dashboard": "仪表",
 			"workbench": "工作台",
 			"analysis": "分析",
-			"pos": {
-				"index": "Satış",
-				"sale": "Hızlı Satış"
-			},
 			"management": "管理",
 			"user": {
 				"index": "用户",

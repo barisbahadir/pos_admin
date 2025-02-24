@@ -16,7 +16,7 @@ export default function OrganizationChart({ organizations = [] }: Props) {
 			label={<StyledNode>Root</StyledNode>}
 		>
 			{organizations.map((org) => (
-				<OrganizationChartTreeNode key={org.id} organization={org} />
+				<OrganizationChartTreeNode key={Math.random() + org.id} organization={org} />
 			))}
 		</Tree>
 	);

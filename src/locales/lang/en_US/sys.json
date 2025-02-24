@@ -80,14 +80,12 @@
 			"closeRight": "Close Right"
 		},
 		"menu": {
+			"home": "Homepage",
+			"sale": "Fash Sale",
 			"dashboard": "Dashboard",
 			"welcome": "Welcome",
 			"workbench": "Workbench",
 			"analysis": "Analysis",
-			"pos": {
-				"index": "Point of Sale",
-				"sale": "Sale"
-			},
 			"management": "Management",
 			"user": {
 				"index": "User",
