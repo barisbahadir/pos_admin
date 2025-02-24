@@ -163,6 +163,7 @@
 			"quantity": "Quantity",
 			"count": "Count",
 			"total": "Total",
+			"fast_sale": "Fast Sale",
 			"pay_cash": "Pay with Cash",
 			"pay_card": "Pay with Cash"
 		},

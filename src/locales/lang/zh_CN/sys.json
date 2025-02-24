@@ -159,6 +159,7 @@
 			"quantity": "Miktar",
 			"count": "Adet",
 			"total": "Toplam",
+			"fast_sale": "Hızlı Satış",
 			"pay_cash": "Nakit öde",
 			"pay_card": "Kartla öde"
 		}

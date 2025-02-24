@@ -1,4 +1,4 @@
-import type { BaseStatus, PermissionType, UserRoleTypes } from "./enum";
+import type { BaseStatus, PaymentTypes, PermissionType, UserRoleTypes } from "./enum";
 
 export interface UserToken {
 	accessToken?: string;
@@ -95,6 +95,29 @@ export interface Product {
 }
 
 export interface CartItem extends Product {
+	quantity: number;
+	discount: number;
+}
+
+export interface Transaction {
+	id?: number;
+	name: string | null;
+	description?: string | null;
+	status?: BaseStatus;
+	createdDate?: string;
+	lastUpdatedDate?: string;
+	transactionDate?: string;
+	totalAmount: number;
+	paymentType: PaymentTypes;
+	transactionItems: TransactionItem[];
+}
+
+export interface TransactionItem {
+	id?: number | null;
+	productId?: number | null;
+	productName: string | null;
+	barcode: string | null;
+	price: number;
 	quantity: number;
 	discount: number;
 }

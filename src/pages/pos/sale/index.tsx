@@ -8,12 +8,12 @@ import {
 	ShoppingCartOutlined,
 	TagOutlined,
 } from "@ant-design/icons";
-import { ThemeMode } from "#/enum";
+import { PaymentTypes, ThemeMode } from "#/enum";
 import { useSettings } from "@/store/settingStore";
 import { useTranslation } from "react-i18next";
 import "./sale.css";
-import { useCategoryListMutation } from "@/api/services/saleService";
-import type { CartItem, Category, Product } from "#/entity";
+import { categoryListMutation, transactionSaveMutation } from "@/api/services/saleService";
+import type { CartItem, Category, Product, Transaction, TransactionItem } from "#/entity";
 import { CircleLoading } from "@/components/loading";
 
 export default function SalePage() {
@@ -21,36 +21,38 @@ export default function SalePage() {
 	const { themeMode } = useSettings();
 	const backgroundColor = themeMode === ThemeMode.Light ? "rgb(244, 246, 248)" : "rgba(145, 158, 171, 0.12)";
 
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [isLoading, setLoading] = useState<boolean>(false);
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [activeCategoryId, setActiveCategoryId] = useState<number>();
 	const [products, setProducts] = useState<Product[]>([]);
 	const [modalOpen, setModalOpen] = useState<boolean>(false);
 	const [cart, setCart] = useState<CartItem[]>([]);
+	const [isSaveLoading, setSaveLoading] = useState<boolean>(false);
 
 	const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity - item.discount), 0);
 	const tax = subtotal * 0.2;
 	const total = subtotal + tax;
 
-	const categoryListMutation = useCategoryListMutation();
+	const categoriesCall = categoryListMutation();
+	const saveTransactionCall = transactionSaveMutation();
 
 	useEffect(() => {
 		const fetchCategories = async () => {
-			setIsLoading(true);
+			setLoading(true);
 			try {
-				const data = await categoryListMutation.mutateAsync();
+				const data = await categoriesCall.mutateAsync();
 				setCategories(data);
 
 				if (data[0]) {
 					setActiveCategoryId(data[0].id);
 				}
 			} finally {
-				setIsLoading(false);
+				setLoading(false);
 			}
 		};
 
 		fetchCategories();
-	}, [categoryListMutation.mutateAsync]);
+	}, [categoriesCall.mutateAsync]);
 
 	useEffect(() => {
 		if (activeCategoryId && categories?.length > 0) {
@@ -65,6 +67,38 @@ export default function SalePage() {
 			}
 		}
 	}, [activeCategoryId, categories, products]);
+
+	const handleSaveTransaction = async (paymentType: PaymentTypes) => {
+		setSaveLoading(true);
+		try {
+			const cartData: Transaction = {
+				paymentType: paymentType,
+				// transactionDate: getFormattedDateTimeNow(),
+				transactionItems: cart.map((c) => {
+					const item: TransactionItem = {
+						productId: c.id,
+						productName: c.name,
+						price: c.price,
+						quantity: c.quantity,
+						discount: c.discount,
+						barcode: c.barcode,
+					};
+					return item;
+				}),
+				totalAmount: total,
+				name: t("sys.sale.fast_sale"),
+			};
+
+			const data = await saveTransactionCall.mutateAsync(cartData);
+
+			if (data) {
+				// toast.success(`${total.toFixed(2)} TL tutarındaki alışveriş sisteme kaydedildi.`);
+				setCart([]);
+			}
+		} finally {
+			setSaveLoading(false);
+		}
+	};
 
 	const addToCart = (product: Product) => {
 		const existingItem = cart.find((item) => item.id === product.id);
@@ -209,13 +243,20 @@ export default function SalePage() {
 							className="cart-header"
 						>
 							<Tooltip placement="topLeft" title={t("sys.sale.new_shopping")}>
-								<Button type="default" style={{ marginLeft: 0 }} icon={<PlusOutlined />} onClick={() => setCart([])} />
+								<Button
+									type="default"
+									style={{ marginLeft: 0 }}
+									icon={<PlusOutlined />}
+									onClick={() => setCart([])}
+									disabled={isSaveLoading}
+								/>
 							</Tooltip>
 							<span style={{ fontWeight: "bold" }} className="text-primary">
 								{t("sys.sale.your_cart")}
 							</span>
 							<Tooltip placement="topRight" title={t("sys.sale.empty_cart")}>
 								<Button
+									disabled={isSaveLoading}
 									type="default"
 									style={{ marginRight: 0 }}
 									icon={<DeleteOutlined />}
@@ -226,101 +267,114 @@ export default function SalePage() {
 					}
 				>
 					<div className="cart-list">
-						{cart && cart.length > 0 ? (
+						{isSaveLoading ? (
+							<CircleLoading />
+						) : (
 							<>
-								{cart.map((item) => {
-									return (
-										<div key={item.id} className="cart-item">
-											<Collapse
-												key={item.id}
-												className="cart-item-collapse"
-												items={[
-													{
-														key: item.id,
-														label: (
-															<div className="cart-item-header">
-																<div className="cart-item-left">
-																	<p className="cart-item-quantity">{item.quantity}x</p>
-																	<p className="cart-item-name">{item.name}</p>
-																</div>
-																<p className="cart-item-price text-primary">
-																	{`${(item.price * item.quantity - item.discount).toFixed(2)} ₺`}
-																</p>
-																<Tooltip placement="left" title={t("sys.sale.remove_item")}>
-																	<Button type="text" icon={<DeleteOutlined />} onClick={() => removeItem(item.id)} />
-																</Tooltip>
-															</div>
-														),
-														children: (
-															<div className="cart-item-details">
-																{/* <Typography.Title level={5}>
+								{cart && cart.length > 0 ? (
+									<>
+										{cart.map((item) => {
+											return (
+												<div key={item.id} className="cart-item">
+													<Collapse
+														key={item.id}
+														className="cart-item-collapse"
+														items={[
+															{
+																key: item.id,
+																label: (
+																	<div className="cart-item-header">
+																		<div className="cart-item-left">
+																			<p className="cart-item-quantity">{item.quantity}x</p>
+																			<p className="cart-item-name">{item.name}</p>
+																		</div>
+																		<p className="cart-item-price text-primary">
+																			{`${(item.price * item.quantity - item.discount).toFixed(2)} ₺`}
+																		</p>
+																		<Tooltip placement="left" title={t("sys.sale.remove_item")}>
+																			<Button
+																				type="text"
+																				icon={<DeleteOutlined />}
+																				onClick={() => removeItem(item.id)}
+																				disabled={isSaveLoading}
+																			/>
+																		</Tooltip>
+																	</div>
+																),
+																children: (
+																	<div className="cart-item-details">
+																		{/* <Typography.Title level={5}>
                               {item.name}
                             </Typography.Title> */}
 
-																<Row gutter={24}>
-																	<Col xs={12} sm={12} md={12}>
-																		<div>
-																			<Typography.Text className="full-title">
-																				{`${t("sys.sale.quantity")}:`}
-																			</Typography.Text>
-																			<InputNumber
-																				addonBefore={t("sys.sale.count")}
-																				min={1}
-																				value={item.quantity || 1}
-																				style={{ width: "100%" }}
-																				onChange={(val) => {
-																					if (val != null) {
-																						updateItem(item.id, "quantity", val);
-																					}
-																				}}
-																			/>
-																		</div>
-																	</Col>
-																	<Col xs={12} sm={12} md={12}>
-																		<div>
-																			<Typography.Text className="full-title">
-																				{`${t("sys.sale.discount")}:`}
-																			</Typography.Text>
-																			<InputNumber
-																				addonBefore="%"
-																				min={0}
-																				max={100}
-																				value={item.discount || 0}
-																				style={{ width: "100%" }}
-																				onChange={(val) => {
-																					if (val != null) {
-																						updateItem(item.id, "discount", val);
-																					}
-																				}}
-																			/>
-																		</div>
-																	</Col>
-																</Row>
-															</div>
-														),
-													},
-												]}
-											/>
+																		<Row gutter={24}>
+																			<Col xs={12} sm={12} md={12}>
+																				<div>
+																					<Typography.Text className="full-title">
+																						{`${t("sys.sale.quantity")}:`}
+																					</Typography.Text>
+																					<InputNumber
+																						disabled={isSaveLoading}
+																						addonBefore={t("sys.sale.count")}
+																						min={1}
+																						value={item.quantity || 1}
+																						style={{ width: "100%" }}
+																						onChange={(val) => {
+																							if (val != null) {
+																								updateItem(item.id, "quantity", val);
+																							}
+																						}}
+																					/>
+																				</div>
+																			</Col>
+																			<Col xs={12} sm={12} md={12}>
+																				<div>
+																					<Typography.Text className="full-title">
+																						{`${t("sys.sale.discount")}:`}
+																					</Typography.Text>
+																					<InputNumber
+																						disabled={isSaveLoading}
+																						addonBefore="%"
+																						min={0}
+																						max={100}
+																						value={item.discount || 0}
+																						style={{ width: "100%" }}
+																						onChange={(val) => {
+																							if (val != null) {
+																								updateItem(item.id, "discount", val);
+																							}
+																						}}
+																					/>
+																				</div>
+																			</Col>
+																		</Row>
+																	</div>
+																),
+															},
+														]}
+													/>
+												</div>
+											);
+										})}
+									</>
+								) : (
+									<>
+										<div
+											className="empty-cart text-text-secondary"
+											style={{
+												display: "flex",
+												height: "100%",
+												justifyContent: "center",
+												alignItems: "center",
+												flexDirection: "column",
+												textAlign: "center",
+											}}
+										>
+											<ShoppingCartOutlined style={{ fontSize: 45 }} />
+											<p className="text-lg font-semibold text-text-secondary mt-2">{t("sys.sale.your_cart_empty")}</p>
 										</div>
-									);
-								})}
-							</>
-						) : (
-							<>
-								<div
-									className="empty-cart text-text-secondary"
-									style={{
-										display: "flex",
-										height: "100%",
-										justifyContent: "center",
-										alignItems: "center",
-										flexDirection: "column",
-										textAlign: "center",
-									}}
-								>
-									<ShoppingCartOutlined style={{ fontSize: 45 }} />
-									<p className="text-lg font-semibold text-text-secondary mt-2">{t("sys.sale.your_cart_empty")}</p>
-								</div>
+									</>
+								)}
 							</>
 						)}
 					</div>
@@ -339,10 +393,24 @@ export default function SalePage() {
 						</div>
 					</div>
 					<div className="cart-actions">
-						<Button type="primary" block className="pay-cash" icon={<TagOutlined />}>
+						<Button
+							type="primary"
+							block
+							className="pay-cash"
+							icon={<TagOutlined />}
+							loading={isSaveLoading}
+							onClick={() => handleSaveTransaction(PaymentTypes.CASH)}
+						>
 							{t("sys.sale.pay_cash")}
 						</Button>
-						<Button type="default" block className="pay-card" icon={<CreditCardOutlined />}>
+						<Button
+							type="default"
+							block
+							className="pay-card"
+							icon={<CreditCardOutlined />}
+							loading={isSaveLoading}
+							onClick={() => handleSaveTransaction(PaymentTypes.CARD)}
+						>
 							{t("sys.sale.pay_card")}
 						</Button>
 					</div>
