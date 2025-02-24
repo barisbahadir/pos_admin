@@ -1,7 +1,7 @@
 import useUserStore from "@/store/userStore";
 import { faker } from "@faker-js/faker";
 
-import { BasicStatus, PermissionType } from "#/enum";
+import { BaseStatus, PermissionType } from "#/enum";
 /**
  * Organization data mock
  */
@@ -9,7 +9,7 @@ export const ORG_LIST = [
 	{
 		id: "1",
 		name: "East China Branch",
-		status: "enable",
+		status: BaseStatus.ENABLE,
 		description: faker.lorem.words(),
 		order: 1,
 		children: [
@@ -23,14 +23,14 @@ export const ORG_LIST = [
 			{
 				id: "1-2",
 				name: "Marketing Department",
-				status: "enable",
+				status: BaseStatus.ENABLE,
 				description: "",
 				order: 2,
 			},
 			{
 				id: "1-3",
 				name: "Finance Department",
-				status: "enable",
+				status: BaseStatus.ENABLE,
 				description: "",
 				order: 3,
 			},
@@ -39,7 +39,7 @@ export const ORG_LIST = [
 	{
 		id: "2",
 		name: "South China Branch",
-		status: "enable",
+		status: BaseStatus.ENABLE,
 		description: faker.lorem.words(),
 		order: 2,
 		children: [
@@ -53,14 +53,14 @@ export const ORG_LIST = [
 			{
 				id: "2-2",
 				name: "Marketing Department",
-				status: "enable",
+				status: BaseStatus.ENABLE,
 				description: "",
 				order: 2,
 			},
 			{
 				id: "2-3",
 				name: "Finance Department",
-				status: "enable",
+				status: BaseStatus.ENABLE,
 				description: "",
 				order: 3,
 			},
@@ -465,7 +465,7 @@ const OTHERS_PERMISSION = [
 		icon: "ic_disabled",
 		type: PermissionType.MENU,
 		route: "disabled",
-		status: BasicStatus.DISABLE,
+		status: BaseStatus.DISABLE,
 		component: "/sys/others/calendar/index.tsx",
 	},
 	{
@@ -540,7 +540,7 @@ const ADMIN_ROLE = {
 	id: "4281707933534332",
 	name: "Admin",
 	label: "admin",
-	status: BasicStatus.ENABLE,
+	status: BaseStatus.ENABLE,
 	order: 1,
 	description: "Super Admin",
 	permission: PERMISSION_LIST,
@@ -549,7 +549,7 @@ const TEST_ROLE = {
 	id: "9931665660771476",
 	name: "Test",
 	label: "test",
-	status: BasicStatus.ENABLE,
+	status: BaseStatus.ENABLE,
 	order: 2,
 	description: "test",
 	permission: [DASHBOARD_PERMISSION, COMPONENTS_PERMISSION, FUNCTIONS_PERMISSION],

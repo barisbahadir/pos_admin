@@ -6,7 +6,7 @@ import { IconButton, Iconify } from "@/components/icon";
 import { usePathname, useRouter } from "@/router/hooks";
 
 import type { LoginInfo, Role } from "#/entity";
-import { BasicStatus } from "#/enum";
+import { BaseStatus } from "#/enum";
 
 const USERS: LoginInfo[] = []; //USER_LIST as LoginInfo[];
 
@@ -44,8 +44,8 @@ export default function RolePage() {
 			align: "center",
 			width: 120,
 			render: (status) => (
-				<Tag color={status === BasicStatus.DISABLE ? "error" : "success"}>
-					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
+				<Tag color={status === BaseStatus.DISABLE ? "error" : "success"}>
+					{status === BaseStatus.DISABLE ? "Disable" : "Enable"}
 				</Tag>
 			),
 		},

@@ -10,7 +10,7 @@ import { useUserPermission } from "@/store/userStore";
 import PermissionModal, { type PermissionModalProps } from "./permission-modal";
 
 import type { Permission } from "#/entity";
-import { BasicStatus, PermissionType } from "#/enum";
+import { BaseStatus, PermissionType } from "#/enum";
 
 const defaultPermissionValue: Permission = {
 	id: 0,
@@ -21,7 +21,7 @@ const defaultPermissionValue: Permission = {
 	component: "",
 	icon: "",
 	hide: false,
-	status: BasicStatus.ENABLE,
+	status: BaseStatus.ENABLE,
 	type: PermissionType.GROUP,
 };
 export default function PermissionPage() {
@@ -74,8 +74,8 @@ export default function PermissionPage() {
 			align: "center",
 			width: 120,
 			render: (status) => (
-				<Tag color={status === BasicStatus.DISABLE ? "error" : "success"}>
-					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
+				<Tag color={status === BaseStatus.DISABLE ? "error" : "success"}>
+					{status === BaseStatus.DISABLE ? "Disable" : "Enable"}
 				</Tag>
 			),
 		},

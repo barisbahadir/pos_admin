@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { flattenTrees } from "@/utils/tree";
 
 import type { Permission, Role } from "#/entity";
-import { BasicStatus } from "#/enum";
+import { BaseStatus } from "#/enum";
 
 export type RoleModalProps = {
 	formValue: Role;
@@ -41,8 +41,8 @@ export function RoleModal({ title, show, formValue, onOk, onCancel }: RoleModalP
 
 				<Form.Item<Role> label="Status" name="status" required>
 					<Radio.Group optionType="button" buttonStyle="solid">
-						<Radio value={BasicStatus.ENABLE}> Enable </Radio>
-						<Radio value={BasicStatus.DISABLE}> Disable </Radio>
+						<Radio value={BaseStatus.ENABLE}> Enable </Radio>
+						<Radio value={BaseStatus.DISABLE}> Disable </Radio>
 					</Radio.Group>
 				</Form.Item>
 

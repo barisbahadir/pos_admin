@@ -4,12 +4,13 @@ import Table, { type ColumnsType } from "antd/es/table";
 import type { TableRowSelection } from "antd/es/table/interface";
 import { useEffect, useState } from "react";
 
-import orgService from "@/api/services/orgService";
+import orgService from "@/api/services/systemService";
 import { IconButton, Iconify } from "@/components/icon";
 
 import OrganizationChart from "./organization-chart";
 
 import type { Organization } from "#/entity";
+import { BaseStatus } from "#/enum";
 
 type SearchFormFieldType = Pick<Organization, "name" | "status">;
 
@@ -19,7 +20,7 @@ export default function OrganizationPage() {
 		formValue: {
 			id: "",
 			name: "",
-			status: "enable",
+			status: BaseStatus.ENABLE,
 		},
 		title: "New",
 		show: false,
@@ -95,7 +96,7 @@ export default function OrganizationPage() {
 				name: "",
 				order: 1,
 				description: "",
-				status: "enable",
+				status: BaseStatus.ENABLE,
 			},
 		}));
 	};

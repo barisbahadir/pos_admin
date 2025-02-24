@@ -5,9 +5,9 @@ export enum UserRoleTypes {
 	ADMIN = "ADMIN",
 }
 
-export enum BasicStatus {
-	DISABLE = "DISABLE",
+export enum BaseStatus {
 	ENABLE = "ENABLE",
+	DISABLE = "DISABLE",
 }
 
 export enum StorageEnum {
@@ -15,6 +15,7 @@ export enum StorageEnum {
 	UserToken = "userToken",
 	Settings = "settings",
 	I18N = "i18nextLng",
+	IsLoading = "loading",
 }
 
 export enum ThemeMode {

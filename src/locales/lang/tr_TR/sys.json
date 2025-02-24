@@ -1,17 +1,19 @@
 {
 	"sys": {
 		"api": {
+			"data_loading": "Veriler yükleniyor..",
+			"data_load_success": "Veriler başarıyla yüklendi",
+			"data_load_error": "Veriler yüklenirken bir hata oluştu!",
 			"operationSuccess": "Operation Success",
 			"operationFailed": "Operation failed",
 			"errorTip": "Error Tip",
 			"successTip": "Success Tip",
-			"errorMessage": "The operation failed, the system is abnormal!",
+			"errorMessage": "The operation failed, the system is offline!",
 			"timeoutMessage": "Login timed out, please log in again!",
 			"apiTimeoutMessage": "The interface request timed out, please refresh the page and try again!",
 			"apiRequestFailed": "The interface request failed, please try again later!",
 			"networkException": "network anomaly",
 			"networkExceptionMsg": "Please check if your network connection is normal! The network is abnormal",
-
 			"errMsg401": "The user does not have permission (token, user name, password error)!",
 			"errMsg403": "The user is authorized, but access is forbidden!",
 			"errMsg404": "Network request error, the resource was not found!",
@@ -32,7 +34,6 @@
 			"signInFormTitle": "Giriş Yap",
 			"signUpFormTitle": "Kaydol",
 			"forgetFormTitle": "Şifreyi Sıfırla",
-
 			"signInPrimaryTitle": "Merhaba, hoşgeldiniz.",
 			"signInSecondTitle": "Hızlı Satış Programı",
 			"signInTitle": "",
@@ -40,7 +41,6 @@
 			"policy": "I agree to the xxx Privacy Policy",
 			"scanSign": "scanning the code to complete the login",
 			"forgetFormSecondTitle": "Şifrenizi sıfırlamak için e-postanın gönderileceği adresi giriniz.",
-
 			"loginButton": "Giriş Yap",
 			"registerButton": "Kaydol",
 			"rememberMe": "Beni Hatırla",
@@ -49,10 +49,8 @@
 			"sendSmsButton": "SMS Kodu Gönder",
 			"sendSmsText": "Reacquire in {{second}}s",
 			"sendEmailButton": "E-Mail Gönder",
-
 			"loginSuccessTitle": "Giriş Başarılı",
 			"loginSuccessDesc": "Yeniden Hoşgeldiniz",
-
 			"accountPlaceholder": "Please input username",
 			"passwordPlaceholder": "Please input password",
 			"confirmPasswordPlaceholder": "Please input confirm password",
@@ -67,7 +65,6 @@
 			"email": "Email",
 			"smsCode": "SMS Kodu",
 			"mobile": "Telefon",
-
 			"registerAndAgree": "By signing up, I agree to",
 			"termsOfService": " Terms of service ",
 			"privacyPolicy": " Privacy policy ",
@@ -160,7 +157,7 @@
 			"new_shopping": "Yeni Alışveriş",
 			"empty_cart": "Sepeti Boşalt",
 			"remove_item": "Ürünü Sil",
-			"your_cart_empty": "Sepete ürün eklemediniz",
+			"your_cart_empty": "Sepete ürün eklenmedi",
 			"subtotal": "Ara Toplam",
 			"tax": "Vergi",
 			"discount": "İndirim Oranı",

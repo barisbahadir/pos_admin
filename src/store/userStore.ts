@@ -14,7 +14,7 @@ const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 type UserStore = {
 	userInfo: Partial<LoginInfo>;
 	userToken: UserToken;
-	// 使用 actions 命名空间来存放所有的 action
+	isLoading: boolean;
 	actions: {
 		setUserInfo: (userInfo: LoginInfo) => void;
 		setUserToken: (token: UserToken) => void;
@@ -27,6 +27,7 @@ const useUserStore = create<UserStore>()(
 		(set) => ({
 			userInfo: {},
 			userToken: {},
+			isLoading: false,
 			actions: {
 				setUserInfo: (userInfo) => {
 					set({ userInfo });
@@ -37,6 +38,9 @@ const useUserStore = create<UserStore>()(
 				clearUserInfoAndToken() {
 					set({ userInfo: {}, userToken: {} });
 				},
+				setIsLoading: (isLoading: boolean) => {
+					set({ isLoading });
+				},
 			},
 		}),
 		{
@@ -45,6 +49,7 @@ const useUserStore = create<UserStore>()(
 			partialize: (state) => ({
 				[StorageEnum.UserInfo]: state.userInfo,
 				[StorageEnum.UserToken]: state.userToken,
+				[StorageEnum.IsLoading]: state.isLoading,
 			}),
 		},
 	),
@@ -54,6 +59,7 @@ export const useUserInfo = () => useUserStore((state) => state.userInfo);
 export const useUserToken = () => useUserStore((state) => state.userToken);
 export const useUserPermission = () => useUserStore((state) => state.userInfo.permissions);
 export const useUserActions = () => useUserStore((state) => state.actions);
+export const useLoading = () => useUserStore((state) => state.isLoading);
 
 export const useSignIn = () => {
 	const navigate = useNavigate();

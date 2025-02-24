@@ -9,7 +9,7 @@ import { flattenTrees } from "@/utils/tree";
 
 import { Tag } from "antd";
 import type { Permission } from "#/entity";
-import { BasicStatus, PermissionType } from "#/enum";
+import { BaseStatus, PermissionType } from "#/enum";
 import type { AppRouteObject } from "#/router";
 import { getRoutesFromModules } from "../utils";
 
@@ -70,7 +70,7 @@ const createBaseRoute = (permission: Permission, completeRoute: string): AppRout
 			key: completeRoute,
 			hideMenu: !!hide,
 			hideTab,
-			disabled: status === BasicStatus.DISABLE,
+			disabled: status === BaseStatus.DISABLE,
 		},
 	};
 

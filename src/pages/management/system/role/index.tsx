@@ -8,7 +8,7 @@ import { IconButton, Iconify } from "@/components/icon";
 import { RoleModal, type RoleModalProps } from "./role-modal";
 
 import type { Role } from "#/entity";
-import { BasicStatus } from "#/enum";
+import { BaseStatus } from "#/enum";
 
 const ROLES: Role[] = []; //ROLE_LIST as Role[];
 
@@ -16,7 +16,7 @@ const DEFAULE_ROLE_VALUE: Role = {
 	id: 0,
 	name: "",
 	label: "",
-	status: BasicStatus.ENABLE,
+	status: BaseStatus.ENABLE,
 	permissions: [],
 };
 export default function RolePage() {
@@ -48,8 +48,8 @@ export default function RolePage() {
 			align: "center",
 			width: 120,
 			render: (status) => (
-				<Tag color={status === BasicStatus.DISABLE ? "error" : "success"}>
-					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
+				<Tag color={status === BaseStatus.DISABLE ? "error" : "success"}>
+					{status === BaseStatus.DISABLE ? "Disable" : "Enable"}
 				</Tag>
 			),
 		},

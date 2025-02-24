@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useUserPermission } from "@/store/userStore";
 
 import type { Permission } from "#/entity";
-import { BasicStatus, PermissionType } from "#/enum";
+import { BaseStatus, PermissionType } from "#/enum";
 
 // Constants
 const ENTRY_PATH = "/src/pages";
@@ -143,8 +143,8 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 
 				<Form.Item<Permission> label="Status" name="status" required>
 					<Radio.Group optionType="button" buttonStyle="solid">
-						<Radio value={BasicStatus.ENABLE}> Enable </Radio>
-						<Radio value={BasicStatus.DISABLE}> Disable </Radio>
+						<Radio value={BaseStatus.ENABLE}> Enable </Radio>
+						<Radio value={BaseStatus.DISABLE}> Disable </Radio>
 					</Radio.Group>
 				</Form.Item>
 			</Form>
