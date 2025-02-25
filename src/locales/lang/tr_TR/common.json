@@ -5,14 +5,17 @@
 		"cancelText": "Vazgeç",
 		"loadingText": "Yükleniyor...",
 		"saveText": "Kaydet",
+		"updateText": "Güncelle",
 		"delText": "Sil",
 		"resetText": "Sıfırla",
+		"editText": "Düzenle",
 		"searchText": "Ara",
 		"queryText": "Ara",
 
 		"inputText": "Lütfen giriniz..",
 		"chooseText": "Seçiniz..",
 
+		"delete_question": "Kayıt silinecek, emin misiniz?",
 		"add_new": "Yeni",
 		"required_message": "Girilmesi gereklidir!",
 

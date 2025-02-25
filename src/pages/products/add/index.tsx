@@ -355,7 +355,7 @@ export default function ProductAddPage() {
 						icon={<PlusOutlined />}
 						style={{ marginTop: "15px", minWidth: "150px" }}
 					>
-						{id ? t("sys.menu.products.update") : t("sys.menu.products.save")}
+						{id ? t("common.updateText") : t("common.saveText")}
 					</Button>
 				</Row>
 			</Form>

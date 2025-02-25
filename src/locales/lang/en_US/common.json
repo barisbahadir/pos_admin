@@ -5,18 +5,21 @@
 		"cancelText": "Cancel",
 		"loadingText": "Loading...",
 		"saveText": "Save",
+		"updateText": "Update",
 		"delText": "Delete",
 		"resetText": "Reset",
+		"editText": "Edit",
 		"searchText": "Search",
 		"queryText": "Search",
 
-		"inputText": "Please enter",
-		"chooseText": "Please choose",
+		"inputText": "Please enter...",
+		"chooseText": "Please select...",
 
+		"delete_question": "The record will be deleted, are you sure?",
 		"add_new": "New",
-		"required_message": "Required!",
+		"required_message": "This field is required!",
 
-		"redo": "Refresh",
+		"redo": "Reload",
 		"back": "Back",
 
 		"light": "Light",

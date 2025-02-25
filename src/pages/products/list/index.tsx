@@ -33,28 +33,30 @@ export default function ProductListPage() {
 
 	const columns: ColumnsType<Product> = [
 		{
-			title: t("product.name"),
+			title: t("sys.menu.products.name"),
 			dataIndex: "name",
 			key: "name",
 			render: (text) => <span className="font-semibold">{text}</span>,
 		},
 		{
-			title: t("product.description"),
+			title: t("sys.menu.products.description"),
 			dataIndex: "description",
 			key: "description",
 			responsive: ["lg"],
 			render: (text) => <span className="text-gray-500 text-sm">{text || "-"}</span>,
 		},
 		{
-			title: t("product.stock"),
+			title: t("sys.menu.products.stock_quantity"),
 			dataIndex: "stockQuantity",
 			key: "stockQuantity",
 			align: "center",
 			responsive: ["md"],
-			render: (stock) => <Tag color={stock > 0 ? "blue" : "red"}>{stock > 0 ? stock : t("product.out_of_stock")}</Tag>,
+			render: (stock) => (
+				<Tag color={stock > 0 ? "blue" : "red"}>{stock > 0 ? stock : t("sys.menu.products.out_of_stock")}</Tag>
+			),
 		},
 		{
-			title: t("product.price"),
+			title: t("sys.menu.products.sale_price"),
 			dataIndex: "price",
 			key: "price",
 			align: "right",
@@ -70,7 +72,12 @@ export default function ProductListPage() {
 					<IconButton onClick={() => push(`/product/edit/${record.id}`)}>
 						<Iconify icon="solar:pen-bold-duotone" size={18} />
 					</IconButton>
-					<Popconfirm title="Delete the User" okText="Yes" cancelText="No" placement="left">
+					<Popconfirm
+						title={t("common.delete_question")}
+						okText={t("common.delText")}
+						cancelText={t("common.cancelText")}
+						placement="left"
+					>
 						<IconButton>
 							<Iconify icon="mingcute:delete-2-fill" size={18} className="text-error" />
 						</IconButton>

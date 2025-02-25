@@ -102,6 +102,7 @@
 				"sale_price_placeholder": "Satış fiyatı giriniz",
 				"stock_quantity": "Stok Miktarı",
 				"stock_quantity_placeholder": "Stok miktarı giriniz",
+				"out_of_stock": "Stok mevcut değil",
 				"barcode": "Barkod",
 				"barcode_placeholder": "Barkod giriniz",
 				"generate_barcode": "Barkod Üret",
