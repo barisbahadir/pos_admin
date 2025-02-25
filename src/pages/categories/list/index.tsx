@@ -36,6 +36,12 @@ export default function ProductListPage() {
 			title: t("sys.menu.categories.name"),
 			dataIndex: "name",
 			key: "name",
+			sorter: (a, b) => {
+				if (a.id === undefined || b.id === undefined) {
+					return 0; // undefined değerleri karşılaştırıldığında sıralama yapılmaz
+				}
+				return a.id - b.id; // normal sıralama
+			},
 			render: (text) => <span className="font-semibold">{text}</span>,
 		},
 		{
