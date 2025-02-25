@@ -111,15 +111,24 @@
 				"image": "Ürün Resmi",
 				"upload_image": "Ürün Görseli Yükle",
 				"image_upload_error": "Resim yüklenirken bir hata oluştu.",
-				"update": "Güncelle",
-				"save": "Kaydet"
+				"success_update": "Ürün başarıyla güncellendi",
+				"success_add": "Ürün başarıyla eklendi",
+				"error_general": "Genel bir hata oluştu, lütfen tekrar deneyin"
 			},
 			"categories": {
 				"index": "Kategoriler",
 				"list": "Kategori Listesi",
 				"order": "Kategori Sırala",
 				"add": "Kategori Ekle",
-				"edit": "Kategori Düzenle"
+				"edit": "Kategori Düzenle",
+				"name": "Kategori Adı",
+				"name_placeholder": "Kategori adını girin",
+				"description": "Açıklama",
+				"description_placeholder": "Kategori açıklamasını giriniz",
+				"product_count": "Ürün Sayısı",
+				"success_update": "Kategori başarıyla güncellendi",
+				"success_add": "Kategori başarıyla eklendi",
+				"error_general": "Genel bir hata oluştu, lütfen tekrar deneyin"
 			},
 			"dashboard": "Göstergeler",
 			"welcome": "Özet",

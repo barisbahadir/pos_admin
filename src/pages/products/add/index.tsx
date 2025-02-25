@@ -21,8 +21,10 @@ export default function ProductAddPage() {
 	const [form] = Form.useForm();
 	const defaultFormValues = {
 		name: "",
-		price: 10.0,
 		categoryId: undefined,
+		purchasePrice: 50.0,
+		taxRate: 10,
+		price: 55.0,
 		barcode: "",
 		stockQuantity: 100,
 		description: "",

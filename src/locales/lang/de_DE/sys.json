@@ -111,15 +111,24 @@
 				"image": "Produktbild",
 				"upload_image": "Produktbild hochladen",
 				"image_upload_error": "Fehler beim Hochladen des Bildes.",
-				"update": "Aktualisieren",
-				"save": "Speichern"
+				"success_update": "Produkt erfolgreich aktualisiert",
+				"success_add": "Produkt erfolgreich hinzugefügt",
+				"error_general": "Ein allgemeiner Fehler ist aufgetreten, bitte versuchen Sie es erneut"
 			},
 			"categories": {
 				"index": "Kategorien",
 				"list": "Kategorieliste",
 				"order": "Kategorien sortieren",
 				"add": "Kategorie hinzufügen",
-				"edit": "Kategorie bearbeiten"
+				"edit": "Kategorie bearbeiten",
+				"name": "Kategoriename",
+				"name_placeholder": "Kategorienamen eingeben",
+				"description": "Beschreibung",
+				"description_placeholder": "Geben Sie die Kategorienbeschreibung ein",
+				"product_count": "Produktanzahl",
+				"success_update": "Kategorie erfolgreich aktualisiert",
+				"success_add": "Kategorie erfolgreich hinzugefügt",
+				"error_general": "Es ist ein allgemeiner Fehler aufgetreten, bitte versuchen Sie es erneut"
 			},
 			"dashboard": "Übersicht",
 			"welcome": "Zusammenfassung",
