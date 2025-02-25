@@ -185,12 +185,16 @@ export default function ProductAddPage() {
 			>
 				<Row gutter={24}>
 					<Col md={12} sm={24} xs={24}>
-						<Form.Item label="Ürün Adı" name="name" rules={[{ required: true, message: "Ürün adı gereklidir!" }]}>
+						<Form.Item label="Ürün Adı" name="name" rules={[{ required: true, message: t("common.required_message") }]}>
 							<Input placeholder="Ürün adını girin" style={{ width: "100%" }} />
 						</Form.Item>
 					</Col>
 					<Col md={12} sm={24} xs={24}>
-						<Form.Item label="Kategori" name="categoryId" rules={[{ required: true, message: "Kategori seçiniz!" }]}>
+						<Form.Item
+							label="Kategori"
+							name="categoryId"
+							rules={[{ required: true, message: t("common.required_message") }]}
+						>
 							<Select
 								placeholder="Kategori seçiniz"
 								options={categories}
@@ -207,7 +211,7 @@ export default function ProductAddPage() {
 						<Form.Item
 							label="Alis Fiyati"
 							name="purchasePrice"
-							rules={[{ required: false, message: "Alis fiyati girilmesi gereklidir!" }]}
+							rules={[{ required: false, message: t("common.required_message") }]}
 						>
 							<InputNumber
 								min={0}
@@ -222,7 +226,7 @@ export default function ProductAddPage() {
 						<Form.Item
 							label="Kar Orani"
 							name="profitMargin"
-							rules={[{ required: false, message: "Kar orani girilmesi gereklidir!" }]}
+							rules={[{ required: false, message: t("common.required_message") }]}
 						>
 							<InputNumber min={0} placeholder="Vergi orani giriniz" style={{ width: "100%" }} addonAfter="%" />
 						</Form.Item>
@@ -231,7 +235,7 @@ export default function ProductAddPage() {
 						<Form.Item
 							label="Vergi Orani"
 							name="taxRate"
-							rules={[{ required: true, message: "Vergi orani girilmesi gereklidir!" }]}
+							rules={[{ required: true, message: t("common.required_message") }]}
 						>
 							<InputNumber
 								min={0}
@@ -246,7 +250,7 @@ export default function ProductAddPage() {
 						<Form.Item
 							label={<b>Satis Fiyati</b>}
 							name="price"
-							rules={[{ required: true, message: "Satis fiyati girilmesi gereklidir!" }]}
+							rules={[{ required: true, message: t("common.required_message") }]}
 						>
 							<InputNumber
 								min={0}
@@ -264,13 +268,17 @@ export default function ProductAddPage() {
 						<Form.Item
 							label="Stok Miktarı"
 							name="stockQuantity"
-							rules={[{ required: true, message: "Stok miktarı gereklidir!" }]}
+							rules={[{ required: true, message: t("common.required_message") }]}
 						>
 							<InputNumber min={1} placeholder="Stok miktarı giriniz" style={{ width: "100%" }} />
 						</Form.Item>
 					</Col>
 					<Col md={12} sm={24} xs={24}>
-						<Form.Item label="Barkod" name="barcode" rules={[{ required: true, message: "Barkod gereklidir!" }]}>
+						<Form.Item
+							label="Barkod"
+							name="barcode"
+							rules={[{ required: true, message: t("common.required_message") }]}
+						>
 							<Input
 								addonBefore={<BarcodeOutlined />}
 								addonAfter={

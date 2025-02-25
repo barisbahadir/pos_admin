@@ -89,7 +89,7 @@ export default function AccountDropdown() {
 	return (
 		<Dropdown menu={{ items }} trigger={["click"]} dropdownRender={dropdownRender}>
 			<IconButton className="h-10 w-10 transform-none px-0 scale-105 hover:scale-110 transition-transform">
-				<Iconify icon="solar:user-circle-bold-duotone" className="h-8 w-8 text-gray-800 hover:text-primary" />
+				<Iconify icon="solar:user-circle-bold-duotone" className="h-8 w-8" />
 			</IconButton>
 		</Dropdown>
 	);

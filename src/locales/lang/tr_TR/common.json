@@ -14,6 +14,7 @@
 		"chooseText": "Seçiniz..",
 
 		"add_new": "Yeni",
+		"required_message": "Girilmesi gereklidir!",
 
 		"redo": "Yenile",
 		"back": "Geri",
