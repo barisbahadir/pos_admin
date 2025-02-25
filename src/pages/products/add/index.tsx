@@ -339,6 +339,7 @@ export default function ProductAddPage() {
 												src={imageBase64}
 												alt="Resim"
 												style={{
+													borderRadius: "8px",
 													width: "100%",
 													height: "100px",
 													objectFit: "contain",
