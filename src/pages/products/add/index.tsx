@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Input, InputNumber, Row, Select, Upload, message } from "antd";
+import { Button, Card, Col, Form, Input, InputNumber, Row, Select, Upload } from "antd";
 import type { Product } from "#/entity";
 import { useNavigate, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
@@ -50,7 +50,7 @@ export default function ProductAddPage() {
 						if (data.image) setImageBase64(data.image);
 					}
 				} catch (err) {
-					toast.error(err?.message || "Urun bilgileri getirilirken bir hata olustu!");
+					toast.error(err?.message || "System Error");
 				} finally {
 					setLoading(false);
 				}
@@ -82,7 +82,7 @@ export default function ProductAddPage() {
 				} catch (err) {
 					setCategories([
 						{
-							label: "Default Category",
+							label: "Category",
 							value: 1,
 						},
 					]);
@@ -96,7 +96,7 @@ export default function ProductAddPage() {
 
 	const handleGenerateBarcode = () => {
 		const newBarcode = generateBarcode();
-		form.setFieldsValue({ barcode: newBarcode }); // Formun değerini güncelle
+		form.setFieldsValue({ barcode: newBarcode });
 	};
 
 	const onFinish = async (values: Partial<Product>) => {
@@ -115,12 +115,13 @@ export default function ProductAddPage() {
 		try {
 			if (id) {
 				await productEditCall.mutateAsync({ id: Number(id), ...formValues });
+				toast.success(t("sys.menu.products.success_update"));
 			} else {
 				await productAddCall.mutateAsync(formValues);
+				toast.success(t("sys.menu.products.success_add"));
 			}
-			toast.success(id ? "Ürün başarıyla güncellendi!" : "Yeni ürün başarıyla eklendi!");
 		} catch (error) {
-			message.error("Bir hata oluştu, lütfen tekrar deneyin.");
+			toast.error(t("sys.menu.products.error_general"));
 		} finally {
 			form.resetFields();
 			setLoading(false);
@@ -147,7 +148,7 @@ export default function ProductAddPage() {
 				setImageBase64(base64); // Base64'i state'e kaydet
 				form.setFieldsValue({ image: base64 }); // Base64'i form'a set et
 			} catch (error) {
-				message.error("Resim yüklenirken bir hata oluştu.");
+				toast.error("sys.menu.products.image_upload_error");
 			}
 		}
 	};
@@ -185,18 +186,22 @@ export default function ProductAddPage() {
 			>
 				<Row gutter={24}>
 					<Col md={12} sm={24} xs={24}>
-						<Form.Item label="Ürün Adı" name="name" rules={[{ required: true, message: t("common.required_message") }]}>
-							<Input placeholder="Ürün adını girin" style={{ width: "100%" }} />
+						<Form.Item
+							label={t("sys.menu.products.name")}
+							name="name"
+							rules={[{ required: true, message: t("common.required_message") }]}
+						>
+							<Input placeholder={t("sys.menu.products.name_placeholder")} style={{ width: "100%" }} />
 						</Form.Item>
 					</Col>
 					<Col md={12} sm={24} xs={24}>
 						<Form.Item
-							label="Kategori"
+							label={t("sys.menu.products.category")}
 							name="categoryId"
 							rules={[{ required: true, message: t("common.required_message") }]}
 						>
 							<Select
-								placeholder="Kategori seçiniz"
+								placeholder={t("sys.menu.products.category_placeholder")}
 								options={categories}
 								loading={isLoading}
 								disabled={isLoading}
@@ -209,14 +214,14 @@ export default function ProductAddPage() {
 				<Row gutter={24}>
 					<Col md={6} sm={12} xs={12}>
 						<Form.Item
-							label="Alis Fiyati"
+							label={t("sys.menu.products.purchase_price")}
 							name="purchasePrice"
 							rules={[{ required: false, message: t("common.required_message") }]}
 						>
 							<InputNumber
 								min={0}
 								precision={2}
-								placeholder="Alis fiyati giriniz"
+								placeholder={t("sys.menu.products.purchase_price_placeholder")}
 								style={{ width: "100%" }}
 								addonAfter="TL"
 							/>
@@ -224,23 +229,13 @@ export default function ProductAddPage() {
 					</Col>
 					<Col md={6} sm={12} xs={12}>
 						<Form.Item
-							label="Kar Orani"
+							label={t("sys.menu.products.profit_margin")}
 							name="profitMargin"
 							rules={[{ required: false, message: t("common.required_message") }]}
 						>
-							<InputNumber min={0} placeholder="Vergi orani giriniz" style={{ width: "100%" }} addonAfter="%" />
-						</Form.Item>
-					</Col>
-					<Col md={6} sm={12} xs={12}>
-						<Form.Item
-							label="Vergi Orani"
-							name="taxRate"
-							rules={[{ required: true, message: t("common.required_message") }]}
-						>
 							<InputNumber
 								min={0}
-								max={100}
-								placeholder="Vergi orani giriniz"
+								placeholder={t("sys.menu.products.profit_margin_placeholder")}
 								style={{ width: "100%" }}
 								addonAfter="%"
 							/>
@@ -248,14 +243,29 @@ export default function ProductAddPage() {
 					</Col>
 					<Col md={6} sm={12} xs={12}>
 						<Form.Item
-							label={<b>Satis Fiyati</b>}
+							label={t("sys.menu.products.tax_rate")}
+							name="taxRate"
+							rules={[{ required: true, message: t("common.required_message") }]}
+						>
+							<InputNumber
+								min={0}
+								max={100}
+								placeholder={t("sys.menu.products.tax_rate_placeholder")}
+								style={{ width: "100%" }}
+								addonAfter="%"
+							/>
+						</Form.Item>
+					</Col>
+					<Col md={6} sm={12} xs={12}>
+						<Form.Item
+							label={<b>{t("sys.menu.products.sale_price")}</b>}
 							name="price"
 							rules={[{ required: true, message: t("common.required_message") }]}
 						>
 							<InputNumber
 								min={0}
 								precision={2}
-								placeholder="Satis fiyati giriniz"
+								placeholder={t("sys.menu.products.sale_price_placeholder")}
 								style={{ width: "100%" }}
 								addonAfter={<b>TL</b>}
 							/>
@@ -266,16 +276,20 @@ export default function ProductAddPage() {
 				<Row gutter={24}>
 					<Col md={12} sm={24} xs={24}>
 						<Form.Item
-							label="Stok Miktarı"
+							label={t("sys.menu.products.stock_quantity")}
 							name="stockQuantity"
 							rules={[{ required: true, message: t("common.required_message") }]}
 						>
-							<InputNumber min={1} placeholder="Stok miktarı giriniz" style={{ width: "100%" }} />
+							<InputNumber
+								min={1}
+								placeholder={t("sys.menu.products.stock_quantity_placeholder")}
+								style={{ width: "100%" }}
+							/>
 						</Form.Item>
 					</Col>
 					<Col md={12} sm={24} xs={24}>
 						<Form.Item
-							label="Barkod"
+							label={t("sys.menu.products.barcode")}
 							name="barcode"
 							rules={[{ required: true, message: t("common.required_message") }]}
 						>
@@ -283,57 +297,48 @@ export default function ProductAddPage() {
 								addonBefore={<BarcodeOutlined />}
 								addonAfter={
 									<p className="cursor-pointer" onClick={handleGenerateBarcode}>
-										{" Barkod Uret"}
+										{t("sys.menu.products.generate_barcode")}
 									</p>
 								}
-								placeholder="Barkod giriniz"
+								placeholder={t("sys.menu.products.barcode_placeholder")}
 								style={{ width: "100%" }}
 							/>
-							{/* <Button
-								type="primary"
-								icon={<BarcodeOutlined />}
-								onClick={() => setGenerateValue(prev => !prev)}
-							>
-								Barkod Üret
-							</Button> */}
 						</Form.Item>
 					</Col>
 				</Row>
 
 				<Row gutter={24}>
 					<Col md={12} sm={24} xs={24}>
-						<Form.Item label="Açıklama" name="description">
-							<Input.TextArea rows={4} placeholder="Ürün açıklamasını giriniz" style={{ width: "100%" }} />
+						<Form.Item label={t("sys.menu.products.description")} name="description">
+							<Input.TextArea
+								rows={4}
+								placeholder={t("sys.menu.products.description_placeholder")}
+								style={{ width: "100%" }}
+							/>
 						</Form.Item>
 					</Col>
 					<Col md={12} sm={24} xs={24}>
 						<Form.Item
-							label="Ürün Resmi"
+							label={t("sys.menu.products.image")}
 							name="description"
-							rules={[{ required: false, message: "Ürün resmi yükleyebilirsiniz" }]}
+							rules={[{ required: false, message: t("sys.menu.products.upload_image") }]}
 						>
 							<ImgCrop rotationSlider>
-								<Upload
-									multiple={false}
-									listType="picture-card"
-									beforeUpload={() => false} // Yükleme işlemini durduruyoruz, çünkü biz sadece base64 işlemi yapacağız
-									onChange={handleChange}
-								>
+								<Upload multiple={false} listType="picture-card" beforeUpload={() => false} onChange={handleChange}>
 									{imageBase64 ? (
 										<img
 											src={imageBase64}
 											alt="Resim"
 											style={{
 												width: "100%",
-												height: "100px", // Sabit yükseklik belirliyoruz
-												objectFit: "contain", // Resmi kutuya sığdır
-												backgroundColor: "#f5f5f5", // Boşlukları belirginleştirmek için
+												height: "100px",
+												objectFit: "contain",
 											}}
 										/>
 									) : (
 										<div>
 											<PlusOutlined />
-											<div style={{ marginTop: 8 }}>Urun Gorseli Yükle</div>
+											<div style={{ marginTop: 8 }}>{t("sys.menu.products.upload_image")}</div>
 										</div>
 									)}
 								</Upload>
@@ -347,11 +352,10 @@ export default function ProductAddPage() {
 						type="primary"
 						htmlType="submit"
 						loading={isLoading}
-						// disabled={isLoading}
 						icon={<PlusOutlined />}
 						style={{ marginTop: "15px", minWidth: "150px" }}
 					>
-						{id ? "Güncelle" : "Kaydet"}
+						{id ? t("sys.menu.products.update") : t("sys.menu.products.save")}
 					</Button>
 				</Row>
 			</Form>
