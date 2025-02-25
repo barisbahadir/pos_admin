@@ -36,6 +36,12 @@ export default function ProductListPage() {
 			title: t("sys.menu.products.name"),
 			dataIndex: "name",
 			key: "name",
+			sorter: (a, b) => {
+				if (a.id === undefined || b.id === undefined) {
+					return 0; // undefined değerleri karşılaştırıldığında sıralama yapılmaz
+				}
+				return a.id - b.id; // normal sıralama
+			},
 			render: (text) => <span className="font-semibold">{text}</span>,
 		},
 		{
@@ -57,7 +63,8 @@ export default function ProductListPage() {
 			dataIndex: "stockQuantity",
 			key: "stockQuantity",
 			align: "center",
-			responsive: ["md"],
+			responsive: ["lg"],
+			sorter: (a, b) => a.stockQuantity - b.stockQuantity,
 			render: (stock) => (
 				<Tag color={stock > 0 ? "blue" : "red"}>{stock > 0 ? stock : t("sys.menu.products.out_of_stock")}</Tag>
 			),
@@ -67,6 +74,7 @@ export default function ProductListPage() {
 			dataIndex: "price",
 			key: "price",
 			align: "right",
+			sorter: (a, b) => a.price - b.price,
 			render: (price) => <span className="text-primary font-bold">{price.toFixed(2)} TL</span>,
 		},
 		{
@@ -108,10 +116,10 @@ export default function ProductListPage() {
 			) : (
 				<Table
 					rowKey="id"
-					pagination={{ pageSize: 10 }}
+					// pagination={{ pageSize: 10 }}
 					columns={columns}
 					dataSource={products}
-					scroll={{ x: "max-content" }}
+					// scroll={{ x: "max-content" }}
 				/>
 			)}
 		</Card>

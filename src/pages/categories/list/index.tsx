@@ -50,6 +50,12 @@ export default function ProductListPage() {
 			dataIndex: "products",
 			key: "products",
 			align: "center",
+			sorter: (a, b) => {
+				if (a.products === undefined || b.products === undefined) {
+					return 0; // undefined değerleri karşılaştırıldığında sıralama yapılmaz
+				}
+				return a.products.length - b.products.length; // normal sıralama
+			},
 			render: (products) => <Tag color={products.length > 0 ? "blue" : "red"}>{products.length}</Tag>,
 		},
 		{
@@ -91,10 +97,10 @@ export default function ProductListPage() {
 			) : (
 				<Table
 					rowKey="id"
-					pagination={{ pageSize: 10 }}
+					// pagination={{ pageSize: 10 }}
 					columns={columns}
 					dataSource={categories}
-					scroll={{ x: "max-content" }}
+					// scroll={{ x: "max-content" }}
 				/>
 			)}
 		</Card>
