@@ -15,6 +15,7 @@
 		"inputText": "Bitte eingeben...",
 		"chooseText": "Bitte auswählen...",
 
+		"action": "Aktion",
 		"delete_question": "Der Datensatz wird gelöscht, sind Sie sicher?",
 		"add_new": "Neu",
 		"required_message": "Dieses Feld ist erforderlich!",

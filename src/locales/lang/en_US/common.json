@@ -15,6 +15,7 @@
 		"inputText": "Please enter...",
 		"chooseText": "Please select...",
 
+		"action": "Action",
 		"delete_question": "The record will be deleted, are you sure?",
 		"add_new": "New",
 		"required_message": "This field is required!",

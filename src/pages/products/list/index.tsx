@@ -63,7 +63,7 @@ export default function ProductListPage() {
 			render: (price) => <span className="text-primary font-bold">{price.toFixed(2)} TL</span>,
 		},
 		{
-			title: "Action",
+			title: t("common.action"),
 			key: "operation",
 			align: "center",
 			width: 100,

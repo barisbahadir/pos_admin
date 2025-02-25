@@ -15,6 +15,7 @@
 		"inputText": "Lütfen giriniz..",
 		"chooseText": "Seçiniz..",
 
+		"action": "Aksiyon",
 		"delete_question": "Kayıt silinecek, emin misiniz?",
 		"add_new": "Yeni",
 		"required_message": "Girilmesi gereklidir!",

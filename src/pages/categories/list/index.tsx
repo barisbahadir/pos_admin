@@ -5,33 +5,33 @@ import { useRouter } from "@/router/hooks";
 import { useTranslation } from "react-i18next";
 import { PlusOutlined } from "@ant-design/icons";
 import { CircleLoading } from "@/components/loading";
-import type { Product } from "#/entity";
-import { productListMutation } from "@/api/services/saleService";
+import type { Category } from "#/entity";
+import { categoryListMutation } from "@/api/services/saleService";
 import { IconButton, Iconify } from "@/components/icon";
 
 export default function ProductListPage() {
 	const { t } = useTranslation();
 	const { push } = useRouter();
 	const [isLoading, setLoading] = useState<boolean>(false);
-	const [products, setProducts] = useState<Product[]>([]);
+	const [categories, setCategories] = useState<Category[]>([]);
 
-	const productListCall = productListMutation();
+	const categoryListCall = categoryListMutation();
 
 	useEffect(() => {
 		setLoading(true);
 		const fetchData = async () => {
 			try {
-				const data = await productListCall.mutateAsync();
-				setProducts(data);
+				const data = await categoryListCall.mutateAsync();
+				setCategories(data);
 			} finally {
 				setLoading(false);
 			}
 		};
 
 		fetchData();
-	}, [productListCall.mutateAsync]);
+	}, [categoryListCall.mutateAsync]);
 
-	const columns: ColumnsType<Product> = [
+	const columns: ColumnsType<Category> = [
 		{
 			title: t("sys.menu.categories.name"),
 			dataIndex: "name",
@@ -46,30 +46,20 @@ export default function ProductListPage() {
 			render: (text) => <span className="text-gray-500 text-sm">{text || "-"}</span>,
 		},
 		{
-			title: t("sys.menu.categories.stock_quantity"),
-			dataIndex: "stockQuantity",
-			key: "stockQuantity",
+			title: t("sys.menu.categories.product_count"),
+			dataIndex: "products",
+			key: "products",
 			align: "center",
-			responsive: ["md"],
-			render: (stock) => (
-				<Tag color={stock > 0 ? "blue" : "red"}>{stock > 0 ? stock : t("sys.menu.categories.out_of_stock")}</Tag>
-			),
+			render: (products) => <Tag color={products.length > 0 ? "blue" : "red"}>{products.length}</Tag>,
 		},
 		{
-			title: t("sys.menu.categories.sale_price"),
-			dataIndex: "price",
-			key: "price",
-			align: "right",
-			render: (price) => <span className="text-primary font-bold">{price.toFixed(2)} TL</span>,
-		},
-		{
-			title: "Action",
+			title: t("common.action"),
 			key: "operation",
 			align: "center",
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-center text-gray-500">
-					<IconButton onClick={() => push(`/product/edit/${record.id}`)}>
+					<IconButton onClick={() => push(`/category/edit/${record.id}`)}>
 						<Iconify icon="solar:pen-bold-duotone" size={18} />
 					</IconButton>
 					<Popconfirm
@@ -91,7 +81,7 @@ export default function ProductListPage() {
 		<Card
 			title={t("sys.menu.categories.list")}
 			extra={
-				<Button type="primary" icon={<PlusOutlined />} disabled={isLoading} onClick={() => push("/product/add")}>
+				<Button type="primary" icon={<PlusOutlined />} disabled={isLoading} onClick={() => push("/category/add")}>
 					{t("common.add_new")}
 				</Button>
 			}
@@ -103,7 +93,7 @@ export default function ProductListPage() {
 					rowKey="id"
 					pagination={{ pageSize: 10 }}
 					columns={columns}
-					dataSource={products}
+					dataSource={categories}
 					scroll={{ x: "max-content" }}
 				/>
 			)}
