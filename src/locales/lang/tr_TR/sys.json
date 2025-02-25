@@ -85,12 +85,14 @@
 			"products": {
 				"index": "Ürünler",
 				"list": "Ürün Listesi",
+				"order": "Ürünleri Sırala",
 				"add": "Ürün Ekle",
 				"edit": "Ürün Düzenle"
 			},
 			"categories": {
 				"index": "Kategoriler",
 				"list": "Kategori Listesi",
+				"order": "Kategori Sırala",
 				"add": "Kategori Ekle",
 				"edit": "Kategori Düzenle"
 			},

@@ -69,40 +69,33 @@ export interface Role {
 }
 
 export interface Category {
-	id: number;
+	id?: number;
 	name: string;
-	description: string | null;
-	status: BaseStatus;
-	createdDate: string;
-	lastUpdatedDate: string;
-	orderValue: number;
-	products: Product[]; // Products array, link to the Product interface
+	description?: string | null;
+	status?: BaseStatus;
+	createdDate?: string;
+	lastUpdatedDate?: string;
+	orderValue?: number;
+	products?: Product[]; // Products array, link to the Product interface
 }
 
 export interface Product {
-	id: number;
+	id?: number;
 	name: string;
-	description: string | null;
+	description?: string | null;
 	status: BaseStatus;
-	createdDate: string;
-	lastUpdatedDate: string;
+	createdDate?: string;
+	lastUpdatedDate?: string;
 	barcode: string;
-	brand: string | null;
-	sku: string | null;
+	purchasePrice: number;
+	profitMargin: number;
+	taxRate: number;
 	price: number;
-	discountPrice: number | null;
 	stockQuantity: number;
-	orderValue: number;
+	orderValue?: number;
 	image: string;
-	shortDescription: string | null;
-	weight: number | null;
-	width: number | null;
-	height: number | null;
-	depth: number | null;
-	isFeatured: boolean | null;
-	viewCount: number;
-	soldCount: number;
-	tags: string[];
+	category?: Category;
+	categoryId?: number;
 }
 
 export interface CartItem extends Product {

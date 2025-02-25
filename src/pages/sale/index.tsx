@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Button, InputNumber, Collapse, Typography, Tooltip, Modal } from "antd";
-import { CreditCardOutlined, DeleteOutlined, EyeOutlined, PlusOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+	CreditCardOutlined,
+	DeleteOutlined,
+	EditOutlined,
+	EyeOutlined,
+	PlusOutlined,
+	ShoppingCartOutlined,
+} from "@ant-design/icons";
 import { PaymentTypes, ThemeMode } from "#/enum";
 import { useSettings } from "@/store/settingStore";
 import { useTranslation } from "react-i18next";
@@ -9,9 +16,11 @@ import type { CartItem, Category, Product, Transaction, TransactionItem } from "
 import { CircleLoading } from "@/components/loading";
 import { Iconify } from "@/components/icon";
 import { categoryListMutation, transactionSaveMutation } from "@/api/services/saleService";
+import { useNavigate } from "react-router";
 
 export default function SalePage() {
 	const { t } = useTranslation();
+	const navigate = useNavigate();
 	const { themeMode } = useSettings();
 	const backgroundColor = themeMode === ThemeMode.Light ? "rgb(244, 246, 248)" : "rgba(145, 158, 171, 0.12)";
 
@@ -110,12 +119,12 @@ export default function SalePage() {
 		}
 	};
 
-	const updateItem = (id: number, field: "quantity" | "discount" | "price", value: number) => {
-		setCart(cart.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
+	const updateItem = (id: number | undefined, field: "quantity" | "discount" | "price", value: number) => {
+		if (id) setCart(cart.map((item) => (item.id === id ? { ...item, [field]: value } : item)));
 	};
 
-	const removeItem = (id: number) => {
-		setCart(cart.filter((item) => item.id !== id));
+	const removeItem = (id: number | undefined) => {
+		if (id) setCart(cart.filter((item) => item.id !== id));
 	};
 
 	return (
@@ -139,7 +148,7 @@ export default function SalePage() {
 								key={"new-category"}
 								type={"dashed"}
 								icon={<PlusOutlined />}
-								onClick={() => console.log("new-category")}
+								onClick={() => navigate("/category/add")}
 							>
 								{t("sys.sale.add_new_category")}
 							</Button>
@@ -192,6 +201,7 @@ export default function SalePage() {
 											{t("sys.sale.add_to_cart")}
 										</Button>
 									</div>
+
 									{/* Urun Detayi Modal */}
 									<Modal
 										open={modalOpen}
@@ -219,26 +229,35 @@ export default function SalePage() {
 												</div>
 											)}
 											<p className="text-xl font-bold text-primary mt-4">{`${product.price.toFixed(2)} TL`}</p>
-											<Button
-												type="primary"
-												icon={<ShoppingCartOutlined />}
-												onClick={() => {
-													addToCart(product);
-													setModalOpen(false);
-												}}
-												className="mt-4"
-											>
-												{t("sys.sale.add_to_cart")}
-											</Button>
+											<Row gutter={24} justify="center" style={{ gap: "20px", marginTop: "15px" }}>
+												<Col>
+													<Button
+														type="default"
+														icon={<EditOutlined />}
+														onClick={() => navigate(`/product/edit/${product.id}`)}
+													>
+														{t("sys.menu.products.edit")}
+													</Button>
+												</Col>
+												<Col>
+													<Button
+														type="primary"
+														icon={<ShoppingCartOutlined />}
+														onClick={() => {
+															addToCart(product);
+															setModalOpen(false);
+														}}
+													>
+														{t("sys.sale.add_to_cart")}
+													</Button>
+												</Col>
+											</Row>
 										</div>
 									</Modal>
 								</div>
 							))}
 							{/* {(!products || products.length === 0) && ( */}
-							<div
-								className="product-card new-product text-text-secondary"
-								onClick={() => console.log("New product add button clicked")}
-							>
+							<div className="product-card new-product text-text-secondary" onClick={() => navigate("/product/add")}>
 								<PlusOutlined style={{ fontSize: 35 }} />
 								<p className="add-new-product-text">{t("sys.sale.add_new_product")}</p>
 							</div>

@@ -67,7 +67,7 @@ export default function ProductListPage() {
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-center text-gray-500">
-					<IconButton onClick={() => push(`/products/edit/${record.id}`)}>
+					<IconButton onClick={() => push(`/product/edit/${record.id}`)}>
 						<Iconify icon="solar:pen-bold-duotone" size={18} />
 					</IconButton>
 					<Popconfirm title="Delete the User" okText="Yes" cancelText="No" placement="left">
@@ -84,7 +84,7 @@ export default function ProductListPage() {
 		<Card
 			title={t("sys.menu.products.list")}
 			extra={
-				<Button type="primary" icon={<PlusOutlined />} disabled={isLoading} onClick={() => push("/products/add")}>
+				<Button type="primary" icon={<PlusOutlined />} disabled={isLoading} onClick={() => push("/product/add")}>
 					{t("common.add_new")}
 				</Button>
 			}
