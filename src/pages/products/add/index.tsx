@@ -21,7 +21,7 @@ export default function ProductAddPage() {
 	const [form] = Form.useForm();
 	const defaultFormValues = {
 		name: "",
-		categoryId: undefined,
+		cId: null,
 		purchasePrice: 50.0,
 		taxRate: 10,
 		price: 55.0,
@@ -76,10 +76,6 @@ export default function ProductAddPage() {
 							});
 
 						setCategories(categories);
-
-						if (categories.length > 0 && form.getFieldValue("categoryId") === undefined) {
-							form.setFieldsValue({ categoryId: categories[0].value });
-						}
 					}
 				} catch (err) {
 					setCategories([
@@ -94,7 +90,7 @@ export default function ProductAddPage() {
 			};
 			fetchCategories();
 		}
-	}, [categories, form, categoriesCall.mutateAsync]);
+	}, [categories, categoriesCall.mutateAsync]);
 
 	const handleGenerateBarcode = () => {
 		const newBarcode = generateBarcode();
@@ -104,8 +100,8 @@ export default function ProductAddPage() {
 	const onFinish = async (values: Partial<Product>) => {
 		setLoading(true);
 
-		const categoryIdValue = values.categoryId;
-		values.categoryId = undefined;
+		const categoryIdValue = values.cId;
+		values.cId = undefined;
 		const formValues = {
 			...values,
 			image: imageBase64,
@@ -199,7 +195,7 @@ export default function ProductAddPage() {
 					<Col md={12} sm={24} xs={24}>
 						<Form.Item
 							label={t("sys.menu.products.category")}
-							name="categoryId"
+							name="cId"
 							rules={[{ required: true, message: t("common.required_message") }]}
 						>
 							<Select

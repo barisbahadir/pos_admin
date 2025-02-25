@@ -95,7 +95,8 @@ export interface Product {
 	orderValue?: number;
 	image: string;
 	category?: Category;
-	categoryId?: number;
+	cId?: number | null;
+	cName?: string | null;
 }
 
 export interface CartItem extends Product {

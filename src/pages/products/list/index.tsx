@@ -39,6 +39,13 @@ export default function ProductListPage() {
 			render: (text) => <span className="font-semibold">{text}</span>,
 		},
 		{
+			title: t("sys.menu.products.category"),
+			dataIndex: "cName",
+			key: "cName",
+			responsive: ["md"],
+			render: (text) => <span>{text}</span>,
+		},
+		{
 			title: t("sys.menu.products.description"),
 			dataIndex: "description",
 			key: "description",
