@@ -9,7 +9,7 @@ import {
 	productByIdMutation,
 	productEditMutation,
 } from "@/api/services/saleService";
-import type { UploadProps } from "antd/lib";
+import type { UploadProps } from "antd";
 import ImgCrop from "antd-img-crop";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -31,9 +31,12 @@ export default function ProductAddPage() {
 		image: "",
 	} as Product;
 
-	const [isLoading, setLoading] = useState(false);
+	const [dataLoading, setLoading] = useState(false);
+	const [categoriesLoading, setCategoriesLoading] = useState(true);
 	const [categories, setCategories] = useState<{ label: string; value: number }[]>([]);
 	const [imageBase64, setImageBase64] = useState<string | null>(null);
+
+	const isLoading = dataLoading || categoriesLoading;
 
 	const categoriesCall = categoryListMutation();
 	const productByIdCall = productByIdMutation();
@@ -49,6 +52,7 @@ export default function ProductAddPage() {
 					const data = await productByIdCall.mutateAsync(id);
 					if (data) {
 						form.setFieldsValue(data);
+
 						if (data.image) setImageBase64(data.image);
 					}
 				} catch (err) {
@@ -63,9 +67,8 @@ export default function ProductAddPage() {
 
 	useEffect(() => {
 		if (categories.length === 0) {
-			setLoading(true);
+			setCategoriesLoading(true);
 			const fetchCategories = async () => {
-				setLoading(true);
 				try {
 					const data = await categoriesCall.mutateAsync();
 					if (data && data.length > 0) {
@@ -85,7 +88,7 @@ export default function ProductAddPage() {
 						},
 					]);
 				} finally {
-					setLoading(false);
+					setCategoriesLoading(false);
 				}
 			};
 			fetchCategories();
@@ -322,24 +325,45 @@ export default function ProductAddPage() {
 							rules={[{ required: false, message: t("sys.menu.products.upload_image") }]}
 						>
 							<ImgCrop rotationSlider>
-								<Upload multiple={false} listType="picture-card" beforeUpload={() => false} onChange={handleChange}>
-									{imageBase64 ? (
-										<img
-											src={imageBase64}
-											alt="Resim"
-											style={{
-												width: "100%",
-												height: "100px",
-												objectFit: "contain",
-											}}
-										/>
-									) : (
-										<div>
-											<PlusOutlined />
-											<div style={{ marginTop: 8 }}>{t("sys.menu.products.upload_image")}</div>
-										</div>
+								<div style={{ display: "flex", alignItems: "center" }}>
+									<Upload
+										multiple={false}
+										maxCount={1}
+										listType="picture-card"
+										onChange={handleChange}
+										showUploadList={false} // Upload list görünmesin
+										beforeUpload={() => false}
+									>
+										{imageBase64 ? (
+											<img
+												src={imageBase64}
+												alt="Resim"
+												style={{
+													width: "100%",
+													height: "100px",
+													objectFit: "contain",
+												}}
+											/>
+										) : (
+											<div>
+												<PlusOutlined />
+												<div style={{ marginTop: 8 }}>{t("sys.menu.products.upload_image")}</div>
+											</div>
+										)}
+									</Upload>
+									{imageBase64 && (
+										<Button
+											type="dashed"
+											onClick={() => {
+												setImageBase64(null);
+												form.setFieldsValue({ image: "" }); // Base64'i form'a set et
+											}} // handleDelete fonksiyonunu oluşturmalısınız
+											className="ml-4"
+										>
+											{t("common.delText")}
+										</Button>
 									)}
-								</Upload>
+								</div>
 							</ImgCrop>
 						</Form.Item>
 					</Col>
