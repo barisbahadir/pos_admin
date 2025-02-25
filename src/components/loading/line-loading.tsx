@@ -32,7 +32,7 @@ export function LineLoading() {
 				percent={percent}
 				trailColor={rgbAlpha(themeVars.colors.palette.primary.default, 0.8)}
 				strokeColor={themeVars.colors.palette.primary.default}
-				showInfo={false}
+				showInfo={true}
 				size="small"
 			/>
 		</div>
