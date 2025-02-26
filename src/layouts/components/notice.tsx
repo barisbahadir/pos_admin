@@ -3,7 +3,7 @@ import { type CSSProperties, useState } from "react";
 
 import CyanBlur from "@/assets/images/background/cyan-blur.png";
 import RedBlur from "@/assets/images/background/red-blur.png";
-import { IconButton, Iconify } from "@/components/icon";
+import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import { themeVars } from "@/theme/theme.css";
 import { useNotifications, useSettingActions, useSettings } from "@/store/settingStore";
 import type { ApiNotification } from "#/entity";
@@ -95,13 +95,7 @@ const NoticeTab: React.FC<NoticeTabProps> = ({ notifications, t }) => {
 	const readNotifyList = notifications.filter((n) => n.isViewed);
 
 	const getNotificationRow = (notify: ApiNotification) => {
-		let icon = (
-			<Iconify
-				icon="line-md:circle-to-confirm-circle-transition"
-				size={35}
-				color={themeVars.colors.palette.success.default}
-			/>
-		);
+		let icon = <SvgIcon icon="ic_chat" size={35} />;
 		if (notify.type === ApiNotificationType.Error)
 			icon = <Iconify icon="line-md:alert-circle" size={35} color={themeVars.colors.palette.error.default} />;
 		else if (notify.type === ApiNotificationType.Info)

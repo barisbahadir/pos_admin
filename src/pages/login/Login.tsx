@@ -33,19 +33,20 @@ function Login() {
 	return (
 		<Layout className="relative flex !min-h-screen !w-full !flex-row">
 			<div
-				className="hidden grow flex-col items-center justify-center gap-[80px] bg-center  bg-no-repeat md:flex"
+				className="hidden grow flex-col items-center justify-center gap-[20px] bg-center  bg-no-repeat md:flex"
 				style={{
 					background: bg,
 				}}
 			>
-				<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl text-primary">{APP_NAME}</div>
-				<img className="max-w-[480px] xl:max-w-[560px]" src={DashboardImg} alt="" />
+				<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl text-gray-500">{APP_NAME}</div>
+				<img className="max-w-[560px] xl:max-w-[7000px]" src={DashboardImg} alt="" />
 				<Typography.Text className="flex flex-row gap-[16px] text-2xl font-bold">
 					{t("sys.login.signInSecondTitle")}
 				</Typography.Text>
 			</div>
 
 			<div className="m-auto flex !h-screen w-full max-w-[480px] flex-col justify-center px-[16px] lg:px-[64px]">
+				<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl text-primary mb-11">{APP_NAME}</div>
 				<LoginStateProvider>
 					<LoginForm />
 					<MobileForm />
