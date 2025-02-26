@@ -1,3 +1,10 @@
+export enum ApiNotificationType {
+	Success = "Success",
+	Error = "Error",
+	Warning = "Warning",
+	Info = "info",
+}
+
 export enum UserRoleTypes {
 	TEST = "TEST",
 	USER = "USER",

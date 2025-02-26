@@ -1,15 +1,25 @@
-import { faker } from "@faker-js/faker";
-import { Badge, Button, Drawer, Space, Tabs, type TabsProps, Tag } from "antd";
-import { type CSSProperties, type ReactNode, useState } from "react";
+import { Badge, Button, Drawer, Modal, Space, Tabs, type TabsProps, Tag } from "antd";
+import { type CSSProperties, useState } from "react";
 
 import CyanBlur from "@/assets/images/background/cyan-blur.png";
 import RedBlur from "@/assets/images/background/red-blur.png";
-import { IconButton, Iconify, SvgIcon } from "@/components/icon";
+import { IconButton, Iconify } from "@/components/icon";
 import { themeVars } from "@/theme/theme.css";
+import { useNotifications, useSettingActions, useSettings } from "@/store/settingStore";
+import type { ApiNotification } from "#/entity";
+import { ApiNotificationType, ThemeMode } from "#/enum";
+import { useTranslation } from "react-i18next";
+import { CloseOutlined } from "@ant-design/icons";
+import type { TFunction } from "i18next";
 
 export default function NoticeButton() {
+	const { t } = useTranslation();
+	const notifications = useNotifications();
+	const { markAllNotificationsAsViewed } = useSettingActions();
+
+	const unreadNotifyList = notifications.filter((n) => !n.isViewed);
+
 	const [drawerOpen, setDrawerOpen] = useState(false);
-	const [count, setCount] = useState(0);
 
 	const style: CSSProperties = {
 		backdropFilter: "blur(20px)",
@@ -24,7 +34,7 @@ export default function NoticeButton() {
 		<div>
 			<IconButton onClick={() => setDrawerOpen(true)}>
 				<Badge
-					count={count}
+					count={unreadNotifyList.length}
 					styles={{
 						root: { color: "inherit" },
 						indicator: { color: themeVars.colors.common.white },
@@ -35,224 +45,204 @@ export default function NoticeButton() {
 			</IconButton>
 			<Drawer
 				placement="right"
-				title="Notifications"
+				title={t("sys.notifications")}
 				onClose={() => setDrawerOpen(false)}
 				open={drawerOpen}
 				closable={false}
 				width={420}
 				styles={{
-					body: { padding: 0 },
+					body: { padding: 0, height: "100%" },
 					mask: { backgroundColor: "rgba(0, 0, 0, 0.2)" },
 				}}
 				style={style}
 				extra={
-					<IconButton
-						style={{ color: themeVars.colors.palette.primary.default }}
-						onClick={() => {
-							setCount(0);
-							setDrawerOpen(false);
-						}}
-					>
-						<Iconify icon="solar:check-read-broken" size={20} className="text-primary" />
-					</IconButton>
+					<Button type="link" icon={<CloseOutlined />} onClick={() => setDrawerOpen(false)}>
+						{t("common.closeText")}
+					</Button>
 				}
 				footer={
 					<div
-						style={{ color: themeVars.colors.text.primary }}
+						style={{
+							color: themeVars.colors.text.primary,
+							cursor: "pointer",
+						}}
 						className="flex h-10 w-full items-center justify-center font-semibold"
+						onClick={() => markAllNotificationsAsViewed()}
 					>
-						View All
+						{t("sys.notifications_mark_read")}
 					</div>
 				}
 			>
-				<NoticeTab />
+				<NoticeTab notifications={notifications} t={t} />
 			</Drawer>
 		</div>
 	);
 }
 
-function NoticeTab() {
-	const tabChildren: ReactNode = (
-		<div className="text-sm">
-			<div className="flex">
-				<img className="h-10 w-10 rounded-full" src={faker.image.avatarGitHub()} alt="" />
-				<div className="ml-2">
-					<div>
-						<span className="font-medium">{faker.person.fullName()}</span>
-						<span className="text-xs font-light"> sent you a frind request</span>
+interface NoticeTabProps {
+	notifications: ApiNotification[];
+	t: TFunction<"translation", undefined>;
+}
+
+const NoticeTab: React.FC<NoticeTabProps> = ({ notifications, t }) => {
+	const { themeMode } = useSettings();
+	const backgroundColor = themeMode === ThemeMode.Light ? "rgb(244, 246, 248)" : "rgba(145, 158, 171, 0.12)";
+
+	const [notifyDetail, setNotifyDetail] = useState<ApiNotification>();
+
+	const unreadNotifyList = notifications.filter((n) => !n.isViewed);
+	const readNotifyList = notifications.filter((n) => n.isViewed);
+
+	const getNotificationRow = (notify: ApiNotification) => {
+		let icon = (
+			<Iconify
+				icon="line-md:circle-to-confirm-circle-transition"
+				size={35}
+				color={themeVars.colors.palette.success.default}
+			/>
+		);
+		if (notify.type === ApiNotificationType.Error)
+			icon = <Iconify icon="line-md:alert-circle" size={35} color={themeVars.colors.palette.error.default} />;
+		else if (notify.type === ApiNotificationType.Info)
+			icon = <Iconify icon="line-md:chat-round-alert" size={35} color={themeVars.colors.palette.info.default} />;
+		else if (notify.type === ApiNotificationType.Warning)
+			icon = <Iconify icon="line-md:bell" size={35} color={themeVars.colors.palette.warning.default} />;
+
+		return (
+			<div
+				key={notify.id}
+				className="flex flex-col mb-4 pt-2 pb-2"
+				style={{
+					// border: "1px solid #f0f0f0",
+					borderRadius: "12px",
+					maxWidth: "100%",
+					overflowX: "hidden",
+					backgroundColor: backgroundColor,
+				}}
+			>
+				<div className="flex" style={{ maxWidth: "100%" }}>
+					<div className="flex justify-center" style={{ width: "20%" }}>
+						{icon}
 					</div>
-					<span className="text-xs font-light opacity-60">about 1 hour ago</span>
-					<div className="mt-2">
-						<Space>
-							<Button type="primary">Accept</Button>
-							<Button>Refuse</Button>
-						</Space>
+					<div className="flex flex-col" style={{ width: "80%" }}>
+						<span className="font-medium line-clamp-2">{notify.message}</span>
+						<span className="text-xs font-light opacity-60">5 hour ago</span>
 					</div>
 				</div>
-			</div>
-
-			<div className="mt-8 flex">
-				<img className="h-10 w-10 rounded-full" src={faker.image.avatarGitHub()} alt="" />
-				<div className="ml-2">
-					<div>
-						<span className="font-medium">{faker.person.fullName()}</span>
-						<span className="text-xs font-light"> added file to </span>
-						<span className="font-medium">File Manager</span>
-					</div>
-					<span className="text-xs font-light opacity-60">5 hour ago</span>
-					<div className="mt-2 flex items-center rounded-lg bg-bg-neutral p-4">
-						<div className="ml-2 flex flex-col text-gray">
-							<span className="font-medium">@{faker.person.fullName()}</span>
-							<span className="text-xs">{faker.lorem.lines(2)}</span>
+				{notify.detailedMessage && (
+					<>
+						<div className="mt-2 flex items-center rounded-lg bg-bg-neutral p-4" style={{ maxWidth: "100%" }}>
+							<div className="ml-2 flex flex-col text-gray" style={{ maxWidth: "100%" }}>
+								<span className="text-xs line-clamp-4">{notify.detailedMessage}</span>
+							</div>
 						</div>
-					</div>
-					<div className="mt-2">
-						<Space>
-							<Button type="primary">Reply</Button>
-						</Space>
-					</div>
-				</div>
-			</div>
-
-			<div className="mt-8 flex">
-				<img className="h-10 w-10 rounded-full" src={faker.image.avatarGitHub()} alt="" />
-				<div className="ml-2">
-					<div>
-						<span className="font-medium">{faker.person.fullName()}</span>
-						<span className="text-xs font-light"> mentioned you in</span>
-						<span className="font-medium">Slash Admin</span>
-					</div>
-					<span className="text-xs font-light opacity-60">1 days ago</span>
-					<div className="mt-2">
-						<Space>
-							<Button type="primary">Reply</Button>
-						</Space>
-					</div>
-				</div>
-			</div>
-
-			<div className="mt-8 flex">
-				<img className="h-10 w-10 rounded-full" src={faker.image.avatarGitHub()} alt="" />
-				<div className="ml-2">
-					<div>
-						<span className="font-medium">{faker.person.fullName()}</span>
-						<span className="text-xs font-light"> added file to </span>
-						<span className="font-medium">File Manager</span>
-					</div>
-					<span className="text-xs font-light opacity-60">2 days ago</span>
-					<div className="mt-2 flex items-center rounded-lg bg-bg-neutral p-4">
-						<SvgIcon icon="ic_file_audio" size={48} />
-						<div className="ml-2 flex flex-col text-gray">
-							<span className="font-medium">Witout Me</span>
-							<span className="text-xs">1.2GB·30 min ago </span>
+						<div className="mt-2" style={{ textAlign: "center", maxWidth: "100%" }}>
+							<Space>
+								<Button type="default" onClick={() => setNotifyDetail(notify)}>
+									View
+								</Button>
+							</Space>
 						</div>
-						<Button className="ml-4">Download</Button>
-					</div>
-				</div>
+					</>
+				)}
 			</div>
+		);
+	};
 
-			<div className="mt-8 flex">
-				<img className="h-10 w-10 rounded-full" src={faker.image.avatarGitHub()} alt="" />
-				<div className="ml-2">
-					<div>
-						<span className="font-medium">{faker.person.fullName()}</span>
-						<span className="text-xs font-light"> request a payment of </span>
-						<span className="font-medium">$3000</span>
-					</div>
-					<span className="text-xs font-light opacity-60">4 days ago</span>
-					<div className="mt-2">
-						<Space>
-							<Button type="primary">Pay</Button>
-							<Button>Refuse</Button>
-						</Space>
-					</div>
+	const emptyNotificationsText = () => {
+		return (
+			<>
+				<div
+					className="empty-cart text-text-secondary"
+					style={{
+						display: "flex",
+						height: "50vh",
+						justifyContent: "center",
+						alignItems: "center",
+						flexDirection: "column",
+						textAlign: "center",
+					}}
+				>
+					<Iconify icon="line-md:chat-off" size={60} />
+					<p className="text-xl font-semibold text-text-secondary mt-2">{"Yeni bildiriminiz bulunmamaktadır."}</p>
 				</div>
-			</div>
+			</>
+		);
+	};
 
-			<div className="mt-8 flex">
-				<IconButton>
-					<SvgIcon icon="ic_order" size={30} />
-				</IconButton>
-				<div className="ml-2">
-					<div>
-						<span className="font-light">Your order is placed waiting for shipping</span>
-					</div>
-					<span className="text-xs font-light opacity-60">4 days ago</span>{" "}
-				</div>
-			</div>
-
-			<div className="mt-8 flex">
-				<IconButton>
-					<SvgIcon icon="ic_mail" size={30} />
-				</IconButton>
-				<div className="ml-2">
-					<div>
-						<span className="font-light">You have new mail</span>
-					</div>
-					<span className="text-xs font-light opacity-60">5 days ago</span>{" "}
-				</div>
-			</div>
-
-			<div className="mt-8 flex">
-				<IconButton>
-					<SvgIcon icon="ic_chat" size={30} />
-				</IconButton>
-				<div className="ml-2">
-					<div>
-						<span className="font-light">You have new message 5 unread message</span>
-					</div>
-					<span className="text-xs font-light opacity-60">7 days ago</span>
-				</div>
-			</div>
-
-			<div className="mt-8 flex">
-				<IconButton>
-					<SvgIcon icon="ic_delivery" size={30} />
-				</IconButton>
-				<div className="ml-2">
-					<div>
-						<span className="font-light">Delivery processing your order is being shipped</span>
-					</div>
-					<span className="text-xs font-light opacity-60">8 days ago</span>{" "}
-				</div>
-			</div>
-		</div>
-	);
 	const items: TabsProps["items"] = [
 		{
 			key: "1",
 			label: (
 				<div className="flex">
-					<span>All</span>
-					<Tag color="processing">22</Tag>
+					<span>Tümü</span>
+					<Tag color="processing">{notifications.length}</Tag>
 				</div>
 			),
-			children: tabChildren,
+			children: (
+				<div style={{ flex: 1, overflowY: "auto" }}>
+					{notifications.length > 0
+						? notifications.map((notify) => getNotificationRow(notify))
+						: emptyNotificationsText()}
+				</div>
+			),
 		},
 		{
 			key: "2",
 			label: (
 				<div className="flex">
-					<span>Unread</span>
-					<Tag color="error">12</Tag>
+					<span>Okunmamış</span>
+					<Tag color="error">{unreadNotifyList.length}</Tag>
 				</div>
 			),
-			children: tabChildren,
+			children: (
+				<div style={{ flex: 1, overflowY: "auto" }}>
+					{unreadNotifyList.length > 0
+						? unreadNotifyList.map((notify) => getNotificationRow(notify))
+						: emptyNotificationsText()}
+				</div>
+			),
 		},
 		{
 			key: "3",
 			label: (
 				<div className="flex">
-					<span>Archived</span>
-					<Tag color="green">10</Tag>
+					<span>Arşiv</span>
+					<Tag color="green">{readNotifyList.length}</Tag>
 				</div>
 			),
-			children: tabChildren,
+			children: (
+				<div style={{ flex: 1, overflowY: "auto" }}>
+					{readNotifyList.length > 0
+						? readNotifyList.map((notify) => getNotificationRow(notify))
+						: emptyNotificationsText()}
+				</div>
+			),
 		},
 	];
 	return (
 		<div className="flex flex-col px-6">
 			<Tabs defaultActiveKey="1" items={items} />
+
+			<Modal
+				title={notifyDetail?.message}
+				open={!!notifyDetail}
+				centered={true}
+				onCancel={() => setNotifyDetail(undefined)}
+				footer={
+					<div style={{ textAlign: "center", marginTop: "16px" }}>
+						<Button type="primary" onClick={() => setNotifyDetail(undefined)}>
+							{t("common.closeText")}
+						</Button>
+					</div>
+				}
+				width="50vw" // Modal genişliği ekranın %80'i
+				style={{ maxHeight: "60vh", overflowY: "auto", alignItems: "center" }} // Modal yüksekliği ekranın %90'ı
+			>
+				<div style={{ maxHeight: "calc(60vh - 120px)", overflowY: "auto" }}>
+					<p>{notifyDetail?.detailedMessage}</p>
+				</div>
+			</Modal>
 		</div>
 	);
-}
+};

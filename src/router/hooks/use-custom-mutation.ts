@@ -1,3 +1,4 @@
+import { notifyError, notifySuccess } from "@/utils/api-utils";
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -30,7 +31,8 @@ export const useCustomMutation = <TData = unknown, TError = unknown, TVariables 
 				if (context?.loadingToastId) {
 					toast.dismiss(context.loadingToastId); // Loading tostu kapat
 				}
-				toast.success(t("sys.api.data_load_success"));
+				notifySuccess(t("sys.api.data_load_success"));
+				// notificationSuccess(t("sys.api.data_load_success"));
 			}
 			options?.onSuccess?.(data, variables, context);
 		},
@@ -39,7 +41,11 @@ export const useCustomMutation = <TData = unknown, TError = unknown, TVariables 
 				if (context?.loadingToastId) {
 					toast.dismiss(context.loadingToastId); // Loading tostu kapat
 				}
-				toast.error(error?.response?.data?.message || t("sys.api.data_load_error"));
+				notifyError(
+					error?.response?.data?.message || t("sys.api.data_load_error"),
+					error?.response?.data?.detailedMessage || "",
+				);
+				// notificationError(error?.response?.data?.message || t("sys.api.data_load_error"), error?.response?.data?.detailedMessage || "");
 			}
 
 			options?.onError?.(error, variables, context);

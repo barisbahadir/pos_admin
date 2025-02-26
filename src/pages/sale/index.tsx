@@ -83,7 +83,6 @@ export default function SalePage() {
 		try {
 			const cartData: Transaction = {
 				paymentType: paymentType,
-				// transactionDate: getFormattedDateTimeNow(),
 				transactionItems: cart.map((c) => {
 					const item: TransactionItem = {
 						productId: c.id,
@@ -234,7 +233,10 @@ export default function SalePage() {
 													<Button
 														type="default"
 														icon={<EditOutlined />}
-														onClick={() => navigate(`/product/edit/${product.id}`)}
+														onClick={() => {
+															setModalOpen(false);
+															navigate(`/product/edit/${product.id}`);
+														}}
 													>
 														{t("sys.menu.products.edit")}
 													</Button>

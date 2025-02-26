@@ -3,33 +3,52 @@ import Table, { type ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { useRouter } from "@/router/hooks";
 import { useTranslation } from "react-i18next";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { CircleLoading } from "@/components/loading";
 import type { Category } from "#/entity";
-import { categoryListMutation } from "@/api/services/saleService";
+import { categoryDeleteMutation, categoryListMutation } from "@/api/services/saleService";
 import { IconButton, Iconify } from "@/components/icon";
+import { toast } from "sonner";
 
 export default function ProductListPage() {
 	const { t } = useTranslation();
 	const { push } = useRouter();
 	const [isLoading, setLoading] = useState<boolean>(false);
+	const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
 	const [categories, setCategories] = useState<Category[]>([]);
 
 	const categoryListCall = categoryListMutation();
+	const categoryDeleteCall = categoryDeleteMutation();
 
 	useEffect(() => {
-		setLoading(true);
 		const fetchData = async () => {
-			try {
-				const data = await categoryListCall.mutateAsync();
-				setCategories(data);
-			} finally {
-				setLoading(false);
-			}
+			await handleCategoryList();
 		};
 
 		fetchData();
-	}, [categoryListCall.mutateAsync]);
+	}, []);
+
+	const handleCategoryList = async () => {
+		setLoading(true);
+		try {
+			const data = await categoryListCall.mutateAsync();
+			setCategories(data);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const handleDeleteCategory = async (category: Category) => {
+		setDeleteLoading(true);
+		try {
+			const data = await categoryDeleteCall.mutateAsync(category.id?.toString() || "");
+			if (data) toast.success(`Kategori: ${category.name} silindi!`);
+			else toast.error(`Kategori: ${category.name} silinirken bir hata oluştu!`);
+		} finally {
+			setDeleteLoading(false);
+			await handleCategoryList();
+		}
+	};
 
 	const columns: ColumnsType<Category> = [
 		{
@@ -71,14 +90,16 @@ export default function ProductListPage() {
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-center text-gray-500">
-					<IconButton onClick={() => push(`/category/edit/${record.id}`)}>
+					<IconButton onClick={() => push(`/category/edit/${record.id}`)} disabled={deleteLoading}>
 						<Iconify icon="solar:pen-bold-duotone" size={18} />
 					</IconButton>
 					<Popconfirm
 						title={t("common.delete_question")}
 						okText={t("common.delText")}
+						onConfirm={() => handleDeleteCategory(record)}
 						cancelText={t("common.cancelText")}
 						placement="left"
+						icon={<QuestionCircleOutlined style={{ color: "red" }} />}
 					>
 						<IconButton>
 							<Iconify icon="mingcute:delete-2-fill" size={18} className="text-error" />

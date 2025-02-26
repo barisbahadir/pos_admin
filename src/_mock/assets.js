@@ -586,26 +586,26 @@ export const TEST_USER = {
 export const USER_LIST = [DEFAULT_USER, TEST_USER];
 
 // * Hot update, updating user permissions, only effective in the development environment
-if (import.meta.hot) {
-	import.meta.hot.accept((newModule) => {
-		if (!newModule) return;
+// if (import.meta.hot) {
+// 	import.meta.hot.accept((newModule) => {
+// 		if (!newModule) return;
 
-		const { DEFAULT_USER, TEST_USER, PERMISSION_LIST } = newModule;
+// 		const { DEFAULT_USER, TEST_USER, PERMISSION_LIST } = newModule;
 
-		const {
-			userInfo,
-			actions: { setUserInfo },
-		} = useUserStore.getState();
+// 		const {
+// 			userInfo,
+// 			actions: { setUserInfo },
+// 		} = useUserStore.getState();
 
-		if (!userInfo?.username) return;
+// 		if (!userInfo?.username) return;
 
-		const newUserInfo = userInfo.username === DEFAULT_USER.username ? DEFAULT_USER : TEST_USER;
+// 		const newUserInfo = userInfo.username === DEFAULT_USER.username ? DEFAULT_USER : TEST_USER;
 
-		setUserInfo(newUserInfo);
+// 		setUserInfo(newUserInfo);
 
-		console.log("[HMR] User permissions updated:", {
-			username: newUserInfo.username,
-			permissions: newUserInfo.permissions,
-		});
-	});
-}
+// 		console.log("[HMR] User permissions updated:", {
+// 			username: newUserInfo.username,
+// 			permissions: newUserInfo.permissions,
+// 		});
+// 	});
+// }

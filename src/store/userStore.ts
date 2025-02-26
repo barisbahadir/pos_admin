@@ -3,10 +3,10 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { faker } from "@faker-js/faker";
 
-import { toast } from "sonner";
 import type { LoginInfo, SignInRequest, UserToken } from "#/entity";
 import { StorageEnum } from "#/enum";
 import { loginMutation } from "@/api/services/systemService";
+import { notifySuccess } from "@/utils/api-utils";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -76,12 +76,8 @@ export const useSignIn = () => {
 			}
 			setUserInfo(res);
 			navigate(HOMEPAGE, { replace: true });
-			toast.success(`Giriş başarılı, ${res.email} hoşgeldiniz.`);
-		} catch (err) {
-			toast.error(err.message, {
-				position: "top-center",
-			});
-		}
+			notifySuccess(`Giriş başarılı, hoşgeldin ${res.email}.`);
+		} catch (err) {}
 	};
 
 	return signIn;

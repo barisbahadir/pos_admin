@@ -219,6 +219,8 @@
 			"pay_cash": "Nakit öde",
 			"pay_card": "Kartla öde"
 		},
+		"notifications": "Oturum Bildirimleri",
+		"notifications_mark_read": "Tümünü Okundu Olarak İşaretle",
 		"redirect_home": "Anasayfaya Dön",
 		"go_to_page": "Sayfaya Git",
 		"settings_label": "Ayarlar",

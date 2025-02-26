@@ -219,6 +219,8 @@
 			"pay_cash": "Bar bezahlen",
 			"pay_card": "Mit Karte bezahlen"
 		},
+		"notifications": "Benachrichtigungen",
+		"notifications_mark_read": "Alle als gelesen markieren",
 		"redirect_home": "Zurück zur Startseite",
 		"go_to_page": "Zur Seite gehen",
 		"settings_label": "Einstellungen",

@@ -3,8 +3,8 @@ import axios, { type AxiosRequestConfig, type AxiosError, type AxiosResponse } f
 import { t } from "@/locales/i18n";
 import userStore from "@/store/userStore";
 
-import { toast } from "sonner";
 import type { Result } from "#/api";
+import { notifyError } from "@/utils/api-utils";
 
 const axiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -67,10 +67,7 @@ axiosInstance.interceptors.response.use(
 			userStore.getState().actions.clearUserInfoAndToken();
 		}
 		const errMsg = response?.data?.message || t("sys.api.errorMessage");
-		toast.error(errMsg, {
-			position: "top-center",
-			duration: 7000,
-		});
+		notifyError(errMsg, response?.data?.detailedMessage);
 
 		return Promise.reject(error);
 	},

@@ -1,4 +1,13 @@
-import type { BaseStatus, PaymentTypes, PermissionType, UserRoleTypes } from "./enum";
+import type { BaseStatus, ApiNotificationType, PaymentTypes, PermissionType, UserRoleTypes } from "./enum";
+
+export interface ApiNotification {
+	id: string;
+	message: string;
+	detailedMessage?: string;
+	type: ApiNotificationType;
+	timestamp: number;
+	isViewed: boolean;
+}
 
 export interface SignInRequest {
 	email: string;

@@ -156,15 +156,16 @@ export default function SettingButton() {
 				onClose={() => setDrawerOpen(false)}
 				open={drawerOpen}
 				closable={false}
+				width={420}
 				styles={{
-					body: { padding: 0 },
-					mask: { backgroundColor: "transparent" },
+					body: { padding: 0, height: "100%" },
+					mask: { backgroundColor: "rgba(0, 0, 0, 0.2)" },
 				}}
 				style={style}
 				extra={
-					<IconButton onClick={() => setDrawerOpen(false)} className="h-9 w-9 hover:scale-105">
-						<CloseOutlined className="text-gray-400" />
-					</IconButton>
+					<Button type="link" icon={<CloseOutlined />} onClick={() => setDrawerOpen(false)}>
+						{t("common.closeText")}
+					</Button>
 				}
 				footer={
 					<Button type="dashed" block size="large" onClick={toggleFullScreen}>

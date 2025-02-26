@@ -3,11 +3,8 @@ import { Card, Col, Input, Row, Tooltip, Typography } from "antd";
 import { type ChangeEvent, useState } from "react";
 
 import { IconButton, Iconify } from "@/components/icon";
-import { useCopyToClipboard } from "@/hooks";
 
 export default function ClipboardPage() {
-	const { copyFn } = useCopyToClipboard();
-
 	const [value, setValue] = useState("https://www.npmjs.com/package/");
 
 	const textOnClick = faker.lorem.paragraphs({ min: 3, max: 5 });
@@ -15,7 +12,7 @@ export default function ClipboardPage() {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
 	const CopyButton = (
 		<Tooltip title="Copy">
-			<IconButton className="text-gray" onClick={() => copyFn(value)}>
+			<IconButton className="text-gray" onClick={() => {}}>
 				<Iconify icon="eva:copy-fill" size={20} />
 			</IconButton>
 		</Tooltip>
@@ -29,7 +26,7 @@ export default function ClipboardPage() {
 				</Col>
 				<Col span={24} md={12}>
 					<Typography.Title level={5}>ON DOUBLE CLICK</Typography.Title>
-					<Typography onDoubleClick={() => copyFn(textOnClick)}>{textOnClick}</Typography>
+					<Typography onDoubleClick={() => {}}>{textOnClick}</Typography>
 				</Col>
 			</Row>
 		</Card>

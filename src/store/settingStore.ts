@@ -3,6 +3,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 import { FontFamilyPreset, typographyTokens } from "@/theme/tokens/typography";
 import { StorageEnum, ThemeColorPresets, ThemeLayout, ThemeMode } from "#/enum";
+import type { ApiNotification } from "#/entity";
 
 type SettingsType = {
 	themeColorPresets: ThemeColorPresets;
@@ -18,10 +19,14 @@ type SettingsType = {
 };
 type SettingStore = {
 	settings: SettingsType;
-	// 使用 actions 命名空间来存放所有的 action
+	notifications: ApiNotification[];
 	actions: {
 		setSettings: (settings: SettingsType) => void;
 		clearSettings: () => void;
+		setNotifications: (notifications: ApiNotification[]) => void;
+		addNotification: (notification: ApiNotification) => void;
+		markAllNotificationsAsViewed: () => void;
+		clearNotifications: () => void;
 	};
 };
 
@@ -40,12 +45,30 @@ const useSettingStore = create<SettingStore>()(
 				fontSize: Number(typographyTokens.fontSize.sm),
 				direction: "ltr",
 			},
+			notifications: [],
 			actions: {
 				setSettings: (settings) => {
 					set({ settings });
 				},
 				clearSettings() {
 					useSettingStore.persist.clearStorage();
+				},
+				setNotifications: (notifications) => {
+					set({ notifications });
+				},
+				addNotification: (notification) => {
+					set((state) => ({
+						notifications: [notification, ...state.notifications],
+					}));
+				},
+				markAllNotificationsAsViewed: () => {
+					set((state) => ({
+						notifications: state.notifications.map((notification) => ({ ...notification, isViewed: true })),
+					}));
+				},
+
+				clearNotifications: () => {
+					set({ notifications: [] });
 				},
 			},
 		}),
@@ -59,3 +82,6 @@ const useSettingStore = create<SettingStore>()(
 
 export const useSettings = () => useSettingStore((state) => state.settings);
 export const useSettingActions = () => useSettingStore((state) => state.actions);
+export const useNotifications = () => useSettingStore((state) => state.notifications);
+
+export default useSettingStore;
