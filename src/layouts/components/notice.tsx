@@ -11,6 +11,7 @@ import { ApiNotificationType, ThemeMode } from "#/enum";
 import { useTranslation } from "react-i18next";
 import { CloseOutlined } from "@ant-design/icons";
 import type { TFunction } from "i18next";
+import { convertTimestampToDateTime } from "@/utils/api-utils";
 
 export default function NoticeButton() {
 	const { t } = useTranslation();
@@ -126,7 +127,7 @@ const NoticeTab: React.FC<NoticeTabProps> = ({ notifications, t }) => {
 					</div>
 					<div className="flex flex-col" style={{ width: "80%" }}>
 						<span className="font-medium line-clamp-2">{notify.message}</span>
-						<span className="text-xs font-light opacity-60">5 hour ago</span>
+						<span className="text-xs font-light opacity-60">{convertTimestampToDateTime(notify.timestamp)}</span>
 					</div>
 				</div>
 				{notify.detailedMessage && (

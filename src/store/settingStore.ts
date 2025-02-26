@@ -58,7 +58,10 @@ const useSettingStore = create<SettingStore>()(
 				},
 				addNotification: (notification) => {
 					set((state) => ({
-						notifications: [notification, ...state.notifications],
+						notifications:
+							state.notifications.length > 0 && state.notifications[0].message === notification.message
+								? state.notifications
+								: [notification, ...state.notifications],
 					}));
 				},
 				markAllNotificationsAsViewed: () => {

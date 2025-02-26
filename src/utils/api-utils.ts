@@ -48,3 +48,16 @@ export const notifyWarning = (message: string, hideToast?: boolean) => {
 
 	if (!hideToast) toast.warning(message);
 };
+
+export const convertTimestampToDateTime = (timestamp: number) => {
+	const date = new Date(timestamp);
+
+	const year = date.getFullYear();
+	const month = date.getMonth() + 1; // Ay 0'dan başlar, o yüzden +1 ekliyoruz
+	const day = date.getDate();
+	const hours = date.getHours();
+	const minutes = date.getMinutes();
+	const seconds = date.getSeconds();
+
+	return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
+};
