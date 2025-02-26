@@ -134,7 +134,7 @@ const NoticeTab: React.FC<NoticeTabProps> = ({ notifications, t }) => {
 						<div className="mt-2" style={{ textAlign: "center", maxWidth: "100%" }}>
 							<Space>
 								<Button type="default" onClick={() => setNotifyDetail(notify)}>
-									View
+									{t("common.viewText")}
 								</Button>
 							</Space>
 						</div>

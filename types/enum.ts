@@ -1,3 +1,9 @@
+export enum AuthenticationType {
+	NONE = "NONE", // 2FA devre dışı
+	OTP = "OTP", // Google Authenticator (OTP)
+	EMAIL = "EMAIL", // E-posta ile doğrulama kodu
+}
+
 export enum ApiNotificationType {
 	Success = "Success",
 	Error = "Error",

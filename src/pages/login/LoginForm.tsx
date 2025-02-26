@@ -1,19 +1,19 @@
 import { Alert, Button, Checkbox, Col, Divider, Form, Input, Row } from "antd";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { DEFAULT_USER, TEST_USER } from "@/_mock/assets";
-import { useSignIn } from "@/store/userStore";
 
 import { LoginStateEnum, useLoginStateContext } from "./providers/LoginStateProvider";
 import type { SignInRequest } from "#/entity";
+import { useAuth } from "@/router/hooks/use-auth";
+import { useState } from "react";
 
-function LoginForm() {
+export default function LoginForm() {
 	const { t } = useTranslation();
-	const [loading, setLoading] = useState(false);
+	const { setLoginState, loginState } = useLoginStateContext();
+	const { signIn } = useAuth();
 
-	const { loginState, setLoginState } = useLoginStateContext();
-	const signIn = useSignIn();
+	const [isLoading, setLoading] = useState(false);
 
 	if (loginState !== LoginStateEnum.LOGIN) return null;
 
@@ -25,12 +25,14 @@ function LoginForm() {
 			setLoading(false);
 		}
 	};
+
 	return (
 		<>
 			<div className="mb-4 text-2xl font-bold xl:text-3xl">{t("sys.login.signInFormTitle")}</div>
 			<Form
 				name="login"
 				size="large"
+				disabled={isLoading}
 				initialValues={{
 					remember: true,
 					email: DEFAULT_USER.email,
@@ -59,7 +61,6 @@ function LoginForm() {
 						showIcon
 					/>
 				</div>
-
 				<Form.Item name="email" rules={[{ required: true, message: t("sys.login.accountPlaceholder") }]}>
 					<Input placeholder={t("sys.login.email")} />
 				</Form.Item>
@@ -86,7 +87,7 @@ function LoginForm() {
 					</Row>
 				</Form.Item>
 				<Form.Item>
-					<Button type="primary" htmlType="submit" className="w-full" loading={loading}>
+					<Button type="primary" htmlType="submit" className="w-full" loading={isLoading}>
 						{t("sys.login.loginButton")}
 					</Button>
 				</Form.Item>
@@ -94,17 +95,12 @@ function LoginForm() {
 				<Divider className="!text-sm">{t("sys.login.otherSignIn")}</Divider>
 
 				<Row align="middle" gutter={8}>
-					<Col span={9} flex="1">
-						<Button className="w-full !text-sm" onClick={() => setLoginState(LoginStateEnum.MOBILE)}>
-							{t("sys.login.mobileSignInFormTitle")}
-						</Button>
-					</Col>
-					<Col span={9} flex="1">
-						<Button className="w-full !text-sm" onClick={() => setLoginState(LoginStateEnum.QR_CODE)}>
+					<Col span={12} flex="1">
+						<Button className="w-full !text-sm" onClick={() => setLoginState(LoginStateEnum.OTP)}>
 							{t("sys.login.qrSignInFormTitle")}
 						</Button>
 					</Col>
-					<Col span={6} flex="1" onClick={() => setLoginState(LoginStateEnum.REGISTER)}>
+					<Col span={12} flex="1" onClick={() => setLoginState(LoginStateEnum.REGISTER)}>
 						<Button className="w-full !text-sm">
 							<b>{t("sys.login.signUpFormTitle")}</b>
 						</Button>
@@ -114,5 +110,3 @@ function LoginForm() {
 		</>
 	);
 }
-
-export default LoginForm;

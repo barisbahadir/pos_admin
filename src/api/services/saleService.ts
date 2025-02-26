@@ -45,13 +45,13 @@ export const categoryListQuery = () => useCustomQuery(["getCategoriesCall"], cat
 
 // ----------------------- Api Mutation Calls --------------------------------
 
-export const productListMutation = () => useCustomMutation(productList, { showToast: true });
+export const productListMutation = () => useCustomMutation(productList);
 export const productByIdMutation = () => useCustomMutation(productById);
 export const productAddMutation = () => useCustomMutation(productAdd);
 export const productEditMutation = () => useCustomMutation(productEdit);
 export const productDeleteMutation = () => useCustomMutation(productDelete);
 
-export const categoryListMutation = () => useCustomMutation(categoryList, { showToast: true });
+export const categoryListMutation = () => useCustomMutation(categoryList);
 export const categoryByIdMutation = () => useCustomMutation(categoryById);
 export const categoryAddMutation = () => useCustomMutation(categoryAdd);
 export const categoryEditMutation = () => useCustomMutation(categoryEdit);

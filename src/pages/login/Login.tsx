@@ -11,10 +11,11 @@ import SettingButton from "@/layouts/components/setting-button";
 import { themeVars } from "@/theme/theme.css";
 import { rgbAlpha } from "@/utils/theme";
 import LoginForm from "./LoginForm";
-import MobileForm from "./MobileForm";
+import EmailOtpForm from "./MobileForm";
 import QrCodeFrom from "./QrCodeForm";
 import RegisterForm from "./RegisterForm";
 import ResetForm from "./ResetForm";
+import { down, useMediaQuery } from "@/hooks";
 import { LoginStateProvider } from "./providers/LoginStateProvider";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE, VITE_APP_NAME: APP_NAME } = import.meta.env;
@@ -22,6 +23,7 @@ const { VITE_APP_HOMEPAGE: HOMEPAGE, VITE_APP_NAME: APP_NAME } = import.meta.env
 function Login() {
 	const { t } = useTranslation();
 	const { accessToken } = useUserToken();
+	const mobileOrTablet = useMediaQuery(down("md"));
 
 	if (accessToken) {
 		return <Navigate to={HOMEPAGE} replace />;
@@ -38,7 +40,9 @@ function Login() {
 					background: bg,
 				}}
 			>
-				<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl text-gray-500">{APP_NAME}</div>
+				{!mobileOrTablet && (
+					<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl text-primary">{APP_NAME}</div>
+				)}
 				<img className="max-w-[560px] xl:max-w-[7000px]" src={DashboardImg} alt="" />
 				<Typography.Text className="flex flex-row gap-[16px] text-2xl font-bold">
 					{t("sys.login.signInSecondTitle")}
@@ -46,10 +50,12 @@ function Login() {
 			</div>
 
 			<div className="m-auto flex !h-screen w-full max-w-[480px] flex-col justify-center px-[16px] lg:px-[64px]">
-				<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl text-primary mb-11">{APP_NAME}</div>
+				{mobileOrTablet && (
+					<div className="text-4xl font-bold leading-normal lg:text-4xl xl:text-5xl text-primary mb-11">{APP_NAME}</div>
+				)}
 				<LoginStateProvider>
 					<LoginForm />
-					<MobileForm />
+					<EmailOtpForm />
 					<QrCodeFrom />
 					<RegisterForm />
 					<ResetForm />

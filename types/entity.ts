@@ -1,4 +1,11 @@
-import type { BaseStatus, ApiNotificationType, PaymentTypes, PermissionType, UserRoleTypes } from "./enum";
+import type {
+	BaseStatus,
+	ApiNotificationType,
+	PaymentTypes,
+	PermissionType,
+	UserRoleTypes,
+	AuthenticationType,
+} from "./enum";
 
 export interface ApiNotification {
 	id: string;
@@ -12,6 +19,7 @@ export interface ApiNotification {
 export interface SignInRequest {
 	email: string;
 	password: string;
+	authValue?: string;
 }
 
 export interface SignUpRequest {
@@ -28,11 +36,13 @@ export interface LoginInfo {
 	id: number;
 	email: string;
 	username: string;
-	token: string;
 	avatar?: string | null;
 	role?: UserRoleTypes;
 	status?: BaseStatus;
 	permissions?: Permission[];
+	authType: AuthenticationType;
+	token: string;
+	twoFactorQrCode?: string;
 }
 
 export interface Organization {

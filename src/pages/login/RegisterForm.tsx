@@ -55,17 +55,6 @@ function RegisterForm() {
 					</Button>
 				</Form.Item>
 
-				<div className="mb-2 text-xs text-gray">
-					<span>{t("sys.login.registerAndAgree")}</span>
-					<a href="./" className="text-sm !underline">
-						{t("sys.login.termsOfService")}
-					</a>
-					{" & "}
-					<a href="./" className="text-sm !underline">
-						{t("sys.login.privacyPolicy")}
-					</a>
-				</div>
-
 				<ReturnButton onClick={backToLogin} />
 			</Form>
 		</>

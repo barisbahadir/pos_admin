@@ -28,7 +28,7 @@
 		},
 		"login": {
 			"welcome": "Hoşgeldin",
-			"backSignIn": "Geri don",
+			"backSignIn": "Giriş Sayfasına Geri Dön",
 			"mobileSignInFormTitle": "Telefon ile Giriş",
 			"qrSignInFormTitle": "QR Kod ile Giriş",
 			"signInFormTitle": "Giriş Yap",
@@ -219,7 +219,7 @@
 			"pay_cash": "Nakit öde",
 			"pay_card": "Kartla öde"
 		},
-		"notifications": "Oturum Bildirimleri",
+		"notifications": "Bildirimler",
 		"notifications_mark_read": "Tümünü Okundu Olarak İşaretle",
 		"redirect_home": "Anasayfaya Dön",
 		"go_to_page": "Sayfaya Git",
