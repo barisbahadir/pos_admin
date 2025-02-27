@@ -1,29 +1,38 @@
 import { useNavigate } from "react-router";
 import { notifySuccess } from "@/utils/api-utils";
-import { loginMutation } from "@/api/services/systemService";
+import { loginMutation, logoutMutation } from "@/api/services/systemService";
 import { AuthenticationType } from "#/enum";
 import type { SignInRequest } from "#/entity";
 import { useUserActions } from "@/store/userStore";
+import { useRouter } from "@/router/hooks";
 import { type LoginStateData, LoginStateEnum, useLoginStateContext } from "@/pages/login/providers/LoginStateProvider";
+import { useSettingActions } from "@/store/settingStore";
+import { toast } from "sonner";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 export function useAuth() {
 	const navigate = useNavigate();
-	const { setUserToken, setUserInfo } = useUserActions();
-	const { setLoginState, setLoginData } = useLoginStateContext();
+	const { replace } = useRouter();
+	const { setUserToken, setUserInfo, clearUserInfoAndToken } = useUserActions();
+	const { setLoginState, setLoginData, backToLogin } = useLoginStateContext();
+	const { clearNotifications } = useSettingActions();
 
-	const signInMutation = loginMutation();
+	const signInMutationCall = loginMutation();
+	const logoutMutationCall = logoutMutation();
 
 	const signIn = async (data: SignInRequest) => {
 		try {
-			const res = await signInMutation.mutateAsync(data);
+			const res = await signInMutationCall.mutateAsync(data);
 
-			if (res.token) {
+			if (res.isAuthenticated && res.token) {
 				setUserToken({ accessToken: res.token });
 				setUserInfo(res);
 				navigate(HOMEPAGE, { replace: true });
-				notifySuccess(`Giriş başarılı, hoşgeldin ${res.email}.`);
+
+				notifySuccess(
+					`${res.authType !== AuthenticationType.NONE ? `${res.authType.toString()} doğrulama ile giriş` : "Giriş"} başarılı, hoşgeldin ${res.email}.`,
+				);
 			} else if (res.authType === AuthenticationType.OTP) {
 				setLoginState(LoginStateEnum.OTP);
 				const loginData = {
@@ -43,5 +52,21 @@ export function useAuth() {
 		} catch (err) {}
 	};
 
-	return { signIn };
+	const logout = async () => {
+		try {
+			try {
+				await logoutMutationCall.mutateAsync();
+			} catch (err) {}
+
+			clearUserInfoAndToken();
+			backToLogin();
+			clearNotifications();
+		} catch (err) {
+		} finally {
+			replace("/login");
+			toast.info("Çıkış başarılı, hoşçakalın...");
+		}
+	};
+
+	return { signIn, logout };
 }

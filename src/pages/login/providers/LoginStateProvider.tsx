@@ -16,19 +16,15 @@ export enum LoginStateEnum {
 }
 
 interface LoginStateContextType {
-	isLoginLoading: boolean;
 	loginState: LoginStateEnum;
 	loginData: LoginStateData | undefined;
-	setLoginLoading: (isLoading: boolean) => void;
 	setLoginState: (loginState: LoginStateEnum) => void;
 	setLoginData: (loginData: LoginStateData) => void;
 	backToLogin: () => void;
 }
 const LoginStateContext = createContext<LoginStateContextType>({
-	isLoginLoading: false,
 	loginState: LoginStateEnum.LOGIN,
 	loginData: undefined,
-	setLoginLoading: () => {},
 	setLoginState: () => {},
 	setLoginData: () => {},
 	backToLogin: () => {},
@@ -40,17 +36,17 @@ export function useLoginStateContext() {
 }
 
 export function LoginStateProvider({ children }: PropsWithChildren) {
-	const [isLoginLoading, setLoginLoading] = useState(false);
 	const [loginState, setLoginState] = useState(LoginStateEnum.LOGIN);
 	const [loginData, setLoginData] = useState<LoginStateData | undefined>(undefined);
 
 	function backToLogin() {
 		setLoginState(LoginStateEnum.LOGIN);
+		setLoginData(undefined);
 	}
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const value: LoginStateContextType = useMemo(
-		() => ({ isLoginLoading, setLoginLoading, loginState, setLoginState, loginData, setLoginData, backToLogin }),
+		() => ({ loginState, setLoginState, loginData, setLoginData, backToLogin }),
 		[loginState],
 	);
 

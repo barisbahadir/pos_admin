@@ -5,29 +5,17 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 
 import { IconButton, Iconify } from "@/components/icon";
-import { useLoginStateContext } from "@/pages/login/providers/LoginStateProvider";
-import { useRouter } from "@/router/hooks";
-import { useUserActions, useUserInfo } from "@/store/userStore";
+import { useUserInfo } from "@/store/userStore";
 import { useTheme } from "@/theme/hooks";
+import { useAuth } from "@/router/hooks/use-auth";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 export default function AccountDropdown() {
-	const { replace } = useRouter();
 	const { username } = useUserInfo();
-	const { clearUserInfoAndToken } = useUserActions();
-	const { backToLogin } = useLoginStateContext();
 	const { t } = useTranslation();
-	const logout = () => {
-		try {
-			clearUserInfoAndToken();
-			backToLogin();
-		} catch (error) {
-			console.log(error);
-		} finally {
-			replace("/login");
-		}
-	};
+	const { logout } = useAuth();
+
 	const {
 		themeVars: { colors, borderRadius, shadows },
 	} = useTheme();

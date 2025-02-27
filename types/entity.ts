@@ -34,6 +34,7 @@ export interface UserToken {
 
 export interface LoginInfo {
 	id: number;
+	name: string;
 	email: string;
 	username: string;
 	avatar?: string | null;
@@ -41,6 +42,7 @@ export interface LoginInfo {
 	status?: BaseStatus;
 	permissions?: Permission[];
 	authType: AuthenticationType;
+	isAuthenticated: boolean;
 	token: string;
 	twoFactorQrCode?: string;
 }

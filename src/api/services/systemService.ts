@@ -18,7 +18,7 @@ export enum SystemUrls {
 // System Calls
 const loginCall = (data: SignInRequest) => apiClient.post<LoginInfo>({ url: SystemUrls.Login, data });
 const registerCall = (data: SignUpRequest) => apiClient.post<LoginInfo>({ url: SystemUrls.Register, data });
-const logoutCall = () => apiClient.get({ url: SystemUrls.Logout });
+const logoutCall = () => apiClient.post<boolean>({ url: SystemUrls.Logout });
 
 const organizationListCall = () => apiClient.get<Organization[]>({ url: SystemUrls.OrganizationList });
 const permissionListCall = () => apiClient.get<Permission[]>({ url: SystemUrls.PermissionList });
