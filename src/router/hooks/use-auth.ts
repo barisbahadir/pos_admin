@@ -27,8 +27,9 @@ export function useAuth() {
 			if (res.isAuthenticated && res.token) {
 				setUserToken({ accessToken: res.token });
 				setUserInfo(res);
-				navigate(HOMEPAGE, { replace: true });
+				clearNotifications();
 
+				navigate(HOMEPAGE, { replace: true });
 				notifySuccess(
 					`Giriş başarılı, hoşgeldin ${res.email}. ${res.authType !== AuthenticationType.NONE ? `(${res.authType.toString().toLocaleLowerCase()})` : ""}`,
 				);
