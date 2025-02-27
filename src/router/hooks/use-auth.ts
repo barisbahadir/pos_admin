@@ -7,7 +7,6 @@ import { useUserActions } from "@/store/userStore";
 import { useRouter } from "@/router/hooks";
 import { type LoginStateData, LoginStateEnum, useLoginStateContext } from "@/pages/login/providers/LoginStateProvider";
 import { useSettingActions } from "@/store/settingStore";
-import { toast } from "sonner";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -64,7 +63,6 @@ export function useAuth() {
 		} catch (err) {
 		} finally {
 			replace("/login");
-			toast.info("Çıkış başarılı, hoşçakalın...");
 		}
 	};
 

@@ -34,6 +34,7 @@ export interface UserToken {
 
 export interface LoginInfo {
 	id: number;
+	sessionId: string;
 	name: string;
 	email: string;
 	username: string;
