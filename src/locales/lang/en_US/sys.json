@@ -30,6 +30,8 @@
 			"welcome": "Welcome",
 			"backSignIn": "Back to Sign In",
 			"mobileSignInFormTitle": "Sign In with Phone",
+			"emailSignInFormTitle": "Sign In with E-Mail",
+			"remaining_time": "Time remaining",
 			"qrSignInFormTitle": "Sign In with QR Code",
 			"signInFormTitle": "Sign In",
 			"signUpFormTitle": "Sign Up",

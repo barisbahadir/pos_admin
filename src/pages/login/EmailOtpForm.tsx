@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ReturnButton } from "./components/ReturnButton";
 import { LoginStateEnum, useLoginStateContext } from "./providers/LoginStateProvider";
 import { useAuth } from "@/router/hooks/use-auth";
+import AuthTimer from "./components/AuthTimer";
 
 export default function EmailOtpForm() {
 	const { t } = useTranslation();
@@ -31,20 +32,15 @@ export default function EmailOtpForm() {
 
 	return (
 		<>
-			<div className="mb-4 text-2xl font-bold xl:text-3xl">{t("sys.login.mobileSignInFormTitle")}</div>
+			<div className="mb-4 text-2xl font-bold xl:text-3xl">{t("sys.login.emailSignInFormTitle")}</div>
 			<Form name="normal_login" size="large" disabled={isLoading} initialValues={{ authValue: "" }} onFinish={onFinish}>
-				{loginData?.qrCode && (
-					<div className="flex w-full flex-col items-center justify-center">
-						<img
-							src={`data:image/png;base64,${loginData?.qrCode}`}
-							alt="QR Code"
-							width={250}
-							height={250}
-							style={{ border: "1px solid text-gray", borderRadius: "12px" }}
-						/>
-					</div>
-				)}
-				<Row justify="center" className="mt-2 mb-4">
+				<Row
+					justify="center"
+					style={{
+						marginTop: "20px",
+						marginBottom: "10px",
+					}}
+				>
 					<Form.Item
 						name="authValue"
 						rules={[
@@ -55,22 +51,20 @@ export default function EmailOtpForm() {
 						<Input.OTP formatter={(str) => str.toUpperCase()} />
 					</Form.Item>
 				</Row>
+				<Row
+					justify="center"
+					style={{
+						marginTop: "10px",
+						marginBottom: "30px",
+					}}
+				>
+					<AuthTimer initialTime={300} />
+				</Row>
 				<Form.Item>
 					<Button type="primary" htmlType="submit" className="w-full" loading={isLoading}>
 						{t("sys.login.loginButton")}
 					</Button>
 				</Form.Item>
-
-				{/* <div className="mb-2 text-xs text-gray">
-					<span>{t("sys.login.registerAndAgree")}</span>
-					<a href="./" className="text-sm !underline">
-						{t("sys.login.termsOfService")}
-					</a>
-					{" & "}
-					<a href="./" className="text-sm !underline">
-						{t("sys.login.privacyPolicy")}
-					</a>
-				</div> */}
 
 				<ReturnButton onClick={backToLogin} />
 			</Form>

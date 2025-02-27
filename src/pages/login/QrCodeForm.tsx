@@ -5,8 +5,9 @@ import { ReturnButton } from "./components/ReturnButton";
 import { LoginStateEnum, useLoginStateContext } from "./providers/LoginStateProvider";
 import { useAuth } from "@/router/hooks/use-auth";
 import { useState } from "react";
+import AuthTimer from "./components/AuthTimer";
 
-export default function QrCodeFrom() {
+export default function QrCodeForm() {
 	const { t } = useTranslation();
 	const { signIn } = useAuth();
 
@@ -34,12 +35,16 @@ export default function QrCodeFrom() {
 			<div className="mb-4 text-2xl font-bold xl:text-3xl">{t("sys.login.qrSignInFormTitle")}</div>
 			<Form name="normal_login" size="large" disabled={isLoading} initialValues={{ authValue: "" }} onFinish={onFinish}>
 				{loginData?.qrCode && (
-					<>
-						{/* <div className="flex w-full flex-col items-center justify-center">
-							<QRCode value={loginData?.qrCode} size={200} />
-							<p className="my-4 text-sm">{"Kodu taratip giris islemini tamamlayabilirsiniz."}</p>
-						</div> */}
-						<div className="flex w-full flex-col items-center justify-center">
+					<Row
+						justify="center"
+						style={{
+							marginTop: "10px",
+							marginBottom: "10px",
+							border: "1px solid text-primary",
+							borderRadius: "12px",
+						}}
+					>
+						<div style={{ border: "1px solid text-primary", borderRadius: "12px" }}>
 							<img
 								src={`data:image/png;base64,${loginData?.qrCode}`}
 								alt="QR Code"
@@ -48,9 +53,15 @@ export default function QrCodeFrom() {
 								style={{ border: "1px solid text-gray", borderRadius: "12px" }}
 							/>
 						</div>
-					</>
+					</Row>
 				)}
-				<Row justify="center" className="mt-2 mb-4">
+				<Row
+					justify="center"
+					style={{
+						marginTop: "10px",
+						marginBottom: "5px",
+					}}
+				>
 					<Form.Item
 						name="authValue"
 						rules={[
@@ -60,6 +71,15 @@ export default function QrCodeFrom() {
 					>
 						<Input.OTP formatter={(str) => str.toUpperCase()} />
 					</Form.Item>
+				</Row>
+				<Row
+					justify="center"
+					style={{
+						marginTop: "5px",
+						marginBottom: "25px",
+					}}
+				>
+					<AuthTimer initialTime={30} autoRestart />
 				</Row>
 				<Form.Item>
 					<Button type="primary" htmlType="submit" className="w-full" loading={isLoading}>

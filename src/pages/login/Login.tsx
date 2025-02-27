@@ -11,8 +11,8 @@ import SettingButton from "@/layouts/components/setting-button";
 import { themeVars } from "@/theme/theme.css";
 import { rgbAlpha } from "@/utils/theme";
 import LoginForm from "./LoginForm";
-import EmailOtpForm from "./MobileForm";
-import QrCodeFrom from "./QrCodeForm";
+import EmailOtpForm from "./EmailOtpForm";
+import QrCodeForm from "./QrCodeForm";
 import RegisterForm from "./RegisterForm";
 import ResetForm from "./ResetForm";
 import { down, useMediaQuery } from "@/hooks";
@@ -56,7 +56,7 @@ function Login() {
 				<LoginStateProvider>
 					<LoginForm />
 					<EmailOtpForm />
-					<QrCodeFrom />
+					<QrCodeForm />
 					<RegisterForm />
 					<ResetForm />
 				</LoginStateProvider>

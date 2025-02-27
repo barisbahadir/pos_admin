@@ -94,13 +94,8 @@ export default function LoginForm() {
 
 				<Divider className="!text-sm">{t("sys.login.otherSignIn")}</Divider>
 
-				<Row align="middle" gutter={8}>
-					<Col span={12} flex="1">
-						<Button className="w-full !text-sm" onClick={() => setLoginState(LoginStateEnum.OTP)}>
-							{t("sys.login.qrSignInFormTitle")}
-						</Button>
-					</Col>
-					<Col span={12} flex="1" onClick={() => setLoginState(LoginStateEnum.REGISTER)}>
+				<Row align="middle">
+					<Col flex="1" onClick={() => setLoginState(LoginStateEnum.REGISTER)}>
 						<Button className="w-full !text-sm">
 							<b>{t("sys.login.signUpFormTitle")}</b>
 						</Button>

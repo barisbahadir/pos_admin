@@ -30,6 +30,8 @@
 			"welcome": "Hoşgeldin",
 			"backSignIn": "Giriş Sayfasına Geri Dön",
 			"mobileSignInFormTitle": "Telefon ile Giriş",
+			"emailSignInFormTitle": "E-Mail ile Giriş",
+			"remaining_time": "Kalan süre",
 			"qrSignInFormTitle": "QR Kod ile Giriş",
 			"signInFormTitle": "Giriş Yap",
 			"signUpFormTitle": "Kaydol",

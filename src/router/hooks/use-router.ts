@@ -11,6 +11,14 @@ export function useRouter() {
 			reload: () => window.location.reload(),
 			push: (href: string) => navigate(href),
 			replace: (href: string) => navigate(href, { replace: true }),
+			pushWithQuery: (href: string, query?: Record<string, string>) => {
+				const searchParams = query ? `?${new URLSearchParams(query).toString()}` : "";
+				navigate(href + searchParams);
+			},
+			replaceWithQuery: (href: string, query?: Record<string, string>) => {
+				const searchParams = query ? `?${new URLSearchParams(query).toString()}` : "";
+				navigate(href + searchParams, { replace: true });
+			},
 		}),
 		[navigate],
 	);

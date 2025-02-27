@@ -30,6 +30,8 @@
 			"welcome": "Willkommen",
 			"backSignIn": "Zurück zum Anmelden",
 			"mobileSignInFormTitle": "Anmeldung mit Handy",
+			"emailSignInFormTitle": "Anmeldung mit Handy",
+			"remaining_time": "Verbleibende Zeit",
 			"qrSignInFormTitle": "Anmeldung mit QR-Code",
 			"signInFormTitle": "Anmelden",
 			"signUpFormTitle": "Registrieren",
