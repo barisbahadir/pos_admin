@@ -25,9 +25,9 @@ export function useAuth() {
 			const res = await signInMutationCall.mutateAsync(data);
 
 			if (res.isAuthenticated && res.token) {
+				clearNotifications();
 				setUserToken({ accessToken: res.token });
 				setUserInfo(res);
-				clearNotifications();
 
 				navigate(HOMEPAGE, { replace: true });
 				notifySuccess(
