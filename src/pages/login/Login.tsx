@@ -17,6 +17,7 @@ import RegisterForm from "./RegisterForm";
 import ResetForm from "./ResetForm";
 import { down, useMediaQuery } from "@/hooks";
 import { LoginStateProvider } from "./providers/LoginStateProvider";
+import NoticeButton from "@/layouts/components/notice";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE, VITE_APP_NAME: APP_NAME } = import.meta.env;
 
@@ -62,8 +63,9 @@ function Login() {
 				</LoginStateProvider>
 			</div>
 
-			<div className="absolute right-2 top-0 flex flex-row">
+			<div className="absolute right-2 top-0 flex flex-row mt-2 mr-2">
 				<LocalePicker />
+				<NoticeButton />
 				<SettingButton />
 			</div>
 		</Layout>

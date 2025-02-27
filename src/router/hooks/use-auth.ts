@@ -30,7 +30,7 @@ export function useAuth() {
 				navigate(HOMEPAGE, { replace: true });
 
 				notifySuccess(
-					`${res.authType !== AuthenticationType.NONE ? `${res.authType.toString()} doğrulama ile giriş` : "Giriş"} başarılı, hoşgeldin ${res.email}.`,
+					`Giriş başarılı, hoşgeldin ${res.email}. ${res.authType !== AuthenticationType.NONE ? `(${res.authType.toString().toLocaleLowerCase()})` : ""}`,
 				);
 			} else if (res.authType === AuthenticationType.OTP) {
 				setLoginState(LoginStateEnum.OTP);
