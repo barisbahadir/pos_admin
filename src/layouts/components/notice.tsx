@@ -1,5 +1,5 @@
 import { Badge, Button, Drawer, Modal, Space, Tabs, type TabsProps, Tag } from "antd";
-import { type CSSProperties, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 
 import CyanBlur from "@/assets/images/background/cyan-blur.png";
 import RedBlur from "@/assets/images/background/red-blur.png";
@@ -30,6 +30,12 @@ export default function NoticeButton() {
 		backgroundPosition: "right top, left bottom",
 		backgroundSize: "50, 50%",
 	};
+
+	useEffect(() => {
+		if (drawerOpen) {
+			markAllNotificationsAsViewed();
+		}
+	}, [drawerOpen, markAllNotificationsAsViewed]);
 
 	return (
 		<div>
@@ -217,7 +223,7 @@ const NoticeTab: React.FC<NoticeTabProps> = ({ notifications, t }) => {
 	];
 	return (
 		<div className="flex flex-col px-6">
-			<Tabs defaultActiveKey="1" items={items} />
+			<Tabs defaultActiveKey="1" items={items} animated={{ tabPane: true }} />
 
 			<Modal
 				title={notifyDetail?.message}
