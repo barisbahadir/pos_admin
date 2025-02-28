@@ -10,8 +10,10 @@ import { BaseStatus } from "#/enum";
 import { useEffect, useState } from "react";
 import { userListMutation } from "@/api/services/systemService";
 import { CircleLoading } from "@/components/loading";
+import { useTranslation } from "react-i18next";
 
 export default function RolePage() {
+	const { t } = useTranslation();
 	const { push } = useRouter();
 	const pathname = usePathname();
 
@@ -40,7 +42,6 @@ export default function RolePage() {
 		{
 			title: "Name",
 			dataIndex: "name",
-			width: 300,
 			render: (_, record) => {
 				return (
 					<div className="flex">
@@ -57,14 +58,12 @@ export default function RolePage() {
 			title: "Role",
 			dataIndex: "role",
 			align: "center",
-			width: 120,
 			render: (role: Role) => <Tag color="cyan">{role.name}</Tag>,
 		},
 		{
 			title: "Status",
 			dataIndex: "status",
 			align: "center",
-			width: 120,
 			render: (status) => (
 				<Tag color={status === BaseStatus.DISABLE ? "error" : "success"}>
 					{status === BaseStatus.DISABLE ? "Disable" : "Enable"}
@@ -100,25 +99,14 @@ export default function RolePage() {
 
 	return (
 		<Card
-			title="User List"
+			title={t("sys.menu.management.user")}
 			extra={
 				<Button type="primary" disabled={isLoading} onClick={() => {}}>
 					New
 				</Button>
 			}
 		>
-			{isLoading ? (
-				<CircleLoading />
-			) : (
-				<Table
-					rowKey="id"
-					size="small"
-					scroll={{ x: "max-content" }}
-					pagination={false}
-					columns={columns}
-					dataSource={users}
-				/>
-			)}
+			{isLoading ? <CircleLoading /> : <Table rowKey="id" pagination={false} columns={columns} dataSource={users} />}
 		</Card>
 	);
 }

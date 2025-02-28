@@ -11,6 +11,7 @@ import type { Role } from "#/entity";
 import { BaseStatus } from "#/enum";
 import { roleListMutation } from "@/api/services/systemService";
 import { CircleLoading } from "@/components/loading";
+import { useTranslation } from "react-i18next";
 
 const DEFAULE_ROLE_VALUE: Role = {
 	id: 0,
@@ -20,6 +21,7 @@ const DEFAULE_ROLE_VALUE: Role = {
 	permissions: [],
 };
 export default function RolePage() {
+	const { t } = useTranslation();
 	const [isLoading, setLoading] = useState<boolean>(false);
 	const [roles, setRoles] = useState<Role[]>([]);
 
@@ -56,18 +58,16 @@ export default function RolePage() {
 		{
 			title: "Name",
 			dataIndex: "name",
-			width: 300,
 		},
 		{
 			title: "Label",
 			dataIndex: "label",
 		},
-		{ title: "Order", dataIndex: "orderValue", width: 60 },
+		{ title: "Order", dataIndex: "orderValue" },
 		{
 			title: "Status",
 			dataIndex: "status",
 			align: "center",
-			width: 120,
 			render: (status) => (
 				<Tag color={status === BaseStatus.DISABLE ? "error" : "success"}>
 					{status === BaseStatus.DISABLE ? "Disable" : "Enable"}
@@ -118,25 +118,14 @@ export default function RolePage() {
 
 	return (
 		<Card
-			title="Role List"
+			title={t("sys.menu.management.role")}
 			extra={
 				<Button type="primary" onClick={onCreate} disabled={isLoading}>
 					New
 				</Button>
 			}
 		>
-			{isLoading ? (
-				<CircleLoading />
-			) : (
-				<Table
-					rowKey="id"
-					size="small"
-					scroll={{ x: "max-content" }}
-					pagination={false}
-					columns={columns}
-					dataSource={roles}
-				/>
-			)}
+			{isLoading ? <CircleLoading /> : <Table rowKey="id" pagination={false} columns={columns} dataSource={roles} />}
 			<RoleModal {...roleModalPros} />
 		</Card>
 	);

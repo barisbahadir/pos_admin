@@ -64,19 +64,18 @@ export default function PermissionPage() {
 		{
 			title: "Name",
 			dataIndex: "name",
-			width: 300,
 			render: (_, record) => <div>{t(record.label)}</div>,
 		},
 		{
 			title: "Type",
 			dataIndex: "type",
-			width: 60,
 			render: (_, record) => <Tag color="processing">{PermissionType[record.type]}</Tag>,
 		},
 		{
 			title: "Icon",
 			dataIndex: "icon",
 			width: 60,
+			responsive: ["lg"],
 			render: (icon: string) => {
 				if (isNil(icon)) return "";
 				if (icon.startsWith("ic")) {
@@ -88,19 +87,20 @@ export default function PermissionPage() {
 		{
 			title: "Component",
 			dataIndex: "component",
+			responsive: ["lg"],
 		},
 		{
 			title: "Status",
 			dataIndex: "status",
 			align: "center",
-			width: 120,
+			responsive: ["lg"],
 			render: (status) => (
 				<Tag color={status === BaseStatus.DISABLE ? "error" : "success"}>
 					{status === BaseStatus.DISABLE ? "Disable" : "Enable"}
 				</Tag>
 			),
 		},
-		{ title: "Order", dataIndex: "orderValue", width: 60 },
+		{ title: "Order", dataIndex: "orderValue", width: 60, responsive: ["lg"] },
 		{
 			title: "Action",
 			key: "operation",
@@ -146,7 +146,7 @@ export default function PermissionPage() {
 	};
 	return (
 		<Card
-			title="Permission List"
+			title={t("sys.menu.management.permission")}
 			extra={
 				<Button type="primary" onClick={() => onCreate()} disabled={isLoading}>
 					New
@@ -156,14 +156,7 @@ export default function PermissionPage() {
 			{isLoading ? (
 				<CircleLoading />
 			) : (
-				<Table
-					rowKey="id"
-					size="small"
-					scroll={{ x: "max-content" }}
-					pagination={false}
-					columns={columns}
-					dataSource={permissions}
-				/>
+				<Table rowKey="id" pagination={false} columns={columns} dataSource={permissions} />
 			)}
 
 			<PermissionModal {...permissionModalProps} />

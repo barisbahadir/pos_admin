@@ -11,6 +11,7 @@ import OrganizationChart from "./organization-chart";
 import type { Organization } from "#/entity";
 import { BaseStatus } from "#/enum";
 import { CircleLoading } from "@/components/loading";
+import { useTranslation } from "react-i18next";
 
 type OrganizationModalProps = {
 	formValue: Organization;
@@ -23,6 +24,7 @@ type OrganizationModalProps = {
 type SearchFormFieldType = Pick<Organization, "name" | "status">;
 
 export default function OrganizationPage() {
+	const { t } = useTranslation();
 	const [modalForm] = Form.useForm();
 	const [searchForm] = Form.useForm();
 
@@ -64,16 +66,25 @@ export default function OrganizationPage() {
 	});
 
 	const columns: ColumnsType<Organization> = [
-		{ title: "Name", dataIndex: "name", width: 300 },
-		{ title: "Order", dataIndex: "orderValue", align: "center", width: 60 },
+		{ title: "Name", dataIndex: "name" },
+		{
+			title: "Sub",
+			dataIndex: "children",
+			align: "center",
+			render: (_, record) => (
+				<Tag color={record.children && record.children.length > 0 ? "blue" : "warning"}>
+					{record.children && record.children.length > 0 ? record.children.length : "-"}
+				</Tag>
+			),
+		},
 		{
 			title: "Status",
 			dataIndex: "status",
 			align: "center",
-			width: 120,
+			responsive: ["lg"],
 			render: (status) => <Tag color={status === BaseStatus.ENABLE ? "success" : "error"}>{status}</Tag>,
 		},
-		{ title: "Description", dataIndex: "description", align: "center", width: 300 },
+		{ title: "Description", dataIndex: "description", align: "center", responsive: ["lg"] },
 		{
 			title: "Action",
 			key: "operation",
@@ -173,7 +184,7 @@ export default function OrganizationPage() {
 			</Card>
 
 			<Card
-				title="Organization List"
+				title={t("sys.menu.management.organization")}
 				extra={
 					<Button type="primary" onClick={onCreate} disabled={isLoading}>
 						New
@@ -185,8 +196,6 @@ export default function OrganizationPage() {
 				) : (
 					<Table
 						rowKey="id"
-						size="small"
-						scroll={{ x: "max-content" }}
 						pagination={false}
 						columns={columns}
 						dataSource={organizations}
