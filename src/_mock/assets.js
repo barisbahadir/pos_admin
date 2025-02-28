@@ -113,7 +113,7 @@ const DASHBOARD_PERMISSION = {
 const MANAGEMENT_PERMISSION = {
 	id: "0901673425580518",
 	parentId: "",
-	label: "sys.menu.management",
+	label: "sys.menu.management.index",
 	name: "Management",
 	icon: "ic-management",
 	type: PermissionType.GROUP,

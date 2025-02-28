@@ -136,19 +136,23 @@
 			"welcome": "Summary",
 			"workbench": "Workbench",
 			"analysis": "Analysis",
-			"management": "Management",
 			"user": {
 				"index": "User",
 				"profile": "Profile",
 				"account": "Account"
 			},
-			"system": {
-				"index": "System",
+			"management": {
+				"index": "Management",
 				"organization": "Organization",
 				"permission": "Permissions",
 				"role": "Roles",
 				"user": "Users",
 				"user_detail": "User Details"
+			},
+			"system": {
+				"index": "System",
+				"session": "Session Management",
+				"log": "Error Logs"
 			},
 			"blog": "Blog",
 			"components": "Components",

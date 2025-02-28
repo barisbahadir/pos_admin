@@ -136,19 +136,23 @@
 			"welcome": "Özet",
 			"workbench": "Çalışmalar",
 			"analysis": "Analiz",
-			"management": "Yönetim",
 			"user": {
 				"index": "Kullanıcı",
 				"profile": "Profil",
 				"account": "Hesap"
 			},
-			"system": {
-				"index": "Sistem",
+			"management": {
+				"index": "Yönetim",
 				"organization": "Organizasyon",
 				"permission": "İzinler",
 				"role": "Roller",
 				"user": "Kullanıcılar",
 				"user_detail": "Kullanıcı Detayı"
+			},
+			"system": {
+				"index": "Sistem",
+				"session": "Oturum Yönetimi",
+				"log": "Hata Kayıtları"
 			},
 			"blog": "Blog",
 			"components": "Components",
