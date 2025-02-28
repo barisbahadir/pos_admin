@@ -67,7 +67,7 @@ export default function SystemLogPage() {
 			render: (text) => <span className="text-sm">{text || "-"}</span>,
 		},
 		{
-			title: "Exception Message",
+			title: "Message",
 			dataIndex: "errorMessage",
 			key: "errorMessage",
 			align: "left",

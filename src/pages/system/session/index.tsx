@@ -140,7 +140,7 @@ export default function SessionListPage() {
 								<Button onClick={onSearchFormReset} disabled={isLoading}>
 									{t("common.resetText")}
 								</Button>
-								<Button type="primary" className="ml-4" disabled={isLoading} htmlType="submit">
+								<Button type="primary" className="ml-4" loading={isLoading} htmlType="submit">
 									{t("common.filterText")}
 								</Button>
 							</div>
