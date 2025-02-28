@@ -8,12 +8,14 @@ import Toast from "./components/toast";
 import { AntdAdapter } from "./theme/adapter/antd.adapter";
 import { ThemeProvider } from "./theme/theme-provider";
 
-function App() {
+const { VITE_APP_NAME: APP_NAME } = import.meta.env;
+
+export default function App() {
 	return (
 		<ThemeProvider adapters={[AntdAdapter]}>
 			<MotionLazy>
 				<Helmet>
-					<title>BAHADIR Hızlı Satış</title>
+					<title>{APP_NAME}</title>
 					<link rel="icon" href={Logo} />
 				</Helmet>
 				<Toast />
@@ -22,5 +24,3 @@ function App() {
 		</ThemeProvider>
 	);
 }
-
-export default App;
