@@ -174,9 +174,9 @@ export default function Calendar() {
 	};
 
 	return (
-		<Card className="h-full w-full">
-			<div className="h-full w-full">
-				<StyledCalendar $themeMode={themeMode}>
+		<Card className="h-full w-full flex flex-col">
+			<StyledCalendar $themeMode={themeMode} className="flex flex-col h-full">
+				<div className="shrink-0">
 					<CalendarHeader
 						now={date}
 						view={view}
@@ -184,6 +184,8 @@ export default function Calendar() {
 						onCreate={() => setOpen(true)}
 						onViewTypeChange={handleViewTypeChange}
 					/>
+				</div>
+				<div className="flex-grow overflow-hidden">
 					<FullCalendar
 						ref={fullCalendarRef}
 						plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
@@ -199,8 +201,8 @@ export default function Calendar() {
 						select={handleDateSelect}
 						eventClick={handleEventClick}
 					/>
-				</StyledCalendar>
-			</div>
+				</div>
+			</StyledCalendar>
 			<CalendarEventForm
 				open={open}
 				type={eventFormType}

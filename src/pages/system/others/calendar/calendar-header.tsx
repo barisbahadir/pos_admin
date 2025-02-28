@@ -98,7 +98,7 @@ export default function CalendarHeader({ now, view, onMove, onCreate, onViewType
 			</div>
 
 			<div className="flex items-center">
-				<Button type="primary" onClick={() => onMove("today")}>
+				<Button type="default" onClick={() => onMove("today")}>
 					Today
 				</Button>
 				<Button className="ml-2" type="primary" onClick={() => onCreate()}>
