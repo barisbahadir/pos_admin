@@ -4,14 +4,15 @@ import { Navigate, Outlet } from "react-router";
 
 import { Iconify } from "@/components/icon";
 import { CircleLoading } from "@/components/loading";
-import { useUserPermission } from "@/store/userStore";
+import { useUserPermission, useUserToken } from "@/store/userStore";
 import { flattenTrees } from "@/utils/tree";
 
 import { Tag } from "antd";
 import type { Permission } from "#/entity";
 import { BaseStatus, PermissionType } from "#/enum";
 import type { AppRouteObject } from "#/router";
-import { getRoutesFromModules } from "../utils";
+import staticPermissions from "@/router/routes/permissions";
+import jwt_decode from "jwt-decode";
 
 const ENTRY_PATH = "/src/pages";
 const PAGES = import.meta.glob("/src/pages/**/*.tsx");
@@ -84,7 +85,11 @@ const createBaseRoute = (permission: Permission, completeRoute: string): AppRout
 	return baseRoute;
 };
 
-const createGroupRoute = (permission: Permission, flattenedPermissions: Permission[]): AppRouteObject => {
+const createGroupRoute = (
+	permission: Permission,
+	flattenedPermissions: Permission[],
+	userRoles: string[],
+): AppRouteObject => {
 	const baseRoute = createBaseRoute(permission, buildCompleteRoute(permission, flattenedPermissions));
 
 	if (baseRoute.meta) {
@@ -100,7 +105,7 @@ const createGroupRoute = (permission: Permission, flattenedPermissions: Permissi
 		);
 	}
 
-	baseRoute.children = transformPermissionsToRoutes(children, flattenedPermissions);
+	baseRoute.children = transformPermissionsToRoutes(children, flattenedPermissions, userRoles);
 
 	if (!isEmpty(children)) {
 		baseRoute.children.unshift({
@@ -131,26 +136,59 @@ const createMenuRoute = (permission: Permission, flattenedPermissions: Permissio
 
 	return baseRoute;
 };
+interface JwtPayload {
+	roles?: string[];
+}
 
-function transformPermissionsToRoutes(permissions: Permission[], flattenedPermissions: Permission[]): AppRouteObject[] {
-	return permissions.map((permission) => {
-		if (permission.type === PermissionType.GROUP) {
-			return createGroupRoute(permission, flattenedPermissions);
-		}
-		return createMenuRoute(permission, flattenedPermissions);
-	});
+const getRolesFromToken = (accessToken: string): string[] => {
+	try {
+		const decodedToken: JwtPayload = jwt_decode(accessToken); // Token'ı çözümle
+		return decodedToken?.roles || []; // roles varsa döndür, yoksa boş dizi
+	} catch (error) {
+		console.error("Token decoding failed:", error);
+		return [];
+	}
+};
+
+function hasPermission(permission: Permission, userRoles: string[]): boolean {
+	// Eğer permission.roles boşsa, herkese izin ver
+	if (!permission.roles || permission.roles.length === 0) {
+		return true;
+	}
+	// Kullanıcının rollerinden en az biri permission.roles içinde varsa izin ver
+	return permission.roles.some((role) => userRoles.includes(role));
+}
+
+function transformPermissionsToRoutes(
+	permissions: Permission[],
+	flattenedPermissions: Permission[],
+	userRoles: string[],
+): AppRouteObject[] {
+	return permissions
+		.filter((permission) => hasPermission(permission, userRoles)) // Yetki filtresi
+		.map((permission) => {
+			if (permission.type === PermissionType.GROUP) {
+				return createGroupRoute(permission, flattenedPermissions, userRoles);
+			}
+			return createMenuRoute(permission, flattenedPermissions);
+		});
 }
 
 const ROUTE_MODE = import.meta.env.VITE_APP_ROUTER_MODE;
 export function usePermissionRoutes() {
-	if (ROUTE_MODE === "module") {
-		return getRoutesFromModules();
-	}
+	// if (ROUTE_MODE === "module") {
+	// 	return getRoutesFromModules();
+	// }
 
-	const permissions = useUserPermission();
+	const permissions = ROUTE_MODE === "static" ? staticPermissions : useUserPermission();
+
+	// Token'dan rolleri çıkartıyoruz
+	const { accessToken } = useUserToken();
+	const userRoles = accessToken ? getRolesFromToken(accessToken) : [];
+
 	return useMemo(() => {
 		if (!permissions) return [];
 		const flattenedPermissions = flattenTrees(permissions);
-		return transformPermissionsToRoutes(permissions, flattenedPermissions);
-	}, [permissions]);
+		return transformPermissionsToRoutes(permissions, flattenedPermissions, userRoles);
+	}, [permissions, userRoles]);
 }

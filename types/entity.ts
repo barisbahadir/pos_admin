@@ -75,6 +75,7 @@ export interface Permission {
 	hide?: boolean;
 	hideTab?: boolean;
 	newFeature?: boolean;
+	roles?: string[]; // Yetki kontrolü için roller eklendi
 	children?: Permission[];
 }
 

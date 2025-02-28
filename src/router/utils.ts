@@ -23,7 +23,7 @@ export const menuFilter = (items: AppRouteObject[]) => {
 export function getRoutesFromModules() {
 	const menuModules: AppRouteObject[] = [];
 
-	const modules = import.meta.glob("./routes/modules/**/*.tsx", {
+	const modules = import.meta.glob("./routes/routes.tsx", {
 		eager: true,
 	});
 	for (const key in modules) {
